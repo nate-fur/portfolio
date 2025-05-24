@@ -5,6 +5,7 @@ import Link from "next/link";
 import "~/styles/globals.css";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { SharedHeroImage } from "./_components/SharedHeroImage";
 
 export const metadata: Metadata = {
 	title: "Nate Furbeyre",
@@ -25,6 +26,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
 			<body className="bg-base">
 				<TRPCReactProvider>
 					<Navbar />
+					<div className="fixed z-10 mt-16 flex w-full flex-col items-center justify-start px-4 py-8 pb-12">
+						<SharedHeroImage />
+					</div>
 					{props.children}
 				</TRPCReactProvider>
 			</body>
