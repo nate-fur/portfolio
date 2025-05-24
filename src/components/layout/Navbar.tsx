@@ -1,24 +1,7 @@
 import { Sun } from "lucide-react";
 import Link from "next/link";
-import { SharedHeroImage } from "./SharedHeroImage";
 
-interface MainLayoutProps {
-	children: React.ReactNode;
-}
-
-export const MainLayout = ({ children }: MainLayoutProps) => {
-	return (
-		<>
-			<Navbar />
-			<div className="fixed z-10 mt-16 flex w-full flex-col items-center justify-start px-4 py-8 pb-12">
-				<SharedHeroImage />
-			</div>
-			{children}
-		</>
-	);
-};
-
-const Navbar = () => {
+export const Navbar = () => {
 	return (
 		<>
 			<div className="fixed z-20 hidden w-screen items-stretch justify-between border-1 border-primary bg-base font-semibold text-primary sm:flex">
@@ -26,7 +9,7 @@ const Navbar = () => {
 					<span>Nate Furbeyre</span>
 				</div>
 				<div className="flex flex-row gap-8 p-4">
-					<Link href="/">Home</Link>
+					<Link href="/home">Home</Link>
 					<Link href="/projects">Projects</Link>
 					<Link href="/about">About</Link>
 				</div>
@@ -50,7 +33,7 @@ const Navbar = () => {
 					</div>
 				</div>
 				<div className="flex h-12 w-full flex-row items-center justify-around p-4">
-					<Link href="/">Home</Link>
+					<Link href="/home">Home</Link>
 					<Link href="/projects">Projects</Link>
 					<Link href="/about">About</Link>
 				</div>

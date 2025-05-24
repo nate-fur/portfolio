@@ -1,0 +1,1 @@
+export { SharedHeroImage } from "./SharedHeroImage";

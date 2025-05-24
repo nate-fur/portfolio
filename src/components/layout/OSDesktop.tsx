@@ -13,7 +13,7 @@ import {
 	Settings,
 } from "lucide-react";
 import { useState } from "react";
-import { AppIcon } from "./AppIcon";
+import { AppIcon } from "../ui/AppIcon";
 
 interface App {
 	id: string;
