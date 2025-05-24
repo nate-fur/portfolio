@@ -1,5 +1,4 @@
-import { faSun } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Sun } from "lucide-react";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import Link from "next/link";
@@ -47,7 +46,7 @@ const Navbar = () => {
 				</div>
 				<div className="flex w-48 items-center justify-center border-primary border-l-1 text-center">
 					<span className="flex items-center gap-2">
-						<FontAwesomeIcon icon={faSun} className="h-5 w-5" />
+						<Sun className="h-5 w-5" />
 						Theme
 					</span>
 				</div>
@@ -59,7 +58,7 @@ const Navbar = () => {
 					</div>
 					<div className="flex flex-shrink items-center justify-center border-primary border-l-1 text-center">
 						<span className="flex items-center gap-2 px-4">
-							<FontAwesomeIcon icon={faSun} className="h-5 w-5" />
+							<Sun className="h-5 w-5" />
 							Theme
 						</span>
 					</div>
