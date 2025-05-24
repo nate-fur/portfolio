@@ -3,6 +3,7 @@
 import { ArrowUp } from "lucide-react";
 import type { NextPage } from "next";
 import { Row } from "~/components/Row";
+import { MainLayout } from "./_components/MainLayout";
 
 const Home: NextPage = () => {
 	const smoothScrollToTop = () => {
@@ -36,7 +37,7 @@ const Home: NextPage = () => {
 	};
 
 	return (
-		<>
+		<MainLayout>
 			<main className="flex min-h-screen flex-col items-center justify-start">
 				<div className="container fixed mt-16 flex min-h-screen flex-col items-center justify-start px-4 py-8 pb-12">
 					<h1 className="mt-[400px] text-center font-extrabold text-2xl text-primary tracking-tight sm:text-4xl">
@@ -54,7 +55,7 @@ const Home: NextPage = () => {
 					<Grid />
 				</div>
 			</main>
-		</>
+		</MainLayout>
 	);
 };
 
