@@ -1,1 +1,1 @@
-export { SharedHeroImage } from "./SharedHeroImage";
+export { SharedHeroImage } from "./shared-hero-image";

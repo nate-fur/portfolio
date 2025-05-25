@@ -1,3 +1,3 @@
-export { MainLayout } from "./MainLayout";
-export { OSDesktop } from "./OSDesktop";
-export { Navbar } from "./Navbar";
+export { MainLayout } from "./main-layout";
+export { OSDesktop } from "./os-desktop";
+export { Navbar } from "./navbar";

@@ -1,7 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { OSDesktop } from "../../components/layout/OSDesktop";
+import { OSDesktop } from "../../components/layout/os-desktop";
 
 const Projects: NextPage = () => {
 	return (

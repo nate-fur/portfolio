@@ -1,5 +1,5 @@
-import { SharedHeroImage } from "../shared/SharedHeroImage";
-import { Navbar } from "./Navbar";
+import { SharedHeroImage } from "../shared/shared-hero-image";
+import { Navbar } from "./navbar";
 
 interface MainLayoutProps {
 	children: React.ReactNode;

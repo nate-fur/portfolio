@@ -2,8 +2,8 @@
 
 import { ArrowUp } from "lucide-react";
 import type { NextPage } from "next";
-import { MainLayout } from "../../components/layout/MainLayout";
-import { Row } from "./components/Row";
+import { MainLayout } from "../../components/layout/main-layout";
+import { Row } from "./components/row";
 
 const Home: NextPage = () => {
 	const smoothScrollToTop = () => {
