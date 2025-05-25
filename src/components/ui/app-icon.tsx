@@ -21,13 +21,17 @@ export const AppIcon = ({
 		<motion.div
 			layoutId={`app-${name}`}
 			className={cn(
-				"relative cursor-pointer overflow-clip",
-				isExpanded
-					? "fixed inset-x-4 top-16 bottom-8 z-50 overflow-y-auto rounded-3xl"
-					: "aspect-square rounded-2xl shadow-lg hover:shadow-xl",
+				"relative cursor-pointer overflow-hidden shadow-lg",
+				isExpanded ? "min-h-96 shadow-2xl" : "aspect-square hover:shadow-xl",
 			)}
 			style={{
 				background: gradient,
+			}}
+			initial={{
+				borderRadius: "16px",
+			}}
+			animate={{
+				borderRadius: isExpanded ? "24px" : "16px",
 			}}
 			onClick={onClick}
 			whileHover={!isExpanded ? { scale: 1.05 } : {}}
@@ -36,22 +40,34 @@ export const AppIcon = ({
 			transition={{
 				layout: { duration: 0.4, ease: "easeInOut" },
 				scale: { duration: 0.2 },
+				borderRadius: { duration: 0.4, ease: "easeInOut" },
 			}}
 		>
 			<motion.div
 				className={cn(
-					"absolute inset-0 rounded-inherit bg-white/10",
+					"absolute inset-0 bg-white/10",
 					!isExpanded && "backdrop-blur-sm",
 				)}
-				initial={{ opacity: 0.8 }}
+				initial={{
+					opacity: 0.8,
+					borderRadius: "16px",
+				}}
+				animate={{
+					borderRadius: isExpanded ? "24px" : "16px",
+				}}
 				whileHover={{ opacity: 1 }}
 				layout
+				transition={{
+					borderRadius: { duration: 0.4, ease: "easeInOut" },
+				}}
 			/>
 
 			<motion.div
 				className={cn(
-					"relative flex h-full flex-col items-center p-4",
-					isExpanded ? "justify-start pt-8" : "justify-center",
+					"relative flex h-full flex-col p-4",
+					isExpanded
+						? "items-start justify-start pt-8"
+						: "items-center justify-center",
 				)}
 				layout
 			>
@@ -73,8 +89,8 @@ export const AppIcon = ({
 
 				<motion.span
 					className={cn(
-						"text-center font-medium text-white",
-						isExpanded ? "mb-8 text-xl" : "text-xs",
+						"font-medium text-white",
+						isExpanded ? "mb-8 text-left text-2xl" : "text-center text-xs",
 					)}
 					layout
 					transition={{ layout: { duration: 0.4 } }}
@@ -84,58 +100,50 @@ export const AppIcon = ({
 
 				{isExpanded && (
 					<motion.div
-						className="w-full max-w-4xl flex-1"
+						className="w-full flex-1"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.3, duration: 0.4 }}
 						layout
 					>
-						<div className="h-full min-h-96 rounded-2xl bg-white/10 p-6 backdrop-blur-md">
-							<h3 className="mb-6 font-semibold text-2xl text-white">
+						<div className="h-full min-h-64 rounded-xl bg-white/10 p-6 backdrop-blur-md">
+							<h3 className="mb-4 font-semibold text-lg text-white">
 								{name} Application
 							</h3>
-							<p className="mb-8 text-lg text-white/80 leading-relaxed">
+							<p className="mb-6 text-sm text-white/80 leading-relaxed">
 								This is where the {name.toLowerCase()} application content would
-								go. You can build out each app's unique interface here. This
-								expanded view gives you plenty of space to showcase your
-								projects and create engaging interactive experiences.
+								go. You can build out each app's unique interface here.
 							</p>
-							<div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-								<div className="rounded-xl bg-white/10 p-6">
-									<h4 className="mb-3 font-medium text-lg text-white">
+							<div className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
+								<div className="rounded-xl bg-white/10 p-4">
+									<h4 className="mb-2 font-medium text-sm text-white">
 										Feature 1
 									</h4>
-									<p className="text-white/70">
+									<p className="text-white/70 text-xs">
 										Detailed description of this feature and its capabilities.
-										You can add images, links, or interactive elements here.
 									</p>
 								</div>
-								<div className="rounded-xl bg-white/10 p-6">
-									<h4 className="mb-3 font-medium text-lg text-white">
+								<div className="rounded-xl bg-white/10 p-4">
+									<h4 className="mb-2 font-medium text-sm text-white">
 										Feature 2
 									</h4>
-									<p className="text-white/70">
-										Another feature with comprehensive details. This layout
-										provides excellent space for showcasing your work.
+									<p className="text-white/70 text-xs">
+										Another feature with comprehensive details.
 									</p>
 								</div>
 							</div>
-							<div className="rounded-xl border border-white/10 bg-white/5 p-6">
-								<h4 className="mb-3 font-medium text-lg text-white">
-									Project Details
+							<div className="rounded-xl border border-white/10 bg-white/5 p-4">
+								<h4 className="mb-2 font-medium text-sm text-white">
+									Technologies
 								</h4>
-								<p className="mb-4 text-white/70">
-									Add more specific information about this project, including
-									technologies used, challenges overcome, and results achieved.
-								</p>
 								<div className="flex flex-wrap gap-2">
-									<span className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">
+									<span className="rounded-full bg-white/10 px-3 py-1 text-white/80 text-xs">
 										React
 									</span>
-									<span className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">
+									<span className="rounded-full bg-white/10 px-3 py-1 text-white/80 text-xs">
 										TypeScript
 									</span>
-									<span className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">
+									<span className="rounded-full bg-white/10 px-3 py-1 text-white/80 text-xs">
 										Tailwind CSS
 									</span>
 								</div>
@@ -147,7 +155,7 @@ export const AppIcon = ({
 
 			{isExpanded && (
 				<motion.button
-					className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
+					className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
 					initial={{ opacity: 0, scale: 0.8 }}
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ delay: 0.4, duration: 0.3 }}

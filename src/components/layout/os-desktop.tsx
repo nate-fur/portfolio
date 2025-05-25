@@ -92,58 +92,35 @@ export const OSDesktop = () => {
 
 	return (
 		<div className="relative min-h-screen overflow-hidden bg-base">
-			{/* Dynamic background blur when app is expanded */}
-			<AnimatePresence>
-				{expandedApp && (
-					<motion.div
-						className="absolute inset-0 z-40 bg-black/20 backdrop-blur-sm"
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						onClick={() => setExpandedApp(null)}
-					/>
-				)}
-			</AnimatePresence>
-
 			{/* Home indicator (iPhone style) */}
 			<div className="-translate-x-1/2 absolute bottom-2 left-1/2 z-30 h-1 w-32 transform rounded-full bg-white/30" />
 
 			{/* App Grid */}
-			<div className="flex min-h-screen items-center justify-center p-8">
-				<motion.div className="grid w-full max-w-sm grid-cols-3 gap-6" layout>
+			<div className="flex min-h-screen items-start justify-center p-8 pt-16">
+				<motion.div
+					className="grid w-full max-w-2xl gap-4"
+					style={{
+						gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
+					}}
+					layout
+				>
 					{apps.map((app) => (
-						<div key={app.id} className="relative">
-							{expandedApp !== app.id && (
-								<AppIcon
-									icon={app.icon}
-									name={app.name}
-									gradient={app.gradient}
-									onClick={() => handleAppClick(app.id)}
-									isExpanded={false}
-								/>
-							)}
-						</div>
-					))}
-				</motion.div>
-			</div>
-
-			{/* Expanded App */}
-			<AnimatePresence>
-				{expandedApp &&
-					(() => {
-						const app = apps.find((app) => app.id === expandedApp);
-						if (!app) return null;
-						return (
+						<motion.div
+							key={app.id}
+							className={expandedApp === app.id ? "col-span-full" : ""}
+							layout
+						>
 							<AppIcon
 								icon={app.icon}
 								name={app.name}
 								gradient={app.gradient}
-								onClick={() => handleAppClick(expandedApp)}
-								isExpanded={true}
+								onClick={() => handleAppClick(app.id)}
+								isExpanded={expandedApp === app.id}
 							/>
-						);
-					})()}
-			</AnimatePresence>
+						</motion.div>
+					))}
+				</motion.div>
+			</div>
 		</div>
 	);
 };
