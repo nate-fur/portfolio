@@ -8,6 +8,7 @@ interface AppIconProps {
 	gradient: string;
 	onClick: () => void;
 	isExpanded?: boolean;
+	size?: "small" | "large";
 }
 
 export const AppIcon = ({
@@ -16,22 +17,28 @@ export const AppIcon = ({
 	gradient,
 	onClick,
 	isExpanded = false,
+	size = "large",
 }: AppIconProps) => {
 	return (
 		<motion.div
 			layoutId={`app-${name}`}
 			className={cn(
 				"relative cursor-pointer overflow-hidden shadow-lg",
-				isExpanded ? "min-h-96 shadow-2xl" : "aspect-square hover:shadow-xl",
+				isExpanded
+					? "min-h-96 w-80 shadow-2xl" // Fixed width for expanded state
+					: cn(
+							"aspect-square hover:shadow-xl",
+							size === "large" ? "h-20 w-20" : "h-16 w-16",
+						),
 			)}
 			style={{
 				background: gradient,
 			}}
 			initial={{
-				borderRadius: "16px",
+				borderRadius: size === "large" ? "20px" : "16px",
 			}}
 			animate={{
-				borderRadius: isExpanded ? "24px" : "16px",
+				borderRadius: isExpanded ? "24px" : size === "large" ? "20px" : "16px",
 			}}
 			onClick={onClick}
 			whileHover={!isExpanded ? { scale: 1.05 } : {}}
@@ -50,10 +57,14 @@ export const AppIcon = ({
 				)}
 				initial={{
 					opacity: 0.8,
-					borderRadius: "16px",
+					borderRadius: size === "large" ? "20px" : "16px",
 				}}
 				animate={{
-					borderRadius: isExpanded ? "24px" : "16px",
+					borderRadius: isExpanded
+						? "24px"
+						: size === "large"
+							? "20px"
+							: "16px",
 				}}
 				whileHover={{ opacity: 1 }}
 				layout
@@ -64,10 +75,11 @@ export const AppIcon = ({
 
 			<motion.div
 				className={cn(
-					"relative flex h-full flex-col p-4",
+					"relative flex h-full flex-col",
 					isExpanded
-						? "items-start justify-start pt-8"
+						? "items-start justify-start p-4 pt-8"
 						: "items-center justify-center",
+					!isExpanded && (size === "large" ? "p-4" : "p-3"),
 				)}
 				layout
 			>
@@ -75,14 +87,25 @@ export const AppIcon = ({
 					className={cn(
 						"flex items-center justify-center rounded-full bg-white/20",
 						!isExpanded && "backdrop-blur-sm",
-						isExpanded ? "mb-6 h-16 w-16" : "mb-2 h-12 w-12",
+						isExpanded
+							? "mb-6 h-16 w-16"
+							: size === "large"
+								? "mb-2 h-12 w-12"
+								: "mb-2 h-10 w-10",
 					)}
 					layout
 					transition={{ layout: { duration: 0.4 } }}
 				>
 					<motion.div layout>
 						<Icon
-							className={cn("text-white", isExpanded ? "h-8 w-8" : "h-6 w-6")}
+							className={cn(
+								"text-white",
+								isExpanded
+									? "h-8 w-8"
+									: size === "large"
+										? "h-6 w-6"
+										: "h-5 w-5",
+							)}
 						/>
 					</motion.div>
 				</motion.div>
@@ -90,7 +113,11 @@ export const AppIcon = ({
 				<motion.span
 					className={cn(
 						"font-medium text-white",
-						isExpanded ? "mb-8 text-left text-2xl" : "text-center text-xs",
+						isExpanded
+							? "mb-8 text-left text-2xl"
+							: size === "large"
+								? "text-center text-xs"
+								: "text-center text-xs",
 					)}
 					layout
 					transition={{ layout: { duration: 0.4 } }}
