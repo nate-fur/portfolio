@@ -8,6 +8,7 @@ interface AppIconProps {
 	gradient: string;
 	onClick: () => void;
 	isExpanded?: boolean;
+	size?: "small" | "medium" | "large" | "wide" | "tall" | "fill";
 }
 
 export const AppIcon = ({
@@ -16,13 +17,59 @@ export const AppIcon = ({
 	gradient,
 	onClick,
 	isExpanded = false,
+	size = "small",
 }: AppIconProps) => {
+	// Get size-specific styling
+	const getSizeStyles = () => {
+		if (isExpanded) return {};
+
+		switch (size) {
+			case "small":
+				return {
+					iconSize: "h-4 w-4",
+					containerSize: "h-8 w-8",
+				};
+			case "medium":
+				return {
+					iconSize: "h-6 w-6",
+					containerSize: "h-12 w-12",
+				};
+			case "large":
+				return {
+					iconSize: "h-8 w-8",
+					containerSize: "h-16 w-16",
+				};
+			case "wide":
+				return {
+					iconSize: "h-5 w-5",
+					containerSize: "h-10 w-10",
+				};
+			case "tall":
+				return {
+					iconSize: "h-5 w-5",
+					containerSize: "h-10 w-10",
+				};
+			case "fill":
+				return {
+					iconSize: "h-6 w-6",
+					containerSize: "h-12 w-12",
+				};
+			default:
+				return {
+					iconSize: "h-4 w-4",
+					containerSize: "h-8 w-8",
+				};
+		}
+	};
+
+	const sizeStyles = getSizeStyles();
+
 	return (
 		<motion.div
 			layoutId={`app-${name}`}
 			className={cn(
-				"relative cursor-pointer overflow-hidden shadow-lg",
-				isExpanded ? "min-h-96 shadow-2xl" : "aspect-square hover:shadow-xl",
+				"relative h-full w-full cursor-pointer overflow-hidden shadow-lg",
+				isExpanded ? "min-h-96 shadow-2xl" : "hover:shadow-xl",
 			)}
 			style={{
 				background: gradient,
@@ -34,8 +81,8 @@ export const AppIcon = ({
 				borderRadius: isExpanded ? "24px" : "16px",
 			}}
 			onClick={onClick}
-			whileHover={!isExpanded ? { scale: 1.05 } : {}}
-			whileTap={!isExpanded ? { scale: 0.95 } : {}}
+			whileHover={!isExpanded ? { scale: 1.02 } : {}}
+			whileTap={!isExpanded ? { scale: 0.98 } : {}}
 			layout
 			transition={{
 				layout: { duration: 0.4, ease: "easeInOut" },
@@ -64,10 +111,14 @@ export const AppIcon = ({
 
 			<motion.div
 				className={cn(
-					"relative flex h-full flex-col p-4",
+					"relative flex h-full flex-col",
 					isExpanded
-						? "items-start justify-start pt-8"
-						: "items-center justify-center",
+						? "items-start justify-start p-8 pt-8"
+						: "items-center justify-center p-2",
+					size === "wide" &&
+						!isExpanded &&
+						"flex-row items-center justify-start px-4",
+					size === "tall" && !isExpanded && "justify-start pt-4",
 				)}
 				layout
 			>
@@ -75,22 +126,29 @@ export const AppIcon = ({
 					className={cn(
 						"flex items-center justify-center rounded-full bg-white/20",
 						!isExpanded && "backdrop-blur-sm",
-						isExpanded ? "mb-6 h-16 w-16" : "mb-2 h-12 w-12",
+						isExpanded ? "mb-6 h-16 w-16" : sizeStyles.containerSize,
+						size === "wide" && !isExpanded && "mr-3 mb-0",
 					)}
 					layout
 					transition={{ layout: { duration: 0.4 } }}
 				>
 					<motion.div layout>
 						<Icon
-							className={cn("text-white", isExpanded ? "h-8 w-8" : "h-6 w-6")}
+							className={cn(
+								"text-white",
+								isExpanded ? "h-8 w-8" : sizeStyles.iconSize,
+							)}
 						/>
 					</motion.div>
 				</motion.div>
 
 				<motion.span
 					className={cn(
-						"font-medium text-white",
-						isExpanded ? "mb-8 text-left text-2xl" : "text-center text-xs",
+						"font-medium text-sm text-white",
+						isExpanded && "mb-8 text-left text-2xl",
+						!isExpanded && "text-center",
+						size === "wide" && !isExpanded && "text-left",
+						(size === "small" || size === "medium") && !isExpanded && "mt-1",
 					)}
 					layout
 					transition={{ layout: { duration: 0.4 } }}
@@ -119,7 +177,7 @@ export const AppIcon = ({
 									<h4 className="mb-2 font-medium text-sm text-white">
 										Feature 1
 									</h4>
-									<p className="text-white/70 text-xs">
+									<p className="text-sm text-white/70">
 										Detailed description of this feature and its capabilities.
 									</p>
 								</div>
@@ -127,7 +185,7 @@ export const AppIcon = ({
 									<h4 className="mb-2 font-medium text-sm text-white">
 										Feature 2
 									</h4>
-									<p className="text-white/70 text-xs">
+									<p className="text-sm text-white/70">
 										Another feature with comprehensive details.
 									</p>
 								</div>
@@ -137,13 +195,13 @@ export const AppIcon = ({
 									Technologies
 								</h4>
 								<div className="flex flex-wrap gap-2">
-									<span className="rounded-full bg-white/10 px-3 py-1 text-white/80 text-xs">
+									<span className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">
 										React
 									</span>
-									<span className="rounded-full bg-white/10 px-3 py-1 text-white/80 text-xs">
+									<span className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">
 										TypeScript
 									</span>
-									<span className="rounded-full bg-white/10 px-3 py-1 text-white/80 text-xs">
+									<span className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">
 										Tailwind CSS
 									</span>
 								</div>
