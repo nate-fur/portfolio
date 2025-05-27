@@ -17,11 +17,6 @@ const imageConfigs: Record<string, ImageConfig> = {
 		alt: "Hero",
 		className: "h-[400px] w-[400px]",
 	},
-	"/projects": {
-		src: "/hero-clipart.svg",
-		alt: "Profile",
-		className: "h-[400px] w-[400px]",
-	},
 	"/about": {
 		src: "/profile.svg",
 		alt: "Profile",

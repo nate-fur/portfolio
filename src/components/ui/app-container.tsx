@@ -7,7 +7,6 @@ import { cn } from "~/lib/utils";
 interface AppContainerProps {
 	icon: LucideIcon;
 	name: string;
-	gradient: string;
 	onClick: () => void;
 	isExpanded?: boolean;
 	size?: "small" | "medium" | "large" | "wide" | "tall" | "fill";
@@ -17,7 +16,6 @@ interface AppContainerProps {
 export const AppContainer = ({
 	icon: Icon,
 	name,
-	gradient,
 	onClick,
 	isExpanded = false,
 	size = "small",
@@ -30,8 +28,8 @@ export const AppContainer = ({
 		if (isExpanded) return {};
 
 		return {
-			iconSize: "h-6 w-6",
-			iconBgSize: "h-12 w-12",
+			iconSize: "h-8 w-8",
+			iconBgSize: "h-16 w-16",
 		};
 	};
 
@@ -54,7 +52,7 @@ export const AppContainer = ({
 	// Full screen overlay backdrop
 	const fullScreenBackdrop = isFullScreen && isExpanded && (
 		<motion.div
-			className="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm"
+			className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm"
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
@@ -68,23 +66,13 @@ export const AppContainer = ({
 			<motion.div
 				layoutId={`app-${name}`}
 				className={cn(
-					"relative overflow-hidden shadow-lg",
+					"relative overflow-hidden border-1 border-primary bg-base",
 					isFullScreen && isExpanded
-						? "fixed inset-0 z-50 m-auto h-[90vh] w-[90vw] cursor-default shadow-2xl"
+						? "fixed inset-0 z-[70] m-auto h-[90vh] w-[90vw] cursor-default"
 						: isExpanded
-							? "h-full min-h-96 w-full cursor-pointer shadow-2xl"
-							: "h-full w-full cursor-pointer hover:shadow-xl",
+							? "h-full min-h-96 w-full cursor-pointer"
+							: "h-full w-full cursor-pointer hover:opacity-80",
 				)}
-				style={{
-					background: gradient,
-				}}
-				initial={{
-					borderRadius: "16px",
-				}}
-				animate={{
-					borderRadius:
-						isFullScreen && isExpanded ? "24px" : isExpanded ? "24px" : "16px",
-				}}
 				onClick={!isFullScreen ? onClick : undefined}
 				whileHover={!isExpanded ? { scale: 1.02 } : {}}
 				whileTap={!isExpanded ? { scale: 0.98 } : {}}
@@ -92,28 +80,8 @@ export const AppContainer = ({
 				transition={{
 					layout: { duration: 0.4, ease: "easeInOut" },
 					scale: { duration: 0.2 },
-					borderRadius: { duration: 0.4, ease: "easeInOut" },
 				}}
 			>
-				<motion.div
-					className={cn(
-						"absolute inset-0 bg-white/10",
-						!isExpanded && "backdrop-blur-sm",
-					)}
-					initial={{
-						opacity: 0.8,
-						borderRadius: "16px",
-					}}
-					animate={{
-						borderRadius: isExpanded ? "24px" : "16px",
-					}}
-					whileHover={{ opacity: 1 }}
-					layout
-					transition={{
-						borderRadius: { duration: 0.4, ease: "easeInOut" },
-					}}
-				/>
-
 				<motion.div
 					className={cn(
 						"relative flex h-full flex-col",
@@ -129,8 +97,7 @@ export const AppContainer = ({
 				>
 					<motion.div
 						className={cn(
-							"flex items-center justify-center rounded-full bg-white/20",
-							!isExpanded && "backdrop-blur-sm",
+							"flex items-center justify-center bg-base",
 							isExpanded ? "mb-6 h-16 w-16" : sizeStyles.iconBgSize,
 							size === "wide" && !isExpanded && "mr-3 mb-0",
 						)}
@@ -140,7 +107,7 @@ export const AppContainer = ({
 						<motion.div layout>
 							<Icon
 								className={cn(
-									"text-white",
+									"text-primary",
 									isExpanded ? "h-8 w-8" : sizeStyles.iconSize,
 								)}
 							/>
@@ -149,12 +116,12 @@ export const AppContainer = ({
 
 					<motion.span
 						className={cn(
-							"font-medium text-sm text-white",
+							"font-medium text-base text-primary",
 							isExpanded && isFullScreen && "mb-8 text-left text-3xl",
 							isExpanded && !isFullScreen && "mb-8 text-left text-2xl",
 							!isExpanded && "text-center",
 							size === "wide" && !isExpanded && "text-left",
-							(size === "small" || size === "medium") && !isExpanded && "mt-1",
+							(size === "small" || size === "medium") && !isExpanded && "mt-2",
 						)}
 						layout
 						transition={{ layout: { duration: 0.4 } }}
@@ -194,7 +161,7 @@ export const AppContainer = ({
 						transition={{ delay: 0.4, duration: 0.3 }}
 					>
 						<motion.button
-							className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
+							className="flex h-8 w-8 items-center justify-center border-1 border-primary bg-base text-primary hover:opacity-70"
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
 							onClick={handleFullScreenToggle}
@@ -227,7 +194,7 @@ export const AppContainer = ({
 							</svg>
 						</motion.button>
 						<motion.button
-							className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
+							className="flex h-8 w-8 items-center justify-center border-1 border-primary bg-base text-primary hover:opacity-70"
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
 							onClick={handleClose}

@@ -10,7 +10,6 @@ export const Navbar = () => {
 				</div>
 				<div className="flex flex-row gap-8 p-4">
 					<Link href="/home">Home</Link>
-					<Link href="/projects">Projects</Link>
 					<Link href="/about">About</Link>
 				</div>
 				<div className="flex w-48 items-center justify-center border-primary border-l-1 text-center">
@@ -34,7 +33,6 @@ export const Navbar = () => {
 				</div>
 				<div className="flex h-12 w-full flex-row items-center justify-around p-4">
 					<Link href="/home">Home</Link>
-					<Link href="/projects">Projects</Link>
 					<Link href="/about">About</Link>
 				</div>
 			</div>
