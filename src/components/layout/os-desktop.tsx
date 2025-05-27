@@ -17,7 +17,8 @@ import {
 	Wrench,
 } from "lucide-react";
 import { useState } from "react";
-import { AppIcon } from "../ui/app-icon";
+import { getAppContent } from "~/apps/app-content-registry";
+import { AppContainer } from "../ui/app-container";
 
 interface App {
 	id: string;
@@ -175,14 +176,16 @@ export const OSDesktop = () => {
 								className={getSizeClasses(app.size, isExpanded)}
 								layout
 							>
-								<AppIcon
+								<AppContainer
 									icon={app.icon}
 									name={app.name}
 									gradient={app.gradient}
 									onClick={() => handleAppClick(app.id)}
 									isExpanded={isExpanded}
 									size={app.size}
-								/>
+								>
+									{isExpanded && getAppContent(app.id)}
+								</AppContainer>
 							</motion.div>
 						);
 					})}
