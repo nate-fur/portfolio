@@ -51,7 +51,7 @@ const Home: NextPage = () => {
 						Take me to the top <ArrowUp className="h-5 w-5" />
 					</button>
 				</div>
-				<div className="z-10 mt-[650px] mb-[200px] w-screen border-primary border-y-1 bg-base opacity-100 ">
+				<div className="z-10 mt-[650px] mb-[200px] w-screen border-primary border-y-1 opacity-100">
 					<OSDesktop />
 				</div>
 			</main>

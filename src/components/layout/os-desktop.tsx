@@ -141,7 +141,7 @@ export const OSDesktop = () => {
 	};
 
 	return (
-		<div className="relative min-h-screen overflow-hidden bg-base">
+		<div className="relative min-h-screen overflow-hidden">
 			{/* Home indicator (iPhone style) */}
 
 			{/* App Grid */}

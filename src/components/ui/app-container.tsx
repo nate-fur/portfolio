@@ -66,7 +66,7 @@ export const AppContainer = ({
 			<motion.div
 				layoutId={`app-${name}`}
 				className={cn(
-					"relative overflow-hidden border-1 border-primary bg-base",
+					"relative overflow-hidden border-1",
 					isFullScreen && isExpanded
 						? "fixed inset-0 z-[70] m-auto h-[90vh] w-[90vw] cursor-default"
 						: isExpanded
@@ -97,7 +97,7 @@ export const AppContainer = ({
 				>
 					<motion.div
 						className={cn(
-							"flex items-center justify-center bg-base",
+							"flex items-center justify-center",
 							isExpanded ? "mb-6 h-16 w-16" : sizeStyles.iconBgSize,
 							size === "wide" && !isExpanded && "mr-3 mb-0",
 						)}
@@ -161,7 +161,7 @@ export const AppContainer = ({
 						transition={{ delay: 0.4, duration: 0.3 }}
 					>
 						<motion.button
-							className="flex h-8 w-8 items-center justify-center border-1 border-primary bg-base text-primary hover:opacity-70"
+							className="flex h-8 w-8 items-center justify-center border-1 border-primary hover:opacity-70"
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
 							onClick={handleFullScreenToggle}
@@ -194,7 +194,7 @@ export const AppContainer = ({
 							</svg>
 						</motion.button>
 						<motion.button
-							className="flex h-8 w-8 items-center justify-center border-1 border-primary bg-base text-primary hover:opacity-70"
+							className="flex h-8 w-8 items-center justify-center border-1 border-primary hover:opacity-70"
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
 							onClick={handleClose}

@@ -11,7 +11,7 @@ const About: NextPage = () => {
 					</h1>
 				</div>
 
-				<div className="z-10 mt-[650px] mb-[200px] h-[1500px] w-screen border-primary border-y-1 bg-base opacity-100 " />
+				<div className="z-10 mt-[650px] mb-[200px] h-[1500px] w-screen border-primary border-y-1 opacity-100" />
 			</main>
 		</MainLayout>
 	);
