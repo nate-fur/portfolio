@@ -3,12 +3,13 @@
 import {
 	ChevronDown,
 	FileText,
+	Flame,
 	Github,
+	Leaf,
 	Linkedin,
 	Mail,
 	Monitor,
 	Moon,
-	Palette,
 	Sun,
 	User,
 } from "lucide-react";
@@ -34,6 +35,8 @@ const navigation = [
 const themeOptions = [
 	{ name: "Light", icon: Sun, value: "light" as const },
 	{ name: "Dark", icon: Moon, value: "dark" as const },
+	{ name: "Green", icon: Leaf, value: "green" as const },
+	{ name: "Red", icon: Flame, value: "red" as const },
 	{ name: "System", icon: Monitor, value: "system" as const },
 ];
 

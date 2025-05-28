@@ -5,6 +5,7 @@ export { BaseAppContent } from "~/apps/base-app-content";
 export { ChatbotApp } from "~/apps/chatbot";
 export { SnakeGameApp } from "~/apps/snake-game-app";
 export { SpotifyApp } from "~/apps/spotify-app";
+export { ThemeCustomizerApp } from "~/apps/theme-customizer-app";
 
 // Registry and utilities
 export {

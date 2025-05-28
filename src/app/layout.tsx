@@ -28,6 +28,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
 					defaultTheme="light"
 					storageKey="portfolio-theme"
 					enableSystem
+					themes={["light", "dark", "green", "red", "system"]}
 				>
 					<TRPCReactProvider>
 						<Navbar />

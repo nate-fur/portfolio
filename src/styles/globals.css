@@ -124,6 +124,78 @@
 	--sidebar-ring: #d8a892;
 }
 
+.green {
+	/* Green theme - nature inspired with dark green background */
+	--background: #0f2027;
+	--foreground: #a7f3d0;
+	--card: #1a3a2e;
+	--card-foreground: #a7f3d0;
+	--popover: #1a3a2e;
+	--popover-foreground: #a7f3d0;
+	--primary: #10b981;
+	--primary-foreground: #064e3b;
+	--secondary: #16423c;
+	--secondary-foreground: #a7f3d0;
+	--muted: #16423c;
+	--muted-foreground: #6ee7b7;
+	--accent: #16423c;
+	--accent-foreground: #a7f3d0;
+	--destructive: #ef4444;
+	--destructive-foreground: #ffffff;
+	--border: #10b981;
+	--input: #1f5f5b;
+	--ring: #10b981;
+	--chart-1: oklch(0.646 0.222 142.116);
+	--chart-2: oklch(0.6 0.118 164.704);
+	--chart-3: oklch(0.398 0.07 147.392);
+	--chart-4: oklch(0.828 0.189 154.429);
+	--chart-5: oklch(0.769 0.188 140.08);
+	--sidebar: #0f2027;
+	--sidebar-foreground: #a7f3d0;
+	--sidebar-primary: #10b981;
+	--sidebar-primary-foreground: #064e3b;
+	--sidebar-accent: #16423c;
+	--sidebar-accent-foreground: #a7f3d0;
+	--sidebar-border: #10b981;
+	--sidebar-ring: #10b981;
+}
+
+.red {
+	/* Red theme - warm and energetic with dark red background */
+	--background: #2d0a0a;
+	--foreground: #fca5a5;
+	--card: #3f1515;
+	--card-foreground: #fca5a5;
+	--popover: #3f1515;
+	--popover-foreground: #fca5a5;
+	--primary: #ef4444;
+	--primary-foreground: #7f1d1d;
+	--secondary: #4c1d1d;
+	--secondary-foreground: #fca5a5;
+	--muted: #4c1d1d;
+	--muted-foreground: #f87171;
+	--accent: #4c1d1d;
+	--accent-foreground: #fca5a5;
+	--destructive: #dc2626;
+	--destructive-foreground: #ffffff;
+	--border: #ef4444;
+	--input: #5b2121;
+	--ring: #ef4444;
+	--chart-1: oklch(0.646 0.222 21.116);
+	--chart-2: oklch(0.6 0.118 14.704);
+	--chart-3: oklch(0.398 0.07 27.392);
+	--chart-4: oklch(0.828 0.189 24.429);
+	--chart-5: oklch(0.769 0.188 30.08);
+	--sidebar: #2d0a0a;
+	--sidebar-foreground: #fca5a5;
+	--sidebar-primary: #ef4444;
+	--sidebar-primary-foreground: #7f1d1d;
+	--sidebar-accent: #4c1d1d;
+	--sidebar-accent-foreground: #fca5a5;
+	--sidebar-border: #ef4444;
+	--sidebar-ring: #ef4444;
+}
+
 @layer base {
 	* {
 		@apply border-border outline-ring/50;

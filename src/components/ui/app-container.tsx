@@ -70,10 +70,10 @@ export const AppContainer = ({
 					isFullScreen && isExpanded
 						? "fixed inset-0 z-[70] m-auto h-[90vh] w-[90vw] cursor-default"
 						: isExpanded
-							? "h-full min-h-96 w-full cursor-pointer"
+							? "h-fit max-h-full w-full cursor-default"
 							: "h-full w-full cursor-pointer hover:opacity-80",
 				)}
-				onClick={!isFullScreen ? onClick : undefined}
+				onClick={!isExpanded ? onClick : undefined}
 				whileHover={!isExpanded ? { scale: 1.02 } : {}}
 				whileTap={!isExpanded ? { scale: 0.98 } : {}}
 				layout
@@ -132,7 +132,7 @@ export const AppContainer = ({
 					{isExpanded && children && (
 						<motion.div
 							key={isFullScreen ? "fullscreen" : "expanded"}
-							className="w-full flex-1 overflow-auto"
+							className="w-full flex-1 overflow-hidden"
 							initial={{ opacity: 0, filter: "blur(4px)" }}
 							animate={{
 								opacity: 1,

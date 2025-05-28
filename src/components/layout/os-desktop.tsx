@@ -10,6 +10,7 @@ import {
 	Layers,
 	Link,
 	Music,
+	Palette,
 	Search,
 	TrendingUp,
 	Twitter,
@@ -96,6 +97,12 @@ const apps: App[] = [
 		name: "MCP Tool",
 		icon: Wrench,
 		size: "small",
+	},
+	{
+		id: "theme-customizer",
+		name: "Theme Customizer",
+		icon: Palette,
+		size: "medium",
 	},
 	{
 		id: "url-shortener",

@@ -3,6 +3,7 @@ import { BaseAppContent } from "~/apps/base-app-content";
 import { ChatbotApp } from "~/apps/chatbot";
 import { SnakeGameApp } from "~/apps/snake-game-app";
 import { SpotifyApp } from "~/apps/spotify-app";
+import { ThemeCustomizerApp } from "~/apps/theme-customizer-app";
 
 // Default app content for apps that don't have specific implementations yet
 const DefaultAppContent = ({ appName }: { appName: string }) => (
@@ -33,6 +34,7 @@ const APP_CONTENT_REGISTRY: Record<string, () => ReactNode> = {
 	chatbot: () => <ChatbotApp />,
 	snake: () => <SnakeGameApp />,
 	spotify: () => <SpotifyApp />,
+	"theme-customizer": () => <ThemeCustomizerApp />,
 	// Add more app content components here as they are created
 	"tech-stack": () => <DefaultAppContent appName="Tech Stack" />,
 	"video-playlist": () => <DefaultAppContent appName="Videos" />,
