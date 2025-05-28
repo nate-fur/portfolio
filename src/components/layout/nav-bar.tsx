@@ -95,20 +95,7 @@ export function Navbar() {
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</div>
-				<div className="flex flex-row gap-8 p-4">
-					{navigation.map((item) => (
-						<Link
-							key={item.name}
-							href={item.href}
-							className={cn(
-								"transition-colors hover:opacity-70",
-								pathname === item.href && "opacity-70",
-							)}
-						>
-							{item.name}
-						</Link>
-					))}
-				</div>
+				<div className="h-14" />
 				<div className="flex w-48 items-center justify-center border-primary border-l-1 text-center">
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>

@@ -120,23 +120,23 @@ const apps: App[] = [
 
 const getSizeClasses = (size: App["size"], isExpanded: boolean) => {
 	if (isExpanded) {
-		// Expanded apps take up more space in the grid flow instead of overlaying
-		return "col-span-4 row-span-6 sm:col-span-4 sm:row-span-6 lg:col-span-6 lg:row-span-6";
+		// Expanded apps take up more space in the grid flow with natural height
+		return "col-span-4 sm:col-span-4 lg:col-span-6";
 	}
 
 	switch (size) {
 		case "small":
-			return "col-span-2 row-span-2";
+			return "col-span-2 row-span-2 min-h-[96px] sm:min-h-[112px] lg:min-h-[128px]";
 		case "medium":
-			return "col-span-2 row-span-3";
+			return "col-span-2 row-span-3 min-h-[144px] sm:min-h-[168px] lg:min-h-[192px]";
 		case "large":
-			return "col-span-2 row-span-4";
+			return "col-span-2 row-span-4 min-h-[192px] sm:min-h-[224px] lg:min-h-[256px]";
 		default:
-			return "col-span-2 row-span-2";
+			return "col-span-2 row-span-2 min-h-[96px] sm:min-h-[112px] lg:min-h-[128px]";
 	}
 };
 
-export const OSDesktop = () => {
+export const AppsGallery = () => {
 	const [expandedApp, setExpandedApp] = useState<string | null>(null);
 
 	const handleAppClick = (appId: string) => {
@@ -149,12 +149,10 @@ export const OSDesktop = () => {
 
 	return (
 		<div className="relative min-h-screen overflow-hidden">
-			{/* Home indicator (iPhone style) */}
-
 			{/* App Grid */}
 			<div className="flex min-h-screen items-center justify-center p-4 sm:p-6 lg:p-8">
 				<motion.div
-					className="grid w-full max-w-sm auto-rows-[48px] grid-cols-4 gap-2 sm:max-w-2xl sm:auto-rows-[56px] sm:grid-cols-5 sm:gap-3 lg:max-w-4xl lg:auto-rows-[64px] lg:grid-cols-6 lg:gap-4 xl:max-w-5xl"
+					className="grid w-full max-w-sm auto-rows-min grid-cols-4 gap-2 sm:max-w-2xl sm:auto-rows-min sm:grid-cols-5 sm:gap-3 lg:max-w-4xl lg:auto-rows-min lg:grid-cols-6 lg:gap-4 xl:max-w-5xl"
 					style={{
 						gridAutoFlow: "dense",
 					}}

@@ -66,11 +66,11 @@ export const AppContainer = ({
 			<motion.div
 				layoutId={`app-${name}`}
 				className={cn(
-					"relative overflow-hidden border-1",
+					"relative overflow-hidden border-1 border-primary",
 					isFullScreen && isExpanded
 						? "fixed inset-0 z-[70] m-auto h-[90vh] w-[90vw] cursor-default"
 						: isExpanded
-							? "h-fit max-h-full w-full cursor-default"
+							? "h-auto min-h-fit w-full cursor-default"
 							: "h-full w-full cursor-pointer hover:opacity-80",
 				)}
 				onClick={!isExpanded ? onClick : undefined}
@@ -116,7 +116,7 @@ export const AppContainer = ({
 
 					<motion.span
 						className={cn(
-							"font-medium text-base text-primary",
+							"font-medium text-primary",
 							isExpanded && isFullScreen && "mb-8 text-left text-3xl",
 							isExpanded && !isFullScreen && "mb-8 text-left text-2xl",
 							!isExpanded && "text-center",

@@ -1,15 +1,18 @@
 "use client";
 
-import { ArrowUp } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import type { NextPage } from "next";
+import { AppsGallery } from "../../components/layout/apps-gallery";
 import { MainLayout } from "../../components/layout/main-layout";
-import { OSDesktop } from "../../components/layout/os-desktop";
 
 const Home: NextPage = () => {
-	const smoothScrollToTop = () => {
+	const smoothScrollToAppsGallery = () => {
+		const appsGalleryElement = document.getElementById("apps-gallery");
+		if (!appsGalleryElement) return;
+
 		const startPosition = window.pageYOffset;
-		const targetPosition = 0;
-		const distance = startPosition - targetPosition;
+		const targetPosition = appsGalleryElement.offsetTop - 56; // Offset for navbar and some padding
+		const distance = targetPosition - startPosition;
 		const duration = 1800; // 1.8 seconds for a more leisurely feel
 		let startTime: number | null = null;
 
@@ -24,7 +27,7 @@ const Home: NextPage = () => {
 			const progress = Math.min(timeElapsed / duration, 1);
 
 			const easedProgress = easeOutQuart(progress);
-			const currentPosition = startPosition - distance * easedProgress;
+			const currentPosition = startPosition + distance * easedProgress;
 
 			window.scrollTo(0, currentPosition);
 
@@ -39,20 +42,38 @@ const Home: NextPage = () => {
 	return (
 		<MainLayout>
 			<main className="flex min-h-screen flex-col items-center justify-start">
-				<div className="container fixed mt-16 flex min-h-screen flex-col items-center justify-start px-4 py-8 pb-12">
-					<h1 className="mt-[400px] text-center font-extrabold text-2xl text-primary tracking-tight sm:text-4xl">
+				{/* Hero Section */}
+				<div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
+					{/* Hero Image */}
+					<div className="mb-8 flex items-center justify-center">
+						<div
+							className="h-[400px] w-[400px]"
+							style={{
+								backgroundColor: "var(--color-primary)",
+								WebkitMask: "url(/hero-clipart.svg) no-repeat center/contain",
+								mask: "url(/hero-clipart.svg) no-repeat center/contain",
+							}}
+						/>
+					</div>
+
+					{/* Hero Title */}
+					<h1 className="text-center font-extrabold text-2xl text-primary tracking-tight sm:text-4xl">
 						Full stack web developer, <br /> experienced with AI & web3
 					</h1>
+
+					{/* Show More Button */}
 					<button
 						type="button"
-						onClick={smoothScrollToTop}
-						className="mt-auto mb-12 flex cursor-pointer items-center gap-2 border-1 border-primary px-3 py-2 font-extrabold text-primary text-xl transition-opacity hover:opacity-70"
+						onClick={smoothScrollToAppsGallery}
+						className="mt-12 flex cursor-pointer items-center gap-2 border-1 border-primary px-3 py-2 font-extrabold text-primary text-xl transition-opacity hover:opacity-70"
 					>
-						Take me to the top <ArrowUp className="h-5 w-5" />
+						Show me more <ArrowDown className="h-5 w-5" />
 					</button>
 				</div>
-				<div className="z-10 mt-[650px] mb-[200px] w-screen border-primary border-y-1 opacity-100">
-					<OSDesktop />
+
+				{/* Apps Gallery Section */}
+				<div id="apps-gallery" className="w-screen border-primary border-y-1">
+					<AppsGallery />
 				</div>
 			</main>
 		</MainLayout>
