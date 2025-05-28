@@ -2,15 +2,15 @@
 
 import {
 	ChevronDown,
+	Droplets,
 	FileText,
-	Flame,
 	Github,
-	Leaf,
 	Linkedin,
 	Mail,
 	Monitor,
 	Moon,
 	Sun,
+	Trees,
 	User,
 } from "lucide-react";
 import Link from "next/link";
@@ -35,8 +35,8 @@ const navigation = [
 const themeOptions = [
 	{ name: "Light", icon: Sun, value: "light" as const },
 	{ name: "Dark", icon: Moon, value: "dark" as const },
-	{ name: "Green", icon: Leaf, value: "green" as const },
-	{ name: "Red", icon: Flame, value: "red" as const },
+	{ name: "Forest", icon: Trees, value: "forest" as const },
+	{ name: "Blood", icon: Droplets, value: "blood" as const },
 	{ name: "System", icon: Monitor, value: "system" as const },
 ];
 

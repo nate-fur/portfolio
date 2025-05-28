@@ -1,3 +1,3 @@
-export { MainLayout } from "./main-layout";
 export { AppsGallery } from "./apps-gallery";
-export { Navbar } from "./nav-bar";
+export { SideNav } from "./side-nav";
+export { SideLayout } from "./side-layout";

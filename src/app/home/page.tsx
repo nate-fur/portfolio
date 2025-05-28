@@ -3,7 +3,6 @@
 import { ArrowDown } from "lucide-react";
 import type { NextPage } from "next";
 import { AppsGallery } from "../../components/layout/apps-gallery";
-import { MainLayout } from "../../components/layout/main-layout";
 
 const Home: NextPage = () => {
 	const smoothScrollToAppsGallery = () => {
@@ -40,43 +39,41 @@ const Home: NextPage = () => {
 	};
 
 	return (
-		<MainLayout>
-			<main className="flex min-h-screen flex-col items-center justify-start">
-				{/* Hero Section */}
-				<div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
-					{/* Hero Image */}
-					<div className="mb-8 flex items-center justify-center">
-						<div
-							className="h-[400px] w-[400px]"
-							style={{
-								backgroundColor: "var(--color-primary)",
-								WebkitMask: "url(/hero-clipart.svg) no-repeat center/contain",
-								mask: "url(/hero-clipart.svg) no-repeat center/contain",
-							}}
-						/>
-					</div>
-
-					{/* Hero Title */}
-					<h1 className="text-center font-extrabold text-2xl text-primary tracking-tight sm:text-4xl">
-						Full stack web developer, <br /> experienced with AI & web3
-					</h1>
-
-					{/* Show More Button */}
-					<button
-						type="button"
-						onClick={smoothScrollToAppsGallery}
-						className="mt-12 flex cursor-pointer items-center gap-2 border-1 border-primary px-3 py-2 font-extrabold text-primary text-xl transition-opacity hover:opacity-70"
-					>
-						Show me more <ArrowDown className="h-5 w-5" />
-					</button>
+		<div className="flex min-h-screen flex-col items-center justify-start">
+			{/* Hero Section */}
+			<div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
+				{/* Hero Image */}
+				<div className="mb-8 flex items-center justify-center">
+					<div
+						className="h-[400px] w-[400px]"
+						style={{
+							backgroundColor: "var(--color-primary)",
+							WebkitMask: "url(/hero-clipart.svg) no-repeat center/contain",
+							mask: "url(/hero-clipart.svg) no-repeat center/contain",
+						}}
+					/>
 				</div>
 
-				{/* Apps Gallery Section */}
-				<div id="apps-gallery" className="w-screen border-primary border-y-1">
-					<AppsGallery />
-				</div>
-			</main>
-		</MainLayout>
+				{/* Hero Title */}
+				<h1 className="text-center font-extrabold text-2xl text-primary tracking-tight sm:text-4xl">
+					Full stack web developer, <br /> experienced with AI & web3
+				</h1>
+
+				{/* Show More Button */}
+				<button
+					type="button"
+					onClick={smoothScrollToAppsGallery}
+					className="mt-12 flex cursor-pointer items-center gap-2 border-1 border-primary px-3 py-2 font-extrabold text-primary text-xl transition-opacity hover:opacity-70"
+				>
+					Show me more <ArrowDown className="h-5 w-5" />
+				</button>
+			</div>
+
+			{/* Apps Gallery Section */}
+			<div id="apps-gallery" className="w-full border-primary ">
+				<AppsGallery />
+			</div>
+		</div>
 	);
 };
 

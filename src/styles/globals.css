@@ -124,8 +124,8 @@
 	--sidebar-ring: #d8a892;
 }
 
-.green {
-	/* Green theme - nature inspired with dark green background */
+.forest {
+	/* Forest theme - nature inspired with dark green background */
 	--background: #0f2027;
 	--foreground: #a7f3d0;
 	--card: #1a3a2e;
@@ -160,8 +160,8 @@
 	--sidebar-ring: #10b981;
 }
 
-.red {
-	/* Red theme - warm and energetic with dark red background */
+.blood {
+	/* Blood theme - warm and energetic with dark red background */
 	--background: #2d0a0a;
 	--foreground: #fca5a5;
 	--card: #3f1515;

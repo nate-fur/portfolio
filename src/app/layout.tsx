@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "~/styles/globals.css";
 
-import { Navbar } from "~/components/layout/nav-bar";
+import { SideNav } from "~/components/layout/side-nav";
 import { ThemeProvider } from "~/contexts/theme-context";
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -28,11 +28,13 @@ export default function RootLayout(props: { children: React.ReactNode }) {
 					defaultTheme="light"
 					storageKey="portfolio-theme"
 					enableSystem
-					themes={["light", "dark", "green", "red", "system"]}
+					themes={["light", "dark", "forest", "blood", "system"]}
 				>
 					<TRPCReactProvider>
-						<Navbar />
-						{props.children}
+						<div className="flex min-h-screen">
+							<SideNav />
+							<main className="flex-1">{props.children}</main>
+						</div>
 					</TRPCReactProvider>
 				</ThemeProvider>
 			</body>
