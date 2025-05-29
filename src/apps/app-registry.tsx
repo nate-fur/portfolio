@@ -18,14 +18,11 @@ import type { ReactNode } from "react";
 
 // Import app components
 import { BaseAppContent } from "~/apps/base-app-content";
-import { ChatbotApp, ChatbotThumbnail } from "~/apps/chatbot";
+import { ChatbotApp } from "~/apps/chatbot";
 import { DefaultThumbnail } from "~/apps/default-thumbnail";
-import { SnakeGameApp, SnakeGameThumbnail } from "~/apps/snake-game";
-import { SpotifyApp, SpotifyThumbnail } from "~/apps/spotify";
-import {
-	ThemeCustomizerApp,
-	ThemeCustomizerThumbnail,
-} from "~/apps/theme-customizer";
+import { SnakeGameApp } from "~/apps/snake-game";
+import { SpotifyApp } from "~/apps/spotify";
+import { ThemeCustomizerApp } from "~/apps/theme-customizer";
 import type { AppThumbnailProps } from "~/apps/types";
 
 // App interface that combines all app properties
@@ -72,9 +69,11 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Bot,
 		size: "large",
 		contentComponent: () => <ChatbotApp />,
-		thumbnailComponent: (props) => <ChatbotThumbnail {...props} />,
+		thumbnailComponent: (props) => (
+			<DefaultThumbnail name="AI Assistant" icon={Bot} {...props} />
+		),
 		hasCustomContent: true,
-		hasCustomThumbnail: true,
+		hasCustomThumbnail: false,
 	},
 	snake: {
 		id: "snake",
@@ -82,9 +81,11 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Gamepad2,
 		size: "small",
 		contentComponent: () => <SnakeGameApp />,
-		thumbnailComponent: (props) => <SnakeGameThumbnail {...props} />,
+		thumbnailComponent: (props) => (
+			<DefaultThumbnail name="Snake" icon={Gamepad2} {...props} />
+		),
 		hasCustomContent: true,
-		hasCustomThumbnail: true,
+		hasCustomThumbnail: false,
 	},
 	spotify: {
 		id: "spotify",
@@ -92,9 +93,11 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Music,
 		size: "large",
 		contentComponent: () => <SpotifyApp />,
-		thumbnailComponent: (props) => <SpotifyThumbnail {...props} />,
+		thumbnailComponent: (props) => (
+			<DefaultThumbnail name="Spotify" icon={Music} {...props} />
+		),
 		hasCustomContent: true,
-		hasCustomThumbnail: true,
+		hasCustomThumbnail: false,
 	},
 	"theme-customizer": {
 		id: "theme-customizer",
@@ -102,9 +105,11 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Palette,
 		size: "medium",
 		contentComponent: () => <ThemeCustomizerApp />,
-		thumbnailComponent: (props) => <ThemeCustomizerThumbnail {...props} />,
+		thumbnailComponent: (props) => (
+			<DefaultThumbnail name="Theme Customizer" icon={Palette} {...props} />
+		),
 		hasCustomContent: true,
-		hasCustomThumbnail: true,
+		hasCustomThumbnail: false,
 	},
 	"tech-stack": {
 		id: "tech-stack",

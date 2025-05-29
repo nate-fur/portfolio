@@ -1,15 +1,11 @@
 // Base components
 export { BaseAppContent } from "~/apps/base-app-content";
-export { DefaultThumbnail } from "~/apps/default-thumbnail";
 
 // App content components
-export { ChatbotApp, ChatbotThumbnail } from "~/apps/chatbot";
-export { SnakeGameApp, SnakeGameThumbnail } from "~/apps/snake-game";
-export { SpotifyApp, SpotifyThumbnail } from "~/apps/spotify";
-export {
-	ThemeCustomizerApp,
-	ThemeCustomizerThumbnail,
-} from "~/apps/theme-customizer";
+export { ChatbotApp } from "~/apps/chatbot";
+export { SnakeGameApp } from "~/apps/snake-game";
+export { SpotifyApp } from "~/apps/spotify";
+export { ThemeCustomizerApp } from "~/apps/theme-customizer";
 
 // Consolidated registry and utilities
 export {
