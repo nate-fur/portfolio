@@ -3,7 +3,7 @@
 import { ArrowDown, ArrowUp } from "lucide-react";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { AppsGallery } from "../components/layout/apps-gallery";
+import { AppsGallery } from "../components/shared/app-gallery";
 
 const Home: NextPage = () => {
 	const [isScrolledToGallery, setIsScrolledToGallery] = useState(false);
