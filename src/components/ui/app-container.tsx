@@ -9,7 +9,7 @@ interface AppContainerProps {
 	name: string;
 	onClick: () => void;
 	isExpanded?: boolean;
-	size?: "small" | "medium" | "large" | "wide" | "tall" | "fill";
+	size?: "small" | "medium" | "large";
 	children?: ReactNode;
 }
 
@@ -52,7 +52,7 @@ export const AppContainer = ({
 	// Full screen overlay backdrop
 	const fullScreenBackdrop = isFullScreen && isExpanded && (
 		<motion.div
-			className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm"
+			className="fixed inset-0 z-80 bg-black/80 backdrop-blur-sm"
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
@@ -68,7 +68,7 @@ export const AppContainer = ({
 				className={cn(
 					"relative overflow-hidden border-1 border-primary",
 					isFullScreen && isExpanded
-						? "fixed inset-0 z-[70] m-auto h-[90vh] w-[90vw] cursor-default"
+						? "fixed inset-0 z-90 m-auto h-[90vh] w-[90vw] cursor-default"
 						: isExpanded
 							? "h-auto min-h-fit w-full cursor-default"
 							: "h-full w-full cursor-pointer hover:opacity-80",
@@ -88,10 +88,6 @@ export const AppContainer = ({
 						isExpanded
 							? "items-start justify-start p-8 pt-8"
 							: "items-center justify-center p-2",
-						size === "wide" &&
-							!isExpanded &&
-							"flex-row items-center justify-start px-4",
-						size === "tall" && !isExpanded && "justify-start pt-4",
 					)}
 					layout
 				>
@@ -99,7 +95,6 @@ export const AppContainer = ({
 						className={cn(
 							"flex items-center justify-center",
 							isExpanded ? "mb-6 h-16 w-16" : sizeStyles.iconBgSize,
-							size === "wide" && !isExpanded && "mr-3 mb-0",
 						)}
 						layout
 						transition={{ layout: { duration: 0.4 } }}
@@ -119,9 +114,7 @@ export const AppContainer = ({
 							"font-medium text-primary",
 							isExpanded && isFullScreen && "mb-8 text-left text-3xl",
 							isExpanded && !isFullScreen && "mb-8 text-left text-2xl",
-							!isExpanded && "text-center",
-							size === "wide" && !isExpanded && "text-left",
-							(size === "small" || size === "medium") && !isExpanded && "mt-2",
+							!isExpanded && "mt-2 text-center",
 						)}
 						layout
 						transition={{ layout: { duration: 0.4 } }}

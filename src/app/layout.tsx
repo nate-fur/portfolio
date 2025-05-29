@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "~/styles/globals.css";
 
-import { SideNav } from "~/components/layout/side-nav";
+import { SideLayout } from "~/components/layout";
 import { ThemeProvider } from "~/contexts/theme-context";
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -31,10 +31,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
 					themes={["light", "dark", "forest", "blood", "system"]}
 				>
 					<TRPCReactProvider>
-						<div className="flex min-h-screen">
-							<SideNav />
-							<main className="flex-1">{props.children}</main>
-						</div>
+						<SideLayout>{props.children}</SideLayout>
 					</TRPCReactProvider>
 				</ThemeProvider>
 			</body>

@@ -195,7 +195,7 @@ export function SideNav() {
 			{/* Mobile Overlay */}
 			{isOpen && (
 				<div
-					className="fixed inset-0 z-40 bg-black/50 sm:hidden"
+					className="fixed inset-0 z-30 bg-black/50 sm:hidden"
 					onClick={() => setIsOpen(false)}
 					onKeyDown={(e) => {
 						if (e.key === "Escape") {
@@ -211,7 +211,7 @@ export function SideNav() {
 			{/* Side Navigation - Hidden by default, shows on left edge hover */}
 			<div
 				className={cn(
-					"fixed top-0 left-0 z-40 h-full border-primary border-r-1 bg-background font-semibold transition-all duration-300 ease-in-out",
+					"fixed top-0 left-0 z-30 h-full border-primary border-r-1 bg-background font-semibold transition-all duration-300 ease-in-out",
 					// Desktop: hidden by default, shows on hover
 					"hidden sm:block sm:w-16",
 					isHovered ? "sm:translate-x-0" : "sm:-translate-x-full",
