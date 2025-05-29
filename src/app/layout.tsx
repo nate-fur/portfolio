@@ -25,7 +25,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
 			<body>
 				<ThemeProvider
 					attribute="class"
-					defaultTheme="light"
+					defaultTheme="dark"
 					storageKey="portfolio-theme"
 					enableSystem
 					themes={["light", "dark", "forest", "blood", "system"]}
