@@ -45,15 +45,15 @@ const DefaultAppContent = ({ appName }: { appName: string }) => (
 		technologies={["React", "TypeScript", "Tailwind CSS"]}
 	>
 		<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-			<div className="rounded-xl bg-white/10 p-4">
-				<h4 className="mb-2 font-medium text-sm text-white">Feature 1</h4>
-				<p className="text-sm text-white/70">
+			<div className="rounded-xl bg-muted p-4">
+				<h4 className="mb-2 font-medium text-foreground text-sm">Feature 1</h4>
+				<p className="text-muted-foreground text-sm">
 					Detailed description of this feature and its capabilities.
 				</p>
 			</div>
-			<div className="rounded-xl bg-white/10 p-4">
-				<h4 className="mb-2 font-medium text-sm text-white">Feature 2</h4>
-				<p className="text-sm text-white/70">
+			<div className="rounded-xl bg-muted p-4">
+				<h4 className="mb-2 font-medium text-foreground text-sm">Feature 2</h4>
+				<p className="text-muted-foreground text-sm">
 					Another feature with comprehensive details.
 				</p>
 			</div>

@@ -8,17 +8,19 @@ export const SpotifyApp = () => {
 			technologies={["Spotify API", "React", "OAuth 2.0", "Web Playback SDK"]}
 		>
 			<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-				<div className="rounded-xl bg-white/10 p-4">
-					<h4 className="mb-2 font-medium text-sm text-white">Now Playing</h4>
-					<p className="text-sm text-white/70">
+				<div className="rounded-xl bg-muted p-4">
+					<h4 className="mb-2 font-medium text-foreground text-sm">
+						Now Playing
+					</h4>
+					<p className="text-muted-foreground text-sm">
 						Display your currently playing track with album art and controls.
 					</p>
 				</div>
-				<div className="rounded-xl bg-white/10 p-4">
-					<h4 className="mb-2 font-medium text-sm text-white">
+				<div className="rounded-xl bg-muted p-4">
+					<h4 className="mb-2 font-medium text-foreground text-sm">
 						Listening Stats
 					</h4>
-					<p className="text-sm text-white/70">
+					<p className="text-muted-foreground text-sm">
 						View your top artists, tracks, and listening habits over time.
 					</p>
 				</div>
@@ -30,8 +32,10 @@ export const SpotifyApp = () => {
 						<span className="text-lg text-white">🎵</span>
 					</div>
 					<div className="flex-1">
-						<h5 className="font-medium text-sm text-white">Not Connected</h5>
-						<p className="text-sm text-white/70">
+						<h5 className="font-medium text-foreground text-sm">
+							Not Connected
+						</h5>
+						<p className="text-muted-foreground text-sm">
 							Connect to Spotify to see your music
 						</p>
 					</div>
