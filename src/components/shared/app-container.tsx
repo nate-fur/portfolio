@@ -6,15 +6,16 @@ import { cn } from "~/lib/utils";
 interface AppContainerProps {
 	app: App;
 	size: "small" | "medium" | "large";
+	isExpanded: boolean;
 	onExpansionChange?: (isExpanded: boolean) => void;
 }
 
 export const AppContainer = ({
 	app,
 	size,
+	isExpanded,
 	onExpansionChange,
 }: AppContainerProps) => {
-	const [isExpanded, setIsExpanded] = useState(false);
 	const [isFullScreen, setIsFullScreen] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
 	const fullScreenButtonRef = useRef<HTMLButtonElement>(null);
@@ -25,36 +26,43 @@ export const AppContainer = ({
 		const handleKeyDown = (e: KeyboardEvent) => {
 			if (!isExpanded) return;
 
-			switch (e.key) {
-				case "Escape":
-					e.preventDefault();
-					handleClose(e as unknown as React.MouseEvent);
-					break;
-				case "Tab":
-					// Trap focus within the expanded app when in full screen
-					if (isFullScreen) {
-						const focusableElements = containerRef.current?.querySelectorAll(
-							'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-						);
-						if (focusableElements && focusableElements.length > 0) {
-							const firstElement = focusableElements[0] as HTMLElement;
-							const lastElement = focusableElements[
-								focusableElements.length - 1
-							] as HTMLElement;
+			// Only handle escape if this app container is focused or contains the focused element
+			if (
+				e.key === "Escape" &&
+				containerRef.current &&
+				(document.activeElement === containerRef.current ||
+					containerRef.current.contains(document.activeElement))
+			) {
+				e.preventDefault();
+				handleClose(e as unknown as React.MouseEvent);
+				return;
+			}
 
-							if (e.shiftKey && document.activeElement === firstElement) {
-								e.preventDefault();
-								lastElement.focus();
-							} else if (
-								!e.shiftKey &&
-								document.activeElement === lastElement
-							) {
-								e.preventDefault();
-								firstElement.focus();
-							}
-						}
+			// Handle Tab key for focus trapping (only when this container is focused)
+			if (
+				e.key === "Tab" &&
+				isFullScreen &&
+				containerRef.current &&
+				containerRef.current.contains(document.activeElement)
+			) {
+				// Trap focus within the expanded app when in full screen
+				const focusableElements = containerRef.current?.querySelectorAll(
+					'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+				);
+				if (focusableElements && focusableElements.length > 0) {
+					const firstElement = focusableElements[0] as HTMLElement;
+					const lastElement = focusableElements[
+						focusableElements.length - 1
+					] as HTMLElement;
+
+					if (e.shiftKey && document.activeElement === firstElement) {
+						e.preventDefault();
+						lastElement.focus();
+					} else if (!e.shiftKey && document.activeElement === lastElement) {
+						e.preventDefault();
+						firstElement.focus();
 					}
-					break;
+				}
 			}
 		};
 
@@ -71,7 +79,6 @@ export const AppContainer = ({
 
 	const handleAppClick = () => {
 		const newExpanded = !isExpanded;
-		setIsExpanded(newExpanded);
 		onExpansionChange?.(newExpanded);
 	};
 
@@ -98,7 +105,6 @@ export const AppContainer = ({
 		if (isFullScreen) {
 			setIsFullScreen(false);
 		} else {
-			setIsExpanded(false);
 			onExpansionChange?.(false);
 		}
 	};
@@ -160,9 +166,39 @@ export const AppContainer = ({
 				{/* Render thumbnail when collapsed, content when expanded */}
 				{isExpanded ? (
 					<motion.div
-						className="relative flex h-full flex-col items-start justify-start p-8 pt-8"
+						className="relative flex h-full flex-col items-start justify-start p-8"
 						layout
 					>
+						{/* App Header: Title and Icon */}
+						<motion.div
+							className="mb-4 flex items-center gap-3 self-stretch"
+							initial={{ opacity: 0, y: -20 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
+							transition={{ delay: 0.15, duration: 0.35, ease: "easeInOut" }}
+							aria-hidden="true"
+						>
+							{app.icon && (
+								<motion.div
+									initial={{ opacity: 0, x: -20 }}
+									animate={{ opacity: 1, x: 0 }}
+									exit={{ opacity: 0, x: -20, transition: { duration: 0.25 } }}
+									transition={{ delay: 0.2, duration: 0.35, ease: "easeInOut" }}
+								>
+									<app.icon className="h-7 w-7 text-primary" />
+								</motion.div>
+							)}
+							<motion.h2
+								className="font-semibold text-primary text-xl"
+								initial={{ opacity: 0, x: -20 }}
+								animate={{ opacity: 1, x: 0 }}
+								exit={{ opacity: 0, x: -20, transition: { duration: 0.25 } }}
+								transition={{ delay: 0.25, duration: 0.35, ease: "easeInOut" }}
+							>
+								{app.name}
+							</motion.h2>
+						</motion.div>
+
 						{/* App content */}
 						<motion.main
 							id={`app-content-${app.id}`}

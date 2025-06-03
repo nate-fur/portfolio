@@ -15,9 +15,6 @@ export const BaseAppContent = ({
 }: BaseAppContentProps) => {
 	return (
 		<div className="flex min-h-64 flex-col rounded-lg border bg-card p-6">
-			<h3 className="mb-4 font-semibold text-card-foreground text-lg">
-				{title}
-			</h3>
 			<p className="mb-6 text-muted-foreground text-sm leading-relaxed">
 				{description}
 			</p>
