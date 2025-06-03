@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { App } from "~/apps/types";
 import { cn } from "~/lib/utils";
 
@@ -16,6 +16,58 @@ export const AppContainer = ({
 }: AppContainerProps) => {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const [isFullScreen, setIsFullScreen] = useState(false);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const fullScreenButtonRef = useRef<HTMLButtonElement>(null);
+	const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+	// Handle keyboard events for accessibility
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (!isExpanded) return;
+
+			switch (e.key) {
+				case "Escape":
+					e.preventDefault();
+					handleClose(e as unknown as React.MouseEvent);
+					break;
+				case "Tab":
+					// Trap focus within the expanded app when in full screen
+					if (isFullScreen) {
+						const focusableElements = containerRef.current?.querySelectorAll(
+							'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+						);
+						if (focusableElements && focusableElements.length > 0) {
+							const firstElement = focusableElements[0] as HTMLElement;
+							const lastElement = focusableElements[
+								focusableElements.length - 1
+							] as HTMLElement;
+
+							if (e.shiftKey && document.activeElement === firstElement) {
+								e.preventDefault();
+								lastElement.focus();
+							} else if (
+								!e.shiftKey &&
+								document.activeElement === lastElement
+							) {
+								e.preventDefault();
+								firstElement.focus();
+							}
+						}
+					}
+					break;
+			}
+		};
+
+		if (isExpanded) {
+			document.addEventListener("keydown", handleKeyDown);
+			// Focus the container when expanded for keyboard navigation
+			containerRef.current?.focus();
+		}
+
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [isExpanded, isFullScreen]);
 
 	const handleAppClick = () => {
 		const newExpanded = !isExpanded;
@@ -23,18 +75,39 @@ export const AppContainer = ({
 		onExpansionChange?.(newExpanded);
 	};
 
-	const handleFullScreenToggle = (e: React.MouseEvent) => {
+	const handleFullScreenToggle = (e: React.MouseEvent | KeyboardEvent) => {
 		e.stopPropagation();
-		setIsFullScreen(!isFullScreen);
+		const newFullScreen = !isFullScreen;
+		setIsFullScreen(newFullScreen);
+
+		// Announce state change to screen readers
+		const announcement = newFullScreen
+			? "Entered full screen mode"
+			: "Exited full screen mode";
+		const ariaLiveRegion = document.createElement("div");
+		ariaLiveRegion.setAttribute("aria-live", "polite");
+		ariaLiveRegion.setAttribute("aria-atomic", "true");
+		ariaLiveRegion.className = "sr-only";
+		ariaLiveRegion.textContent = announcement;
+		document.body.appendChild(ariaLiveRegion);
+		setTimeout(() => document.body.removeChild(ariaLiveRegion), 1000);
 	};
 
-	const handleClose = (e: React.MouseEvent) => {
+	const handleClose = (e: React.MouseEvent | KeyboardEvent) => {
 		e.stopPropagation();
 		if (isFullScreen) {
 			setIsFullScreen(false);
 		} else {
 			setIsExpanded(false);
 			onExpansionChange?.(false);
+		}
+	};
+
+	// Handle keyboard events for buttons
+	const handleButtonKeyDown = (e: React.KeyboardEvent, action: () => void) => {
+		if (e.key === "Enter" || e.key === " ") {
+			e.preventDefault();
+			action();
 		}
 	};
 
@@ -46,6 +119,7 @@ export const AppContainer = ({
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0.4, ease: "easeInOut" }}
+			aria-hidden="true"
 		/>
 	);
 
@@ -53,9 +127,10 @@ export const AppContainer = ({
 		<>
 			{fullScreenBackdrop}
 			<motion.div
+				ref={containerRef}
 				layoutId={`app-${app.id}`}
 				className={cn(
-					"relative overflow-hidden border-1 border-primary",
+					"relative overflow-hidden border-1 border-primary focus:outline-none focus:ring-2 focus:ring-primary",
 					isFullScreen && isExpanded
 						? "fixed inset-0 z-90 m-auto h-[90vh] w-[90vw] cursor-default"
 						: isExpanded
@@ -63,6 +138,11 @@ export const AppContainer = ({
 							: "h-full w-full cursor-pointer hover:opacity-80",
 				)}
 				onClick={!isExpanded ? handleAppClick : undefined}
+				onKeyDown={
+					!isExpanded
+						? (e) => handleButtonKeyDown(e, handleAppClick)
+						: undefined
+				}
 				whileHover={!isExpanded ? { scale: 1.02 } : {}}
 				whileTap={!isExpanded ? { scale: 0.98 } : {}}
 				layout
@@ -70,6 +150,12 @@ export const AppContainer = ({
 					layout: { duration: 0.4, ease: "easeInOut" },
 					scale: { duration: 0.2 },
 				}}
+				role={!isExpanded ? "button" : "dialog"}
+				tabIndex={!isExpanded ? 0 : -1}
+				aria-label={!isExpanded ? `Open ${app.name} app` : undefined}
+				aria-expanded={isExpanded}
+				aria-modal={isExpanded && isFullScreen}
+				aria-describedby={isExpanded ? `app-content-${app.id}` : undefined}
 			>
 				{/* Render thumbnail when collapsed, content when expanded */}
 				{isExpanded ? (
@@ -78,7 +164,8 @@ export const AppContainer = ({
 						layout
 					>
 						{/* App content */}
-						<motion.div
+						<motion.main
+							id={`app-content-${app.id}`}
 							key={isFullScreen ? "fullscreen" : "expanded"}
 							className="w-full flex-1 overflow-hidden"
 							initial={{ opacity: 0, filter: "blur(4px)" }}
@@ -95,9 +182,10 @@ export const AppContainer = ({
 								duration: 0.3,
 								ease: "easeInOut",
 							}}
+							aria-label={`${app.name} application content`}
 						>
 							{app.contentComponent()}
-						</motion.div>
+						</motion.main>
 
 						{/* Control buttons */}
 						<motion.div
@@ -105,23 +193,35 @@ export const AppContainer = ({
 							initial={{ opacity: 0, scale: 0.8 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ delay: 0.4, duration: 0.3 }}
+							role="toolbar"
+							aria-label="App controls"
 						>
 							<motion.button
-								className="flex h-8 w-8 items-center justify-center border-1 border-primary hover:opacity-70"
+								ref={fullScreenButtonRef}
+								className="flex h-8 w-8 items-center justify-center border-1 border-primary hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-primary"
 								whileHover={{ scale: 1.1 }}
 								whileTap={{ scale: 0.9 }}
 								onClick={handleFullScreenToggle}
+								onKeyDown={(e) =>
+									handleButtonKeyDown(e, () =>
+										handleFullScreenToggle(e.nativeEvent),
+									)
+								}
+								aria-label={
+									isFullScreen
+										? "Exit full screen mode"
+										: "Enter full screen mode"
+								}
+								aria-pressed={isFullScreen}
+								type="button"
 							>
 								<svg
 									className="h-4 w-4"
 									fill="none"
 									stroke="currentColor"
 									viewBox="0 0 24 24"
-									aria-label={isFullScreen ? "Exit Full Screen" : "Full Screen"}
+									aria-hidden="true"
 								>
-									<title>
-										{isFullScreen ? "Exit Full Screen" : "Full Screen"}
-									</title>
 									{isFullScreen ? (
 										<path
 											strokeLinecap="round"
@@ -140,19 +240,26 @@ export const AppContainer = ({
 								</svg>
 							</motion.button>
 							<motion.button
-								className="flex h-8 w-8 items-center justify-center border-1 border-primary hover:opacity-70"
+								ref={closeButtonRef}
+								className="flex h-8 w-8 items-center justify-center border-1 border-primary hover:opacity-70 focus:outline-none focus:ring-1 focus:ring-primary"
 								whileHover={{ scale: 1.1 }}
 								whileTap={{ scale: 0.9 }}
 								onClick={handleClose}
+								onKeyDown={(e) =>
+									handleButtonKeyDown(e, () => handleClose(e.nativeEvent))
+								}
+								aria-label={
+									isFullScreen ? "Exit full screen and close app" : "Close app"
+								}
+								type="button"
 							>
 								<svg
 									className="h-4 w-4"
 									fill="none"
 									stroke="currentColor"
 									viewBox="0 0 24 24"
-									aria-label="Close"
+									aria-hidden="true"
 								>
-									<title>Close</title>
 									<path
 										strokeLinecap="round"
 										strokeLinejoin="round"
