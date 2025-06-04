@@ -210,6 +210,6 @@
 	footer,
 	nav,
 	aside {
-		@apply bg-background text-foreground;
+		@apply text-foreground;
 	}
 }

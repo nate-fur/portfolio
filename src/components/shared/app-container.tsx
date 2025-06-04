@@ -136,9 +136,9 @@ export const AppContainer = ({
 				ref={containerRef}
 				layoutId={`app-${app.id}`}
 				className={cn(
-					"relative overflow-hidden border-1 border-primary focus:outline-none focus:ring-2 focus:ring-primary",
+					"relative overflow-hidden border-1 border-primary bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary",
 					isFullScreen && isExpanded
-						? "fixed inset-0 z-90 m-auto h-[90vh] w-[90vw] cursor-default"
+						? "fixed inset-0 z-90 m-auto h-[90vh] w-[90vw] cursor-default bg-background"
 						: isExpanded
 							? "h-auto min-h-fit w-full cursor-default"
 							: "h-full w-full cursor-pointer hover:opacity-80",
@@ -308,7 +308,7 @@ export const AppContainer = ({
 					</motion.div>
 				) : (
 					<motion.div
-						className="relative flex h-full flex-col items-center justify-center p-2"
+						className="relative flex h-full flex-col items-stretch justify-center"
 						layout
 					>
 						{/* Render the app's thumbnail component */}

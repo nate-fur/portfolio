@@ -49,19 +49,19 @@ export const ChatbotApp = () => {
 		>
 			<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
 				<div className="rounded-xl bg-white/10 p-4">
-					<h4 className="mb-2 font-medium text-sm text-white">
+					<h4 className="mb-2 font-medium text-foreground text-sm">
 						Natural Language Processing
 					</h4>
-					<p className="text-sm text-white/70">
+					<p className="text-muted-foreground text-sm">
 						Advanced understanding of context and intent for meaningful
 						conversations.
 					</p>
 				</div>
 				<div className="rounded-xl bg-white/10 p-4">
-					<h4 className="mb-2 font-medium text-sm text-white">
+					<h4 className="mb-2 font-medium text-foreground text-sm">
 						Code Assistance
 					</h4>
-					<p className="text-sm text-white/70">
+					<p className="text-muted-foreground text-sm">
 						Get help with debugging, code reviews, and programming concepts.
 					</p>
 				</div>
@@ -70,7 +70,9 @@ export const ChatbotApp = () => {
 			<div className="mt-4 rounded-xl bg-white/5 p-4">
 				<div className="mb-3 flex items-center gap-2">
 					<div className="h-2 w-2 rounded-full bg-green-400" />
-					<span className="text-sm text-white/80">AI Assistant Online</span>
+					<span className="text-muted-foreground text-sm">
+						AI Assistant Online
+					</span>
 				</div>
 
 				{/* Chat Messages */}
@@ -80,8 +82,8 @@ export const ChatbotApp = () => {
 							key={message.id}
 							className={`rounded-lg p-3 ${
 								message.sender === "bot"
-									? "bg-white/10 text-white/90"
-									: "ml-8 bg-blue-600/20 text-blue-200"
+									? "bg-white/10 text-foreground"
+									: "ml-8 bg-blue-600/20 text-primary"
 							}`}
 						>
 							<p className="text-sm">{message.text}</p>
@@ -97,7 +99,7 @@ export const ChatbotApp = () => {
 						onChange={(e) => setInputMessage(e.target.value)}
 						onKeyPress={handleKeyPress}
 						placeholder="Type your message..."
-						className="flex-1 rounded border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/50"
+						className="flex-1 rounded border border-white/20 bg-white/10 px-3 py-2 text-foreground text-sm placeholder-muted-foreground"
 					/>
 					<button
 						type="button"

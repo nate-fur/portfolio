@@ -48,15 +48,12 @@ The consolidated registry contains all app definitions with:
 - **App metadata**: id, name, icon, size
 - **Content component**: The expanded app interface
 - **Thumbnail component**: The grid tile appearance
-- **Custom flags**: Whether the app has custom implementations
 
 **Key Functions:**
 - `getAllApps()` - Returns all registered apps as an array
 - `getApp(appId)` - Returns a specific app by ID
 - `getAppContent(appId)` - Returns the content component for an app
 - `getAppThumbnail(appId, props)` - Returns the thumbnail component for an app
-- `hasCustomContent(appId)` - Checks if an app has custom content
-- `hasCustomThumbnail(appId)` - Checks if an app has custom thumbnail
 
 ### Benefits of Consolidation
 
@@ -105,6 +102,108 @@ Each thumbnail component receives `AppThumbnailProps`:
 
 Both custom and default thumbnails follow the same interface, ensuring consistency.
 
+## Creating Custom Thumbnails
+
+### Using the BaseThumbnail Component
+
+The `BaseThumbnail` component provides a standardized foundation for all app thumbnails, including:
+
+- Consistent hover states and animations
+- Layout structure (icon + title)
+- Motion transitions
+- Common styling
+
+#### Basic Usage
+
+```tsx
+import { BaseThumbnail } from "~/apps/base-thumbnail";
+import { FileText } from "lucide-react";
+
+export const MyAppThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
+	return (
+		<BaseThumbnail
+			name="My App"
+			icon={FileText}
+			iconColor="text-blue-500"
+			size={size}
+		/>
+	);
+};
+```
+
+#### Advanced Usage with Custom Animations
+
+For more sophisticated thumbnails, you can add custom background animations and floating elements as children:
+
+```tsx
+import { motion } from "framer-motion";
+import { BaseThumbnail } from "~/apps/base-thumbnail";
+import { Music, Play } from "lucide-react";
+
+export const CustomThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
+	return (
+		<BaseThumbnail
+			name="Custom App"
+			icon={Music}
+			iconColor="text-purple-500"
+			size={size}
+		>
+			{/* Custom background animation */}
+			<motion.div
+				className="absolute inset-0 overflow-hidden"
+				animate={{
+					background: [
+						"radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 50%)",
+						"radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 50%)",
+					],
+				}}
+				transition={{
+					duration: 2,
+					repeat: Number.POSITIVE_INFINITY,
+					ease: "easeInOut",
+				}}
+			/>
+
+			{/* Floating decorative element */}
+			<motion.div
+				className="absolute z-10"
+				style={{ left: "calc(50% + 16px)", top: "calc(50% - 40px)" }}
+				animate={{
+					scale: [0.8, 1.2, 0.8],
+					opacity: [0.6, 1, 0.6],
+				}}
+				transition={{
+					duration: 3,
+					repeat: Number.POSITIVE_INFINITY,
+					ease: "easeInOut",
+				}}
+			>
+				<Play className="h-3 w-3 text-purple-300" />
+			</motion.div>
+		</BaseThumbnail>
+	);
+};
+```
+
+#### Props
+
+The `BaseThumbnail` component accepts these props:
+
+- `name` (string, required): The display name of the app
+- `icon` (LucideIcon, required): The main icon for the app
+- `size` (optional): "small" | "medium" | "large"
+- `iconColor` (optional): Tailwind CSS color class for the icon (default: "text-primary")
+- `children` (optional): Custom background animations or decorative elements
+- `className` (optional): Additional CSS classes for the container
+
+#### Best Practices
+
+1. **Consistent Positioning**: Use calc() and percentage-based positioning for floating elements to ensure they work across different thumbnail sizes
+2. **Z-Index**: Add `z-10` to floating elements to ensure they appear above the background
+3. **Color Harmony**: Choose colors that complement your app's theme
+4. **Performance**: Keep animations lightweight and use `ease-in-out` for smooth transitions
+5. **Accessibility**: Ensure sufficient color contrast and avoid overly distracting animations
+
 ## Adding New Apps
 
 To add a new app to the registry:
@@ -151,8 +250,6 @@ To add a new app to the registry:
        size: "medium",
        contentComponent: () => <MyNewApp />,
        thumbnailComponent: (props) => <MyNewAppThumbnail {...props} />,
-       hasCustomContent: true,
-       hasCustomThumbnail: true,
      },
    };
    ```
@@ -194,8 +291,6 @@ interface App {
   size: "small" | "medium" | "large";
   contentComponent: () => ReactNode;
   thumbnailComponent: (props: AppThumbnailProps) => ReactNode;
-  hasCustomContent: boolean;
-  hasCustomThumbnail: boolean;
 }
 
 interface AppContainerProps {

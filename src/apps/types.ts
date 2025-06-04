@@ -11,3 +11,6 @@ export interface DefaultThumbnailProps extends AppThumbnailProps {
 
 // Re-export the App interface from the registry for consistency
 export type { App } from "~/apps/app-registry";
+
+// Re-export BaseThumbnailProps from base-thumbnail
+export type { BaseThumbnailProps } from "./base-thumbnail";

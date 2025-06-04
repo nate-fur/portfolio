@@ -1,29 +1,28 @@
-// Base components
-export { BaseAppContent } from "~/apps/base-app-content";
-
-// App content components
-export { ChatbotApp } from "~/apps/chatbot";
-export { SnakeGameApp } from "~/apps/snake-game";
-export { SpotifyApp } from "~/apps/spotify";
-export { ThemeCustomizerApp } from "~/apps/theme-customizer";
-
-// Consolidated registry and utilities
+// App registry
 export {
 	getAllApps,
 	getApp,
 	getAppContent,
 	getAppThumbnail,
-	hasCustomContent,
-	hasCustomThumbnail,
-	APP_REGISTRY,
-	// Legacy compatibility exports
-	APP_CONTENT_REGISTRY,
-	APP_THUMBNAIL_REGISTRY,
-} from "~/apps/app-registry";
+} from "./app-registry";
+
+// Base components
+export { BaseAppContent } from "./base-app-content";
+export { BaseThumbnail } from "./base-thumbnail";
+
+// Default components
+export { DefaultThumbnail } from "./default-thumbnail";
+
+// Individual apps
+export { ChatbotApp } from "./chatbot";
+export { SnakeGameApp } from "./snake-game";
+export { SpotifyApp } from "./spotify";
+export { ThemeCustomizerApp } from "./theme-customizer";
 
 // Types
 export type {
-	AppThumbnailProps,
-	DefaultThumbnailProps,
 	App,
-} from "~/apps/types";
+	AppThumbnailProps,
+	BaseThumbnailProps,
+	DefaultThumbnailProps,
+} from "./types";

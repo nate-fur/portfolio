@@ -20,8 +20,9 @@ import type { ReactNode } from "react";
 import { BaseAppContent } from "~/apps/base-app-content";
 import { ChatbotApp } from "~/apps/chatbot";
 import { DefaultThumbnail } from "~/apps/default-thumbnail";
-import { SnakeGameApp } from "~/apps/snake-game";
+import { SnakeGameApp, SnakeGameThumbnail } from "~/apps/snake-game";
 import { SpotifyApp } from "~/apps/spotify";
+import { StockSimulatorThumbnail } from "~/apps/stock-simulator";
 import { ThemeCustomizerApp } from "~/apps/theme-customizer";
 import type { AppThumbnailProps } from "~/apps/types";
 
@@ -33,8 +34,6 @@ export interface App {
 	size: "small" | "medium" | "large";
 	contentComponent: () => ReactNode;
 	thumbnailComponent: (props: AppThumbnailProps) => ReactNode;
-	hasCustomContent: boolean;
-	hasCustomThumbnail: boolean;
 }
 
 // Default app content for apps that don't have specific implementations yet
@@ -72,8 +71,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="AI Assistant" icon={Bot} {...props} />
 		),
-		hasCustomContent: true,
-		hasCustomThumbnail: false,
 	},
 	snake: {
 		id: "snake",
@@ -81,11 +78,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Gamepad2,
 		size: "small",
 		contentComponent: () => <SnakeGameApp />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="Snake" icon={Gamepad2} {...props} />
-		),
-		hasCustomContent: true,
-		hasCustomThumbnail: false,
+		thumbnailComponent: (props) => <SnakeGameThumbnail {...props} />,
 	},
 	spotify: {
 		id: "spotify",
@@ -96,8 +89,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="Spotify" icon={Music} {...props} />
 		),
-		hasCustomContent: true,
-		hasCustomThumbnail: false,
 	},
 	"theme-customizer": {
 		id: "theme-customizer",
@@ -108,8 +99,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="Theme Customizer" icon={Palette} {...props} />
 		),
-		hasCustomContent: true,
-		hasCustomThumbnail: false,
 	},
 	"tech-stack": {
 		id: "tech-stack",
@@ -120,8 +109,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="Tech Stack" icon={Layers} {...props} />
 		),
-		hasCustomContent: false,
-		hasCustomThumbnail: false,
 	},
 	"video-playlist": {
 		id: "video-playlist",
@@ -132,8 +119,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="Videos" icon={Video} {...props} />
 		),
-		hasCustomContent: false,
-		hasCustomThumbnail: false,
 	},
 	minesweeper: {
 		id: "minesweeper",
@@ -144,8 +129,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="Minesweeper" icon={Gamepad2} {...props} />
 		),
-		hasCustomContent: false,
-		hasCustomThumbnail: false,
 	},
 	blog: {
 		id: "blog",
@@ -156,8 +139,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="Blog" icon={FileText} {...props} />
 		),
-		hasCustomContent: false,
-		hasCustomThumbnail: false,
 	},
 	"twitter-feed": {
 		id: "twitter-feed",
@@ -168,8 +149,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="X Feed" icon={Twitter} {...props} />
 		),
-		hasCustomContent: false,
-		hasCustomThumbnail: false,
 	},
 	"code-inspector": {
 		id: "code-inspector",
@@ -180,8 +159,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="Code Inspector" icon={Code} {...props} />
 		),
-		hasCustomContent: false,
-		hasCustomThumbnail: false,
 	},
 	"github-analyzer": {
 		id: "github-analyzer",
@@ -192,8 +169,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="GitHub Analyzer" icon={Github} {...props} />
 		),
-		hasCustomContent: false,
-		hasCustomThumbnail: false,
 	},
 	"mcp-tool": {
 		id: "mcp-tool",
@@ -204,8 +179,6 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="MCP Tool" icon={Wrench} {...props} />
 		),
-		hasCustomContent: false,
-		hasCustomThumbnail: false,
 	},
 	"url-shortener": {
 		id: "url-shortener",
@@ -216,20 +189,25 @@ const APP_REGISTRY: Record<string, App> = {
 		thumbnailComponent: (props) => (
 			<DefaultThumbnail name="URL Shortener" icon={Link} {...props} />
 		),
-		hasCustomContent: false,
-		hasCustomThumbnail: false,
 	},
 	"stock-simulator": {
 		id: "stock-simulator",
 		name: "Stock Simulator",
 		icon: TrendingUp,
 		size: "medium",
-		contentComponent: () => <DefaultAppContent appName="Stock Simulator" />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="Stock Simulator" icon={TrendingUp} {...props} />
+		contentComponent: () => (
+			<BaseAppContent
+				title="Stock Simulator"
+				description="A comprehensive stock market simulation platform to practice trading strategies and learn about financial markets without real money risks."
+				technologies={[
+					"React",
+					"TypeScript",
+					"Financial APIs",
+					"Real-time Data",
+				]}
+			/>
 		),
-		hasCustomContent: false,
-		hasCustomThumbnail: false,
+		thumbnailComponent: (props) => <StockSimulatorThumbnail {...props} />,
 	},
 };
 
@@ -269,26 +247,6 @@ export const getAppThumbnail = (
 ): ReactNode => {
 	const app = APP_REGISTRY[appId];
 	return app ? app.thumbnailComponent(props) : null;
-};
-
-/**
- * Check if an app has custom content implemented
- * @param appId - The ID of the app
- * @returns True if the app has custom content, false otherwise
- */
-export const hasCustomContent = (appId: string): boolean => {
-	const app = APP_REGISTRY[appId];
-	return app ? app.hasCustomContent : false;
-};
-
-/**
- * Check if an app has a custom thumbnail implemented
- * @param appId - The ID of the app
- * @returns True if the app has a custom thumbnail, false if it uses DefaultThumbnail
- */
-export const hasCustomThumbnail = (appId: string): boolean => {
-	const app = APP_REGISTRY[appId];
-	return app ? app.hasCustomThumbnail : false;
 };
 
 // Export the registry for backward compatibility (if needed)
