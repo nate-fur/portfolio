@@ -1,17 +1,16 @@
-import { motion } from "framer-motion";
-import { Brush, Palette, Pipette } from "lucide-react";
+import { Code } from "lucide-react";
 import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
-export const ThemeCustomizerThumbnail = ({
+export const CodeInspectorThumbnail = ({
 	size = "medium",
 }: AppThumbnailProps) => {
 	return (
 		<BaseThumbnail
-			name="Theme Customizer"
-			icon={Palette}
+			name="Code Inspector"
+			icon={Code}
 			size={size}
-			backgroundImage="/apps/thumbnails/color-palette.svg"
+			backgroundImage="/apps/thumbnails/code-inspector.svg"
 			className="bg-center bg-cover bg-no-repeat"
 		/>
 	);

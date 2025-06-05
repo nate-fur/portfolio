@@ -22,10 +22,15 @@ export const BaseThumbnail = ({
 	return (
 		<motion.div
 			className={cn(
-				"relative flex h-full flex-col items-center justify-center overflow-hidden",
+				"group relative flex h-full flex-col items-center justify-center overflow-hidden",
 				!backgroundImage && "bg-primary/10",
 				className,
 			)}
+			style={{
+				backgroundImage: backgroundImage
+					? `url(${backgroundImage})`
+					: undefined,
+			}}
 			layout
 			whileHover={{ scale: 1.02 }}
 			whileTap={{ scale: 0.98 }}
@@ -36,25 +41,33 @@ export const BaseThumbnail = ({
 		>
 			{/* Content overlay with icon and text */}
 			<div className="relative z-10 flex h-full w-full flex-col items-center justify-center">
-				{/* Icon container */}
-				<motion.div
-					className="relative flex h-16 w-16 items-center justify-center"
-					layout
-					transition={{ layout: { duration: 0.4 } }}
-				>
-					<motion.div layout className="relative">
-						<Icon className={cn("h-8 w-8 text-primary")} />
-					</motion.div>
-				</motion.div>
+				{/* Overlay background for better visibility */}
+				{backgroundImage && (
+					<div className="absolute inset-0 rounded-lg bg-background/80 backdrop-blur-xs duration-300 group-hover:backdrop-blur-none" />
+				)}
 
-				{/* App name */}
-				<motion.span
-					className={cn("mt-2 text-center font-medium text-primary")}
-					layout
-					transition={{ layout: { duration: 0.4 } }}
-				>
-					{name}
-				</motion.span>
+				{/* Content container */}
+				<div className="relative z-20 flex flex-col items-center justify-center">
+					{/* Icon container */}
+					<motion.div
+						className="relative flex h-16 w-16 items-center justify-center"
+						layout
+						transition={{ layout: { duration: 0.4 } }}
+					>
+						<motion.div layout className="relative">
+							<Icon className={cn("h-8 w-8 text-primary")} />
+						</motion.div>
+					</motion.div>
+
+					{/* App name */}
+					<motion.span
+						className={cn("mt-2 text-center font-medium text-primary")}
+						layout
+						transition={{ layout: { duration: 0.4 } }}
+					>
+						{name}
+					</motion.span>
+				</div>
 			</div>
 
 			{/* Custom background/animation layer */}

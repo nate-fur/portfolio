@@ -4,5 +4,13 @@ import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
 export const SpotifyThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
-	return <BaseThumbnail name="Spotify" icon={Music} size={size} />;
+	return (
+		<BaseThumbnail
+			name="Spotify"
+			icon={Music}
+			size={size}
+			backgroundImage="/apps/thumbnails/spotify.svg"
+			className="bg-center bg-cover bg-no-repeat"
+		/>
+	);
 };

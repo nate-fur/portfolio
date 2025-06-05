@@ -140,7 +140,7 @@ export function SideNav() {
 	return (
 		<>
 			{/* Floating NF Avatar - Always visible on desktop */}
-			<div className="fixed top-3 left-3 z-50 hidden rounded-full border-1 border-primary sm:block">
+			<div className="fixed top-3 left-3 z-50 hidden rounded-full border-1 border-primary bg-background sm:block">
 				<DropdownMenu onOpenChange={handleDropdownOpenChange}>
 					<DropdownMenuTrigger asChild>
 						<button

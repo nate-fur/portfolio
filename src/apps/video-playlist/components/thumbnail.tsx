@@ -1,17 +1,16 @@
-import { motion } from "framer-motion";
-import { Brush, Palette, Pipette } from "lucide-react";
+import { Video } from "lucide-react";
 import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
-export const ThemeCustomizerThumbnail = ({
+export const VideoPlaylistThumbnail = ({
 	size = "medium",
 }: AppThumbnailProps) => {
 	return (
 		<BaseThumbnail
-			name="Theme Customizer"
-			icon={Palette}
+			name="Videos"
+			icon={Video}
 			size={size}
-			backgroundImage="/apps/thumbnails/color-palette.svg"
+			backgroundImage="/apps/thumbnails/videos.svg"
 			className="bg-center bg-cover bg-no-repeat"
 		/>
 	);

@@ -18,13 +18,25 @@ import type { ReactNode } from "react";
 
 // Import app components
 import { BaseAppContent } from "~/apps/base-app-content";
-import { ChatbotApp } from "~/apps/chatbot";
+import { BlogThumbnail } from "~/apps/blog";
+import { ChatbotApp, ChatbotThumbnail } from "~/apps/chatbot";
+import { CodeInspectorThumbnail } from "~/apps/code-inspector";
 import { DefaultThumbnail } from "~/apps/default-thumbnail";
+import { GitHubAnalyzerThumbnail } from "~/apps/github-analyzer";
+import { McpToolThumbnail } from "~/apps/mcp-tool";
+import { MinesweeperThumbnail } from "~/apps/minesweeper";
 import { SnakeGameApp, SnakeGameThumbnail } from "~/apps/snake-game";
-import { SpotifyApp } from "~/apps/spotify";
+import { SpotifyApp, SpotifyThumbnail } from "~/apps/spotify";
 import { StockSimulatorThumbnail } from "~/apps/stock-simulator";
-import { ThemeCustomizerApp } from "~/apps/theme-customizer";
+import { TechStackThumbnail } from "~/apps/tech-stack";
+import {
+	ThemeCustomizerApp,
+	ThemeCustomizerThumbnail,
+} from "~/apps/theme-customizer";
+import { TwitterFeedThumbnail } from "~/apps/twitter-feed";
 import type { AppThumbnailProps } from "~/apps/types";
+import { UrlShortenerThumbnail } from "~/apps/url-shortener";
+import { VideoPlaylistThumbnail } from "~/apps/video-playlist";
 
 // App interface that combines all app properties
 export interface App {
@@ -68,9 +80,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Bot,
 		size: "large",
 		contentComponent: () => <ChatbotApp />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="AI Assistant" icon={Bot} {...props} />
-		),
+		thumbnailComponent: (props) => <ChatbotThumbnail {...props} />,
 	},
 	snake: {
 		id: "snake",
@@ -86,9 +96,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Music,
 		size: "large",
 		contentComponent: () => <SpotifyApp />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="Spotify" icon={Music} {...props} />
-		),
+		thumbnailComponent: (props) => <SpotifyThumbnail {...props} />,
 	},
 	"theme-customizer": {
 		id: "theme-customizer",
@@ -96,9 +104,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Palette,
 		size: "medium",
 		contentComponent: () => <ThemeCustomizerApp />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="Theme Customizer" icon={Palette} {...props} />
-		),
+		thumbnailComponent: (props) => <ThemeCustomizerThumbnail {...props} />,
 	},
 	"tech-stack": {
 		id: "tech-stack",
@@ -106,9 +112,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Layers,
 		size: "medium",
 		contentComponent: () => <DefaultAppContent appName="Tech Stack" />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="Tech Stack" icon={Layers} {...props} />
-		),
+		thumbnailComponent: (props) => <TechStackThumbnail {...props} />,
 	},
 	"video-playlist": {
 		id: "video-playlist",
@@ -116,9 +120,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Video,
 		size: "small",
 		contentComponent: () => <DefaultAppContent appName="Videos" />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="Videos" icon={Video} {...props} />
-		),
+		thumbnailComponent: (props) => <VideoPlaylistThumbnail {...props} />,
 	},
 	minesweeper: {
 		id: "minesweeper",
@@ -126,9 +128,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Gamepad2,
 		size: "medium",
 		contentComponent: () => <DefaultAppContent appName="Minesweeper" />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="Minesweeper" icon={Gamepad2} {...props} />
-		),
+		thumbnailComponent: (props) => <MinesweeperThumbnail {...props} />,
 	},
 	blog: {
 		id: "blog",
@@ -136,9 +136,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: FileText,
 		size: "large",
 		contentComponent: () => <DefaultAppContent appName="Blog" />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="Blog" icon={FileText} {...props} />
-		),
+		thumbnailComponent: (props) => <BlogThumbnail {...props} />,
 	},
 	"twitter-feed": {
 		id: "twitter-feed",
@@ -146,9 +144,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Twitter,
 		size: "small",
 		contentComponent: () => <DefaultAppContent appName="X Feed" />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="X Feed" icon={Twitter} {...props} />
-		),
+		thumbnailComponent: (props) => <TwitterFeedThumbnail {...props} />,
 	},
 	"code-inspector": {
 		id: "code-inspector",
@@ -156,9 +152,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Code,
 		size: "medium",
 		contentComponent: () => <DefaultAppContent appName="Code Inspector" />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="Code Inspector" icon={Code} {...props} />
-		),
+		thumbnailComponent: (props) => <CodeInspectorThumbnail {...props} />,
 	},
 	"github-analyzer": {
 		id: "github-analyzer",
@@ -166,9 +160,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Github,
 		size: "large",
 		contentComponent: () => <DefaultAppContent appName="GitHub Analyzer" />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="GitHub Analyzer" icon={Github} {...props} />
-		),
+		thumbnailComponent: (props) => <GitHubAnalyzerThumbnail {...props} />,
 	},
 	"mcp-tool": {
 		id: "mcp-tool",
@@ -176,9 +168,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Wrench,
 		size: "small",
 		contentComponent: () => <DefaultAppContent appName="MCP Tool" />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="MCP Tool" icon={Wrench} {...props} />
-		),
+		thumbnailComponent: (props) => <McpToolThumbnail {...props} />,
 	},
 	"url-shortener": {
 		id: "url-shortener",
@@ -186,9 +176,7 @@ const APP_REGISTRY: Record<string, App> = {
 		icon: Link,
 		size: "medium",
 		contentComponent: () => <DefaultAppContent appName="URL Shortener" />,
-		thumbnailComponent: (props) => (
-			<DefaultThumbnail name="URL Shortener" icon={Link} {...props} />
-		),
+		thumbnailComponent: (props) => <UrlShortenerThumbnail {...props} />,
 	},
 	"stock-simulator": {
 		id: "stock-simulator",
