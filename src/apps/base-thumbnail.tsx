@@ -24,6 +24,10 @@ export const BaseThumbnail = ({
 			className={cn(
 				"group relative flex h-full flex-col items-center justify-center overflow-hidden",
 				!backgroundImage && "bg-primary/10",
+				// Apply filter to convert background SVG to primary theme color, remove on hover
+				backgroundImage && "transition-all duration-300",
+				backgroundImage && "[filter:sepia(1)_hue-rotate(200deg)_saturate(0.8)_brightness(0.7)]",
+				backgroundImage && "group-hover:[filter:none]",
 				className,
 			)}
 			style={{
