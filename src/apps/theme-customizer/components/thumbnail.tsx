@@ -6,5 +6,5 @@ import type { AppThumbnailProps } from "~/apps/types";
 export const ThemeCustomizerThumbnail = ({
 	size = "medium",
 }: AppThumbnailProps) => {
-	return <BaseThumbnail name="Theme Customizer" icon={Palette} size={size} />;
+	return <BaseThumbnail name="Theme Customizer" icon={Palette} size={size} hoverIconColor="text-purple-500" />;
 };

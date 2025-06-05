@@ -3,5 +3,5 @@ import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
 export const SnakeGameThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
-	return <BaseThumbnail name="Snake" icon={Gamepad2} size={size} />;
+	return <BaseThumbnail name="Snake" icon={Gamepad2} size={size} hoverIconColor="text-orange-500" />;
 };

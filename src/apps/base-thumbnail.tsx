@@ -10,6 +10,7 @@ export interface BaseThumbnailProps extends AppThumbnailProps {
 	children?: ReactNode; // For custom background animations or additional elements
 	className?: string;
 	backgroundImage?: string; // URL or path to background image
+	hoverIconColor?: string; // Color class for icon on hover (defaults to the icon's original color)
 }
 
 export const BaseThumbnail = ({
@@ -18,11 +19,12 @@ export const BaseThumbnail = ({
 	children,
 	className,
 	backgroundImage,
+	hoverIconColor,
 }: BaseThumbnailProps) => {
 	return (
 		<motion.div
 			className={cn(
-				"relative flex h-full flex-col items-center justify-center overflow-hidden",
+				"relative flex h-full flex-col items-center justify-center overflow-hidden group",
 				!backgroundImage && "bg-primary/10",
 				className,
 			)}
@@ -43,7 +45,10 @@ export const BaseThumbnail = ({
 					transition={{ layout: { duration: 0.4 } }}
 				>
 					<motion.div layout className="relative">
-						<Icon className={cn("h-8 w-8 text-primary")} />
+						<Icon className={cn(
+							"h-8 w-8 text-primary transition-colors duration-200",
+							hoverIconColor && `group-hover:${hoverIconColor}`
+						)} />
 					</motion.div>
 				</motion.div>
 

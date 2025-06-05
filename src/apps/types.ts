@@ -7,6 +7,7 @@ export interface AppThumbnailProps {
 export interface DefaultThumbnailProps extends AppThumbnailProps {
 	name: string;
 	icon: LucideIcon;
+	hoverIconColor?: string;
 }
 
 // Re-export the App interface from the registry for consistency

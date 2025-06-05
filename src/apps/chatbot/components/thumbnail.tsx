@@ -6,7 +6,7 @@ import { cn } from "~/lib/utils";
 export const ChatbotThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
 	return (
 		<motion.div
-			className="relative flex h-full flex-col items-center justify-center p-2"
+			className="relative flex h-full flex-col items-center justify-center p-2 group"
 			layout
 		>
 			{/* Animated background elements */}
@@ -33,7 +33,7 @@ export const ChatbotThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
 				transition={{ layout: { duration: 0.4 } }}
 			>
 				<motion.div layout className="relative">
-					<Bot className="h-8 w-8 text-blue-400" />
+					<Bot className="h-8 w-8 text-primary group-hover:text-blue-400 transition-colors duration-200" />
 
 					{/* Floating icons for visual appeal */}
 					<motion.div
@@ -48,7 +48,7 @@ export const ChatbotThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
 							ease: "easeInOut",
 						}}
 					>
-						<MessageCircle className="h-3 w-3 text-blue-300" />
+						<MessageCircle className="h-3 w-3 text-primary group-hover:text-blue-300 transition-colors duration-200" />
 					</motion.div>
 
 					<motion.div
@@ -64,7 +64,7 @@ export const ChatbotThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
 							delay: 1,
 						}}
 					>
-						<Sparkles className="h-3 w-3 text-blue-200" />
+						<Sparkles className="h-3 w-3 text-primary group-hover:text-blue-200 transition-colors duration-200" />
 					</motion.div>
 				</motion.div>
 			</motion.div>
