@@ -1,31 +1,41 @@
-import { useState } from "react";
 import { BaseAppContent } from "~/apps/base-app-content";
+import { useContainerDimensions } from "../hooks/use-container-dimensions";
+import { useSnakeGame } from "../hooks/use-snake-game";
+import { getCanvasDimensions } from "../utils/responsive-canvas";
+import { GameCanvas } from "./game-canvas";
+import { GameControls } from "./game-controls";
+import { GameOverModal } from "./game-over-modal";
+import { MobileControls } from "./mobile-controls";
+import { ScoreDisplay } from "./score-display";
 
 export const SnakeGameApp = () => {
-	const [score, setScore] = useState(0);
-	const [isPlaying, setIsPlaying] = useState(false);
-	const [gameMessage, setGameMessage] = useState("🐍 Press Start to Play");
+	const [containerRef, containerDimensions] = useContainerDimensions();
+	const canvasDimensions = getCanvasDimensions(
+		containerDimensions.width,
+		containerDimensions.height,
+		containerDimensions.isMobile,
+	);
 
-	const handleStart = () => {
-		setIsPlaying(true);
-		setScore(0);
-		setGameMessage("Game Started! Use arrow keys to move");
-	};
+	const {
+		snake,
+		food,
+		gameState,
+		score,
+		highScore,
+		level,
+		startGame,
+		pauseGame,
+		resumeGame,
+		resetGame,
+		handleDirectionChange,
+		isPlaying,
+		isGameOver,
+	} = useSnakeGame({
+		gridWidth: canvasDimensions.GRID_WIDTH,
+		gridHeight: canvasDimensions.GRID_HEIGHT,
+	});
 
-	const handlePause = () => {
-		setIsPlaying(false);
-		setGameMessage("Game Paused - Press Start to Resume");
-	};
-
-	const handleReset = () => {
-		setIsPlaying(false);
-		setScore(0);
-		setGameMessage("🐍 Press Start to Play");
-	};
-
-	const incrementScore = () => {
-		setScore((prev) => prev + 10);
-	};
+	const isNewHighScore = score === highScore && score > 0;
 
 	return (
 		<BaseAppContent
@@ -45,62 +55,76 @@ export const SnakeGameApp = () => {
 				</div>
 				<div className="rounded-xl bg-white/10 p-4">
 					<h4 className="mb-2 font-medium text-foreground text-sm">
-						High Score System
+						Progressive Difficulty
 					</h4>
 					<p className="text-muted-foreground text-sm">
-						Track your best scores and compete with yourself to improve.
+						Game speed increases as you level up. Survive as long as you can!
 					</p>
 				</div>
 			</div>
 
-			<div className="mt-4 rounded-xl bg-white/5 p-4">
-				<div className="mb-3 flex items-center justify-between">
-					<span className="text-muted-foreground text-sm">Game Controls</span>
-					<span className="text-muted-foreground text-sm">Score: {score}</span>
-				</div>
+			<div ref={containerRef} className="mt-6 space-y-4">
+				{/* Score Display */}
+				<ScoreDisplay
+					score={score}
+					highScore={highScore}
+					level={level}
+					snakeLength={snake.length}
+				/>
 
 				{/* Game Controls */}
-				<div className="mb-4 flex gap-2">
-					<button
-						type="button"
-						onClick={handleStart}
-						disabled={isPlaying}
-						className="rounded bg-green-600 px-4 py-2 text-sm text-white transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
-					>
-						{isPlaying ? "Playing..." : "Start"}
-					</button>
-					<button
-						type="button"
-						onClick={handlePause}
-						disabled={!isPlaying}
-						className="rounded bg-yellow-600 px-4 py-2 text-sm text-white transition-colors hover:bg-yellow-700 disabled:cursor-not-allowed disabled:opacity-50"
-					>
-						Pause
-					</button>
-					<button
-						type="button"
-						onClick={handleReset}
-						className="rounded bg-red-600 px-4 py-2 text-sm text-white transition-colors hover:bg-red-700"
-					>
-						Reset
-					</button>
-					<button
-						type="button"
-						onClick={incrementScore}
-						className="rounded bg-blue-600 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-700"
-					>
-						+10 Points (Demo)
-					</button>
-				</div>
+				<div className="flex items-center justify-between">
+					<GameControls
+						gameState={gameState}
+						onStart={startGame}
+						onPause={pauseGame}
+						onResume={resumeGame}
+						onReset={resetGame}
+					/>
 
-				<div className="aspect-video rounded-lg border border-green-500/30 bg-green-900/30 p-2">
-					<div className="flex h-full w-full items-center justify-center rounded bg-green-900/20">
-						<span className="text-center text-green-400 text-sm">
-							{gameMessage}
-						</span>
+					<div className="text-muted-foreground text-sm">
+						Use arrow keys or WASD to move
 					</div>
 				</div>
+
+				{/* Game Canvas */}
+				<div className="flex justify-center">
+					<GameCanvas
+						snake={snake}
+						food={food}
+						isPlaying={isPlaying}
+						canvasWidth={canvasDimensions.CANVAS_WIDTH}
+						canvasHeight={canvasDimensions.CANVAS_HEIGHT}
+						gridSize={canvasDimensions.GRID_SIZE}
+					/>
+				</div>
+
+				{/* Mobile Controls */}
+				{containerDimensions.isMobile && (
+					<MobileControls
+						onDirectionChange={handleDirectionChange}
+						isVisible={containerDimensions.isMobile}
+						disabled={!isPlaying}
+					/>
+				)}
+
+				{/* Game Instructions */}
+				<div className="space-y-1 text-center text-muted-foreground text-sm">
+					<p>🎮 Control the snake to eat food and grow</p>
+					<p>⚠️ Avoid hitting walls or your own body</p>
+					<p>🚀 Speed increases every 50 points</p>
+				</div>
 			</div>
+
+			{/* Game Over Modal */}
+			<GameOverModal
+				isOpen={isGameOver}
+				score={score}
+				highScore={highScore}
+				isNewHighScore={isNewHighScore}
+				onPlayAgain={startGame}
+				onReset={resetGame}
+			/>
 		</BaseAppContent>
 	);
 };

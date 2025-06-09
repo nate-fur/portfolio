@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type { App } from "~/apps/types";
+import { useViewport } from "~/lib/hooks/use-viewport";
 import { cn } from "~/lib/utils";
 
 interface AppContainerProps {
@@ -20,6 +21,7 @@ export const AppContainer = ({
 	const containerRef = useRef<HTMLDivElement>(null);
 	const fullScreenButtonRef = useRef<HTMLButtonElement>(null);
 	const closeButtonRef = useRef<HTMLButtonElement>(null);
+	const { isMobile } = useViewport();
 
 	// Handle keyboard events for accessibility
 	useEffect(() => {
@@ -77,9 +79,25 @@ export const AppContainer = ({
 		};
 	}, [isExpanded, isFullScreen]);
 
+	// Auto-open fullscreen on mobile when expanded
+	useEffect(() => {
+		if (isMobile && isExpanded && !isFullScreen) {
+			setIsFullScreen(true);
+		}
+	}, [isMobile, isExpanded, isFullScreen]);
+
 	const handleAppClick = () => {
-		const newExpanded = !isExpanded;
-		onExpansionChange?.(newExpanded);
+		if (isMobile) {
+			// On mobile: if collapsed, expand and go to fullscreen immediately
+			if (!isExpanded) {
+				onExpansionChange?.(true);
+				// The useEffect above will handle setting fullscreen to true
+			}
+		} else {
+			// On desktop: normal toggle behavior (collapsed <-> expanded)
+			const newExpanded = !isExpanded;
+			onExpansionChange?.(newExpanded);
+		}
 	};
 
 	const handleFullScreenToggle = (e: React.MouseEvent | KeyboardEvent) => {
@@ -103,7 +121,14 @@ export const AppContainer = ({
 	const handleClose = (e: React.MouseEvent | KeyboardEvent) => {
 		e.stopPropagation();
 		if (isFullScreen) {
-			setIsFullScreen(false);
+			if (isMobile) {
+				// On mobile: closing fullscreen should also close the app
+				setIsFullScreen(false);
+				onExpansionChange?.(false);
+			} else {
+				// On desktop: closing fullscreen keeps app expanded
+				setIsFullScreen(false);
+			}
 		} else {
 			onExpansionChange?.(false);
 		}
@@ -136,12 +161,17 @@ export const AppContainer = ({
 				ref={containerRef}
 				layoutId={`app-${app.id}`}
 				className={cn(
-					"relative overflow-hidden border-1 border-primary bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary",
+					"relative border-1 border-primary bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary",
 					isFullScreen && isExpanded
-						? "fixed inset-0 z-90 m-auto h-[90vh] w-[90vw] cursor-default bg-background"
+						? cn(
+								"fixed inset-0 z-90 m-auto cursor-default bg-background",
+								isMobile
+									? "h-screen w-screen overflow-y-auto" // Full screen on mobile with scrolling
+									: "h-[90vh] w-[90vw] overflow-hidden", // Constrained size on desktop
+							)
 						: isExpanded
-							? "h-auto min-h-fit w-full cursor-default"
-							: "h-full w-full cursor-pointer hover:opacity-80",
+							? "h-auto min-h-fit w-full cursor-default overflow-hidden"
+							: "h-full w-full cursor-pointer overflow-hidden hover:opacity-80",
 				)}
 				onClick={!isExpanded ? handleAppClick : undefined}
 				onKeyDown={
@@ -166,7 +196,12 @@ export const AppContainer = ({
 				{/* Render thumbnail when collapsed, content when expanded */}
 				{isExpanded ? (
 					<motion.div
-						className="relative flex h-full flex-col items-start justify-start p-8"
+						className={cn(
+							"relative flex h-full flex-col items-start justify-start",
+							isFullScreen && isMobile
+								? "overflow-y-auto p-4 pb-16" // Enable scrolling on mobile fullscreen with bottom padding for controls
+								: "p-8",
+						)}
 						layout
 					>
 						{/* App Header: Title and Icon */}
@@ -203,7 +238,12 @@ export const AppContainer = ({
 						<motion.main
 							id={`app-content-${app.id}`}
 							key={isFullScreen ? "fullscreen" : "expanded"}
-							className="w-full flex-1 overflow-hidden"
+							className={cn(
+								"w-full",
+								isFullScreen && isMobile
+									? "flex-none" // Don't use flex-1 on mobile fullscreen to allow natural height
+									: "flex-1 overflow-hidden", // Use flex-1 and overflow-hidden on desktop
+							)}
 							initial={{ opacity: 0, filter: "blur(4px)" }}
 							animate={{
 								opacity: 1,
@@ -225,56 +265,63 @@ export const AppContainer = ({
 
 						{/* Control buttons */}
 						<motion.div
-							className="absolute top-4 right-4 flex gap-2"
+							className={cn(
+								"absolute top-4 right-4 flex gap-2",
+								isFullScreen && isMobile && "fixed top-4 right-4 z-10", // Fix position on mobile
+							)}
 							initial={{ opacity: 0, scale: 0.8 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ delay: 0.4, duration: 0.3 }}
 							role="toolbar"
 							aria-label="App controls"
 						>
-							<motion.button
-								ref={fullScreenButtonRef}
-								className="flex h-8 w-8 items-center justify-center border-1 border-primary hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-primary"
-								whileHover={{ scale: 1.1 }}
-								whileTap={{ scale: 0.9 }}
-								onClick={handleFullScreenToggle}
-								onKeyDown={(e) =>
-									handleButtonKeyDown(e, () =>
-										handleFullScreenToggle(e.nativeEvent),
-									)
-								}
-								aria-label={
-									isFullScreen
-										? "Exit full screen mode"
-										: "Enter full screen mode"
-								}
-								aria-pressed={isFullScreen}
-								type="button"
-							>
-								<svg
-									className="h-4 w-4"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-									aria-hidden="true"
+							{/* Fullscreen toggle button - only show on desktop or when not in fullscreen on mobile */}
+							{!(isMobile && isFullScreen) && (
+								<motion.button
+									ref={fullScreenButtonRef}
+									className="flex h-8 w-8 items-center justify-center border-1 border-primary hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-primary"
+									whileHover={{ scale: 1.1 }}
+									whileTap={{ scale: 0.9 }}
+									onClick={handleFullScreenToggle}
+									onKeyDown={(e) =>
+										handleButtonKeyDown(e, () =>
+											handleFullScreenToggle(e.nativeEvent),
+										)
+									}
+									aria-label={
+										isFullScreen
+											? "Exit full screen mode"
+											: "Enter full screen mode"
+									}
+									aria-pressed={isFullScreen}
+									type="button"
 								>
-									{isFullScreen ? (
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M9 9V4.5M9 9H4.5M9 9L3.5 3.5M15 9h4.5M15 9V4.5M15 9l5.5-5.5M9 15v4.5M9 15H4.5M9 15l-5.5 5.5M15 15h4.5M15 15v4.5m0-4.5l5.5 5.5"
-										/>
-									) : (
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M3 7V4a1 1 0 011-1h3M21 7V4a1 1 0 00-1-1h-3M3 17v3a1 1 0 001 1h3M21 17v3a1 1 0 01-1 1h-3"
-										/>
-									)}
-								</svg>
-							</motion.button>
+									<svg
+										className="h-4 w-4"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+										aria-hidden="true"
+									>
+										{isFullScreen ? (
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M9 9V4.5M9 9H4.5M9 9L3.5 3.5M15 9h4.5M15 9V4.5M15 9l5.5-5.5M9 15v4.5M9 15H4.5M9 15l-5.5 5.5M15 15h4.5M15 15v4.5m0-4.5l5.5 5.5"
+											/>
+										) : (
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M3 7V4a1 1 0 011-1h3M21 7V4a1 1 0 00-1-1h-3M3 17v3a1 1 0 001 1h3M21 17v3a1 1 0 01-1 1h-3"
+											/>
+										)}
+									</svg>
+								</motion.button>
+							)}
+							{/* Close button - always visible */}
 							<motion.button
 								ref={closeButtonRef}
 								className="flex h-8 w-8 items-center justify-center border-1 border-primary hover:opacity-70 focus:outline-none focus:ring-1 focus:ring-primary"
