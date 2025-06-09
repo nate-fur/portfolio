@@ -5,7 +5,6 @@ import {
 	Droplets,
 	FileText,
 	Github,
-	Home,
 	Info,
 	Linkedin,
 	Mail,
@@ -17,7 +16,6 @@ import {
 	User,
 	X,
 } from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -30,8 +28,6 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { useTheme } from "~/contexts/theme-context";
 import { cn } from "~/lib/utils";
-
-const navigation = [{ name: "Home", href: "/home", icon: Home }];
 
 const themeOptions = [
 	{ name: "Light", icon: Sun, value: "light" as const },
@@ -231,31 +227,7 @@ export function SideNav() {
 
 					{/* Navigation Links */}
 					<nav className="flex-1 overflow-y-auto px-2 py-6 sm:pt-16">
-						<div className="space-y-2">
-							{navigation.map((item) => {
-								const Icon = item.icon;
-								return (
-									<Link
-										key={item.name}
-										href={item.href}
-										className={cn(
-											"group flex items-center justify-center rounded-md px-3 py-3 text-sm transition-colors hover:bg-primary/10",
-											pathname === item.href
-												? "bg-primary/20 font-semibold text-primary"
-												: "text-muted-foreground hover:text-primary",
-										)}
-										onClick={() => setIsOpen(false)} // Close mobile menu on navigation
-										title={item.name} // Tooltip for accessibility
-									>
-										<Icon className="h-5 w-5" />
-										{/* Show text only on mobile when expanded */}
-										{isOpen && (
-											<span className="ml-3 sm:hidden">{item.name}</span>
-										)}
-									</Link>
-								);
-							})}
-						</div>
+						<div className="space-y-2">{/* No navigation items */}</div>
 					</nav>
 
 					{/* Profile Section - Hidden on desktop since we have floating avatar */}
