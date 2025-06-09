@@ -26,7 +26,7 @@ export const BaseAppContent = ({
 					<h4 className="mb-2 font-medium text-muted-foreground text-sm">
 						Technologies
 					</h4>
-					<div className="flex flex-wrap gap-2">
+					<div className="flex flex-wrap gap-2 bg-accent">
 						{technologies.map((tech) => (
 							<span
 								key={tech}

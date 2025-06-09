@@ -1,5 +1,5 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { App } from "~/apps/types";
 import {
 	Dialog,
@@ -7,7 +7,6 @@ import {
 	DialogPortal,
 	DialogTitle,
 } from "~/components/ui/dialog";
-import { cn } from "~/lib/utils";
 
 interface AppModalProps {
 	app: App;
@@ -16,6 +15,30 @@ interface AppModalProps {
 }
 
 export const AppModal = ({ app, isOpen, onOpenChange }: AppModalProps) => {
+	const [showContent, setShowContent] = useState(false);
+	const [isClosing, setIsClosing] = useState(false);
+
+	// Handle content fade-in
+	useEffect(() => {
+		if (isOpen) {
+			setIsClosing(false);
+			// Small delay to allow modal to mount before fading in content
+			const timer = setTimeout(() => setShowContent(true), 50);
+			return () => clearTimeout(timer);
+		}
+		setShowContent(false);
+	}, [isOpen]);
+
+	const handleClose = () => {
+		setIsClosing(true);
+		setShowContent(false);
+		// Wait for fade-out animation to complete before closing modal
+		setTimeout(() => {
+			onOpenChange(false);
+			setIsClosing(false);
+		}, 500); // Match the duration-500 from the CSS
+	};
+
 	// Prevent background scrolling when modal is open
 	useEffect(() => {
 		if (isOpen) {
@@ -47,11 +70,16 @@ export const AppModal = ({ app, isOpen, onOpenChange }: AppModalProps) => {
 	}, [isOpen]);
 
 	return (
-		<Dialog open={isOpen} onOpenChange={onOpenChange}>
+		<Dialog
+			open={isOpen || isClosing}
+			onOpenChange={(open) => !open && handleClose()}
+		>
 			<DialogPortal>
 				{/* No overlay/backdrop for fullscreen experience */}
 				<DialogPrimitive.Content className="fixed inset-0 z-50 h-screen w-screen max-w-none translate-x-0 translate-y-0 rounded-none border-0 bg-background p-0 shadow-none data-[state=closed]:animate-none data-[state=open]:animate-none">
-					<div className="flex h-full flex-col">
+					<div
+						className={`flex h-full flex-col transition-opacity duration-500 ${showContent ? "opacity-100" : "opacity-0"}`}
+					>
 						{/* Header with close button */}
 						<DialogHeader className="flex-row items-center justify-between border-primary border-b-1 p-4">
 							<DialogTitle className="flex items-center gap-3 text-left">
@@ -64,7 +92,7 @@ export const AppModal = ({ app, isOpen, onOpenChange }: AppModalProps) => {
 							{/* Custom close button */}
 							<button
 								className="flex h-8 w-8 items-center justify-center border-1 border-primary hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-primary"
-								onClick={() => onOpenChange(false)}
+								onClick={handleClose}
 								aria-label="Close app"
 								type="button"
 							>

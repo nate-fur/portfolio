@@ -94,12 +94,13 @@ export const DesktopAppContainer = ({
 	// Fullscreen backdrop
 	const fullScreenBackdrop = isFullScreen && isExpanded && (
 		<motion.div
-			className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
+			className="fixed inset-0 z-50 bg-black/80"
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
-			transition={{ duration: 0.3, ease: "easeInOut" }}
+			transition={{ duration: 0.2, ease: "easeOut" }}
 			aria-hidden="true"
+			style={{ willChange: "opacity" }}
 		/>
 	);
 
@@ -132,57 +133,65 @@ export const DesktopAppContainer = ({
 				whileTap={!isExpanded ? { scale: 0.98 } : {}}
 				layout
 				transition={{
-					layout: { duration: 0.4, ease: "easeInOut" },
-					scale: { duration: 0.2 },
+					layout: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+					scale: { duration: 0.15 },
 				}}
 				role={!isExpanded ? "button" : "dialog"}
 				tabIndex={!isExpanded ? 0 : -1}
 				aria-label={!isExpanded ? `Open ${app.name} app` : undefined}
 				aria-expanded={isExpanded}
 				aria-modal={isExpanded && isFullScreen}
+				style={{
+					willChange: isExpanded ? "transform, opacity" : "transform",
+				}}
 			>
 				{/* Render thumbnail when collapsed, content when expanded */}
 				{isExpanded ? (
 					<motion.div
 						className="relative flex h-full flex-col items-start justify-start p-8"
 						layout
+						style={{ willChange: "transform" }}
 					>
 						{/* App Header */}
 						<motion.div
 							className="mb-4 flex items-center gap-3 self-stretch"
-							initial={{ opacity: 0, y: -20 }}
+							initial={{ opacity: 0, y: -10 }}
 							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: -20 }}
-							transition={{ delay: 0.15, duration: 0.35, ease: "easeInOut" }}
+							exit={{ opacity: 0, y: -10 }}
+							transition={{ delay: 0.1, duration: 0.25, ease: "easeOut" }}
+							style={{ willChange: "transform, opacity" }}
 						>
 							{app.icon && (
 								<motion.div
-									initial={{ opacity: 0, x: -20 }}
-									animate={{ opacity: 1, x: 0 }}
-									exit={{ opacity: 0, x: -20 }}
-									transition={{ delay: 0.2, duration: 0.35, ease: "easeInOut" }}
+									initial={{ opacity: 0, scale: 0.8 }}
+									animate={{ opacity: 1, scale: 1 }}
+									exit={{ opacity: 0, scale: 0.8 }}
+									transition={{ delay: 0.15, duration: 0.2, ease: "easeOut" }}
+									style={{ willChange: "transform, opacity" }}
 								>
 									<app.icon className="h-7 w-7 text-primary" />
 								</motion.div>
 							)}
 							<motion.h2
 								className="font-semibold text-primary text-xl"
-								initial={{ opacity: 0, x: -20 }}
+								initial={{ opacity: 0, x: -10 }}
 								animate={{ opacity: 1, x: 0 }}
-								exit={{ opacity: 0, x: -20 }}
-								transition={{ delay: 0.25, duration: 0.35, ease: "easeInOut" }}
+								exit={{ opacity: 0, x: -10 }}
+								transition={{ delay: 0.2, duration: 0.25, ease: "easeOut" }}
+								style={{ willChange: "transform, opacity" }}
 							>
 								{app.name}
 							</motion.h2>
 						</motion.div>
 
-						{/* App content */}
+						{/* App content - simplified animation for Firefox performance */}
 						<motion.main
 							className="w-full flex-1 overflow-hidden"
-							initial={{ opacity: 0, filter: "blur(4px)" }}
-							animate={{ opacity: 1, filter: "blur(0px)" }}
-							exit={{ opacity: 0, filter: "blur(4px)" }}
-							transition={{ delay: 0.1, duration: 0.3, ease: "easeInOut" }}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							transition={{ delay: 0.05, duration: 0.2, ease: "easeOut" }}
+							style={{ willChange: "opacity" }}
 						>
 							{app.contentComponent()}
 						</motion.main>
@@ -190,11 +199,12 @@ export const DesktopAppContainer = ({
 						{/* Control buttons */}
 						<motion.div
 							className="absolute top-4 right-4 flex gap-2"
-							initial={{ opacity: 0, scale: 0.8 }}
+							initial={{ opacity: 0, scale: 0.9 }}
 							animate={{ opacity: 1, scale: 1 }}
-							transition={{ delay: 0.4, duration: 0.3 }}
+							transition={{ delay: 0.25, duration: 0.2 }}
 							role="toolbar"
 							aria-label="App controls"
+							style={{ willChange: "transform, opacity" }}
 						>
 							{/* Fullscreen toggle button */}
 							<motion.button
@@ -209,6 +219,8 @@ export const DesktopAppContainer = ({
 								}
 								aria-pressed={isFullScreen}
 								type="button"
+								transition={{ duration: 0.15 }}
+								style={{ willChange: "transform" }}
 							>
 								<svg
 									className="h-4 w-4"
@@ -245,6 +257,8 @@ export const DesktopAppContainer = ({
 									isFullScreen ? "Exit full screen and close app" : "Close app"
 								}
 								type="button"
+								transition={{ duration: 0.15 }}
+								style={{ willChange: "transform" }}
 							>
 								<svg
 									className="h-4 w-4"
@@ -267,6 +281,7 @@ export const DesktopAppContainer = ({
 					<motion.div
 						className="relative flex h-full flex-col items-stretch justify-center"
 						layout
+						style={{ willChange: "transform" }}
 					>
 						{/* Render the app's thumbnail component */}
 						{app.thumbnailComponent({ size })}
