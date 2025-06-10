@@ -7,7 +7,8 @@ import { AppsGallery } from "../components/shared/app-gallery";
 
 const Home: NextPage = () => {
 	const [isScrolledToGallery, setIsScrolledToGallery] = useState(false);
-	const [heroOpacity, setHeroOpacity] = useState(1);
+	const [heroOpacity, setHeroOpacity] = useState(0);
+	const [hasMounted, setHasMounted] = useState(false);
 
 	// Monitor scroll position to manage button visibility and hero opacity
 	useEffect(() => {
@@ -37,6 +38,19 @@ const Home: NextPage = () => {
 
 		window.addEventListener("scroll", handleScroll);
 		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
+
+	// Fade in the hero clipart & title on initial mount
+	useEffect(() => {
+		// Allow the browser to paint with opacity 0, then animate to 1
+		const id = requestAnimationFrame(() => setHeroOpacity(1));
+		return () => cancelAnimationFrame(id);
+	}, []);
+
+	// Trigger initial reveal state after first paint
+	useEffect(() => {
+		const id = requestAnimationFrame(() => setHasMounted(true));
+		return () => cancelAnimationFrame(id);
 	}, []);
 
 	const smoothScrollToAppsGallery = () => {
@@ -108,7 +122,7 @@ const Home: NextPage = () => {
 			<div className="fixed z-10 flex min-h-screen w-full flex-col items-center justify-center px-4 py-8">
 				{/* Hero Image */}
 				<div
-					className="mb-8 flex items-center justify-center transition-opacity duration-100"
+					className={`mb-8 flex items-center justify-center transition-[opacity,transform] duration-700 ease-out ${hasMounted ? "translate-y-0" : "translate-y-2"}`}
 					style={{ opacity: heroOpacity }}
 				>
 					<div
@@ -123,7 +137,7 @@ const Home: NextPage = () => {
 
 				{/* Hero Title */}
 				<h1
-					className="text-center font-extrabold text-2xl text-primary tracking-tight transition-opacity duration-100 sm:text-4xl"
+					className={`text-center font-extrabold text-2xl text-primary tracking-tight transition-[opacity,transform] duration-700 ease-out sm:text-4xl ${hasMounted ? "translate-y-0" : "translate-y-2"}`}
 					style={{ opacity: heroOpacity }}
 				>
 					Full stack web developer, <br /> experienced with AI & web3
@@ -133,10 +147,10 @@ const Home: NextPage = () => {
 				<button
 					type="button"
 					onClick={smoothScrollToAppsGallery}
-					className={`mt-12 flex cursor-pointer items-center gap-2 border-1 border-primary px-3 py-2 font-extrabold text-primary text-xl hover:opacity-70 ${
-						isScrolledToGallery
-							? "pointer-events-none opacity-0"
-							: "opacity-100"
+					className={`mt-12 flex cursor-pointer items-center gap-2 border-1 border-primary px-3 py-2 font-extrabold text-primary text-xl transition-[opacity,transform] duration-700 ease-out hover:opacity-70 ${
+						hasMounted && !isScrolledToGallery
+							? "translate-y-0 opacity-100"
+							: "translate-y-2 opacity-0"
 					}`}
 				>
 					Show me more <ArrowDown className="h-5 w-5" />
@@ -154,7 +168,7 @@ const Home: NextPage = () => {
 				<button
 					type="button"
 					onClick={smoothScrollToHero}
-					className="flex cursor-pointer items-center gap-2 border-1 border-primary bg-background px-4 py-3 font-extrabold text-primary text-xl shadow-lg transition-opacity hover:opacity-70"
+					className="flex cursor-pointer items-center gap-2 border-1 border-primary bg-background px-3 py-2 font-extrabold text-primary text-xl transition-opacity hover:opacity-70"
 				>
 					<ArrowUp className="h-5 w-5" />
 					Take me back

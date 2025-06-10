@@ -1,11 +1,8 @@
 "use client";
 
 import {
-	ChevronDown,
 	Droplets,
-	FileText,
 	Github,
-	Info,
 	Linkedin,
 	Mail,
 	Menu,
@@ -13,10 +10,9 @@ import {
 	Moon,
 	Sun,
 	Trees,
-	User,
 	X,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
 	DropdownMenu,
@@ -38,7 +34,6 @@ const themeOptions = [
 ];
 
 export function SideNav() {
-	const pathname = usePathname();
 	const [isOpen, setIsOpen] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -133,6 +128,16 @@ export function SideNav() {
 		[isHovered, scheduleHide, clearHideTimeout],
 	);
 
+	// Obfuscated email contact handler
+	const handleContactClick = () => {
+		// Construct email dynamically to avoid scraping
+		const user = "nmfurbearr";
+		const domain = "gmail.com";
+		const email = `${user}@${domain}`;
+		const subject = "Checking out your portfolio";
+		window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+	};
+
 	return (
 		<>
 			{/* Floating NF Avatar - Always visible on desktop */}
@@ -141,7 +146,7 @@ export function SideNav() {
 					<DropdownMenuTrigger asChild>
 						<button
 							type="button"
-							className="flex h-10 w-10 items-center justify-center rounded-full font-bold text-primary-background text-sm shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+							className="flex h-10 w-10 items-center justify-center rounded-full font-bold text-primary text-sm shadow-lg transition-all hover:scale-105 hover:shadow-xl"
 							title="Profile"
 						>
 							NF
@@ -150,30 +155,39 @@ export function SideNav() {
 					<DropdownMenuContent
 						side="right"
 						align="start"
-						className="z-50 w-56 border-1 border-primary"
+						className="z-50 w-56 border-1 border-primary bg-background"
 					>
 						<DropdownMenuLabel>Nate Furbeyre</DropdownMenuLabel>
 						<DropdownMenuSeparator className="bg-primary/20" />
-						<DropdownMenuItem className="focus:bg-primary/10">
-							<User className="mr-2 h-4 w-4" />
-							<span>Profile</span>
-						</DropdownMenuItem>
-						<DropdownMenuItem className="focus:bg-primary/10">
-							<FileText className="mr-2 h-4 w-4" />
-							<span>Resume</span>
-						</DropdownMenuItem>
-						<DropdownMenuItem className="focus:bg-primary/10">
+						<DropdownMenuItem
+							className="cursor-pointer hover:bg-primary/10"
+							onClick={handleContactClick}
+						>
 							<Mail className="mr-2 h-4 w-4" />
 							<span>Contact</span>
 						</DropdownMenuItem>
-						<DropdownMenuSeparator className="bg-primary/20" />
-						<DropdownMenuItem className="focus:bg-primary/10">
-							<Github className="mr-2 h-4 w-4" />
-							<span>GitHub</span>
+						{/* External Links */}
+						<DropdownMenuItem asChild className="hover:bg-primary/10">
+							<a
+								href="https://github.com/nate-fur"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex w-full items-center"
+							>
+								<Github className="mr-2 h-4 w-4" />
+								<span>GitHub</span>
+							</a>
 						</DropdownMenuItem>
-						<DropdownMenuItem className="focus:bg-primary/10">
-							<Linkedin className="mr-2 h-4 w-4" />
-							<span>LinkedIn</span>
+						<DropdownMenuItem asChild className="hover:bg-primary/10">
+							<a
+								href="https://www.linkedin.com/in/nathaniel-furbeyre/"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex w-full items-center"
+							>
+								<Linkedin className="mr-2 h-4 w-4" />
+								<span>LinkedIn</span>
+							</a>
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
@@ -225,54 +239,8 @@ export function SideNav() {
 						</div>
 					</div>
 
-					{/* Navigation Links */}
-					<nav className="flex-1 overflow-y-auto px-2 py-6 sm:pt-16">
-						<div className="space-y-2">{/* No navigation items */}</div>
-					</nav>
-
-					{/* Profile Section - Hidden on desktop since we have floating avatar */}
-					<div className="flex-shrink-0 border-primary border-t-1 p-2 sm:hidden">
-						<DropdownMenu onOpenChange={handleDropdownOpenChange}>
-							<DropdownMenuTrigger asChild>
-								<button
-									type="button"
-									className="flex w-full items-center justify-center rounded-md px-3 py-3 text-sm transition-colors hover:bg-primary/10 focus:outline-none"
-									title="Profile"
-								>
-									<User className="h-5 w-5" />
-								</button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent
-								side="right"
-								align="center"
-								className="z-50 w-56 border-1 border-primary"
-							>
-								<DropdownMenuLabel>Nate Furbeyre</DropdownMenuLabel>
-								<DropdownMenuSeparator className="bg-primary/20" />
-								<DropdownMenuItem className="focus:bg-primary/10">
-									<User className="mr-2 h-4 w-4" />
-									<span>Profile</span>
-								</DropdownMenuItem>
-								<DropdownMenuItem className="focus:bg-primary/10">
-									<FileText className="mr-2 h-4 w-4" />
-									<span>Resume</span>
-								</DropdownMenuItem>
-								<DropdownMenuItem className="focus:bg-primary/10">
-									<Mail className="mr-2 h-4 w-4" />
-									<span>Contact</span>
-								</DropdownMenuItem>
-								<DropdownMenuSeparator className="bg-primary/20" />
-								<DropdownMenuItem className="focus:bg-primary/10">
-									<Github className="mr-2 h-4 w-4" />
-									<span>GitHub</span>
-								</DropdownMenuItem>
-								<DropdownMenuItem className="focus:bg-primary/10">
-									<Linkedin className="mr-2 h-4 w-4" />
-									<span>LinkedIn</span>
-								</DropdownMenuItem>
-							</DropdownMenuContent>
-						</DropdownMenu>
-					</div>
+					{/* Spacer */}
+					<div className="flex-1" />
 
 					{/* Theme Selector */}
 					<div className="flex-shrink-0 border-primary border-t-1 p-2">
@@ -297,7 +265,7 @@ export function SideNav() {
 									<DropdownMenuItem
 										key={themeOption.value}
 										className={cn(
-											"cursor-pointer focus:bg-primary/10",
+											"cursor-pointer hover:bg-primary/10",
 											theme === themeOption.value && "bg-primary/5",
 										)}
 										onClick={() => setTheme(themeOption.value)}
