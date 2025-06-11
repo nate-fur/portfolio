@@ -122,11 +122,11 @@ const Home: NextPage = () => {
 			<div className="fixed z-10 flex min-h-screen w-full flex-col items-center justify-center px-4 py-8">
 				{/* Hero Image */}
 				<div
-					className={`mb-8 flex items-center justify-center transition-[opacity,transform] duration-700 ease-out ${hasMounted ? "translate-y-0" : "translate-y-2"}`}
+					className={`flex items-center justify-center transition-[opacity,transform] duration-700 ease-out md:mb-8 ${hasMounted ? "translate-y-0" : "translate-y-2"}`}
 					style={{ opacity: heroOpacity }}
 				>
 					<div
-						className="h-[400px] w-[400px]"
+						className="h-[320px] w-[300px] sm:h-[320px] sm:w-[320px] md:h-[400px] md:w-[400px]"
 						style={{
 							backgroundColor: "var(--color-primary)",
 							WebkitMask: "url(/hero-clipart.svg) no-repeat center/contain",

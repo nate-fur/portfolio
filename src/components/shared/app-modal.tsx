@@ -114,7 +114,14 @@ export const AppModal = ({ app, isOpen, onOpenChange }: AppModalProps) => {
 						</DialogHeader>
 
 						{/* Content */}
-						<div className="flex-1 overflow-y-auto p-4">
+						<div
+							className="flex-1 overflow-y-auto p-4"
+							style={{
+								// Add bottom padding for mobile Safari URL bar
+								paddingBottom:
+									"max(1rem, env(safe-area-inset-bottom, 0px) + 8rem)",
+							}}
+						>
 							{app.contentComponent()}
 						</div>
 					</div>
