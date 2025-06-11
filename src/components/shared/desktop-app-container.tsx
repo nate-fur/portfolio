@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
+import { Maximize2, Minimize2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { App } from "~/apps/types";
 import { cn } from "~/lib/utils";
+
+// Animation constants
+const ANIMATION_DURATION = 0.3;
+const ANIMATION_DELAY = 0.3;
 
 interface DesktopAppContainerProps {
 	app: App;
@@ -98,7 +103,10 @@ export const DesktopAppContainer = ({
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
-			transition={{ duration: 0.2, ease: "easeOut" }}
+			transition={{
+				duration: ANIMATION_DURATION,
+				ease: "easeOut",
+			}}
 			aria-hidden="true"
 			style={{ willChange: "opacity" }}
 		/>
@@ -111,7 +119,7 @@ export const DesktopAppContainer = ({
 				ref={containerRef}
 				layoutId={`app-${app.id}`}
 				className={cn(
-					"relative border-1 border-primary bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary",
+					"relative border-1 border-primary focus:outline-none focus:ring-2 focus:ring-primary",
 					isFullScreen && isExpanded
 						? "fixed inset-0 z-50 m-auto h-[90vh] w-[90vw] cursor-default overflow-hidden bg-background"
 						: isExpanded
@@ -133,8 +141,11 @@ export const DesktopAppContainer = ({
 				whileTap={!isExpanded ? { scale: 0.98 } : {}}
 				layout
 				transition={{
-					layout: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
-					scale: { duration: 0.15 },
+					layout: {
+						duration: ANIMATION_DURATION,
+						ease: [0.25, 0.46, 0.45, 0.94],
+					},
+					scale: { duration: ANIMATION_DURATION },
 				}}
 				role={!isExpanded ? "button" : "dialog"}
 				tabIndex={!isExpanded ? 0 : -1}
@@ -158,7 +169,11 @@ export const DesktopAppContainer = ({
 							initial={{ opacity: 0, y: -10 }}
 							animate={{ opacity: 1, y: 0 }}
 							exit={{ opacity: 0, y: -10 }}
-							transition={{ delay: 0.1, duration: 0.25, ease: "easeOut" }}
+							transition={{
+								delay: ANIMATION_DELAY,
+								duration: ANIMATION_DURATION,
+								ease: "easeOut",
+							}}
 							style={{ willChange: "transform, opacity" }}
 						>
 							{app.icon && (
@@ -166,7 +181,11 @@ export const DesktopAppContainer = ({
 									initial={{ opacity: 0, scale: 0.8 }}
 									animate={{ opacity: 1, scale: 1 }}
 									exit={{ opacity: 0, scale: 0.8 }}
-									transition={{ delay: 0.15, duration: 0.2, ease: "easeOut" }}
+									transition={{
+										delay: ANIMATION_DELAY,
+										duration: ANIMATION_DURATION,
+										ease: "easeOut",
+									}}
 									style={{ willChange: "transform, opacity" }}
 								>
 									<app.icon className="h-7 w-7 text-primary" />
@@ -177,7 +196,11 @@ export const DesktopAppContainer = ({
 								initial={{ opacity: 0, x: -10 }}
 								animate={{ opacity: 1, x: 0 }}
 								exit={{ opacity: 0, x: -10 }}
-								transition={{ delay: 0.2, duration: 0.25, ease: "easeOut" }}
+								transition={{
+									delay: ANIMATION_DELAY,
+									duration: ANIMATION_DURATION,
+									ease: "easeOut",
+								}}
 								style={{ willChange: "transform, opacity" }}
 							>
 								{app.name}
@@ -190,7 +213,11 @@ export const DesktopAppContainer = ({
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
-							transition={{ delay: 0.05, duration: 0.2, ease: "easeOut" }}
+							transition={{
+								delay: ANIMATION_DELAY,
+								duration: ANIMATION_DURATION,
+								ease: "easeOut",
+							}}
 							style={{ willChange: "opacity" }}
 						>
 							{app.contentComponent()}
@@ -201,7 +228,10 @@ export const DesktopAppContainer = ({
 							className="absolute top-4 right-4 flex gap-2"
 							initial={{ opacity: 0, scale: 0.9 }}
 							animate={{ opacity: 1, scale: 1 }}
-							transition={{ delay: 0.25, duration: 0.2 }}
+							transition={{
+								delay: ANIMATION_DELAY,
+								duration: ANIMATION_DURATION,
+							}}
 							role="toolbar"
 							aria-label="App controls"
 							style={{ willChange: "transform, opacity" }}
@@ -219,32 +249,16 @@ export const DesktopAppContainer = ({
 								}
 								aria-pressed={isFullScreen}
 								type="button"
-								transition={{ duration: 0.15 }}
+								transition={{
+									duration: ANIMATION_DURATION,
+								}}
 								style={{ willChange: "transform" }}
 							>
-								<svg
-									className="h-4 w-4"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-									aria-hidden="true"
-								>
-									{isFullScreen ? (
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M9 9V4.5M9 9H4.5M9 9L3.5 3.5M15 9h4.5M15 9V4.5M15 9l5.5-5.5M9 15v4.5M9 15H4.5M9 15l-5.5 5.5M15 15h4.5M15 15v4.5m0-4.5l5.5 5.5"
-										/>
-									) : (
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M3 7V4a1 1 0 011-1h3M21 7V4a1 1 0 00-1-1h-3M3 17v3a1 1 0 001 1h3M21 17v3a1 1 0 01-1 1h-3"
-										/>
-									)}
-								</svg>
+								{isFullScreen ? (
+									<Minimize2 className="h-4 w-4" />
+								) : (
+									<Maximize2 className="h-4 w-4" />
+								)}
 							</motion.button>
 
 							{/* Close button */}
@@ -257,23 +271,12 @@ export const DesktopAppContainer = ({
 									isFullScreen ? "Exit full screen and close app" : "Close app"
 								}
 								type="button"
-								transition={{ duration: 0.15 }}
+								transition={{
+									duration: ANIMATION_DURATION,
+								}}
 								style={{ willChange: "transform" }}
 							>
-								<svg
-									className="h-4 w-4"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-									aria-hidden="true"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth={2}
-										d="M6 18L18 6M6 6l12 12"
-									/>
-								</svg>
+								<X className="h-4 w-4" />
 							</motion.button>
 						</motion.div>
 					</motion.div>
