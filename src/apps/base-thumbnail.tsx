@@ -26,11 +26,11 @@ export const BaseThumbnail = ({
 				!backgroundImage && "bg-primary/10",
 				className,
 			)}
-			style={{
-				backgroundImage: backgroundImage
-					? `url(${backgroundImage})`
-					: undefined,
-			}}
+			// style={{
+			// 	backgroundImage: backgroundImage
+			// 		? `url(${backgroundImage})`
+			// 		: undefined,
+			// }}
 			layout
 			whileHover={{ scale: 1.02 }}
 			whileTap={{ scale: 0.98 }}
