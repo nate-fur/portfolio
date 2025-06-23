@@ -5,6 +5,7 @@ interface BaseAppContentProps {
 	description: string;
 	children?: ReactNode;
 	technologies?: string[];
+	fullWidth?: boolean;
 }
 
 export const BaseAppContent = ({
@@ -12,6 +13,7 @@ export const BaseAppContent = ({
 	description,
 	children,
 	technologies = [],
+	fullWidth = false,
 }: BaseAppContentProps) => {
 	return (
 		<div className="flex min-h-64 flex-col rounded-lg border bg-card p-6">
@@ -19,7 +21,13 @@ export const BaseAppContent = ({
 				{description}
 			</p>
 
-			{children && <div className="mb-6 flex-1 overflow-auto">{children}</div>}
+			{children && (
+				<div
+					className={`mb-6 flex-1 overflow-auto ${fullWidth ? "-mx-6" : ""}`}
+				>
+					{children}
+				</div>
+			)}
 
 			{technologies.length > 0 && (
 				<div className="mt-auto rounded-lg border bg-muted p-4">

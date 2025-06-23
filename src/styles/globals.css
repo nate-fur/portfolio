@@ -55,7 +55,7 @@
 	/* Light theme - warm and comfortable light background with refined colors */
 	--background: #f5f4ed;
 	--foreground: #1c2b37;
-	--card: #ffffff;
+	--card: #f5f4ed;
 	--card-foreground: #1c2b37;
 	--popover: #ffffff;
 	--popover-foreground: #1c2b37;
@@ -92,7 +92,7 @@
 	/* Dark theme - dark background, light text */
 	--background: #14303f;
 	--foreground: #d8a892;
-	--card: #1e293b;
+	--card: #14303f;
 	--card-foreground: #d8a892;
 	--popover: #1e293b;
 	--popover-foreground: #d8a892;
@@ -128,7 +128,7 @@
 	/* Forest theme - nature inspired with dark green background */
 	--background: #0f2027;
 	--foreground: #a7f3d0;
-	--card: #1a3a2e;
+	--card: #0f2027;
 	--card-foreground: #a7f3d0;
 	--popover: #1a3a2e;
 	--popover-foreground: #a7f3d0;
@@ -164,7 +164,7 @@
 	/* Blood theme - warm and energetic with dark red background */
 	--background: #2d0a0a;
 	--foreground: #fca5a5;
-	--card: #3f1515;
+	--card: #2d0a0a;
 	--card-foreground: #fca5a5;
 	--popover: #3f1515;
 	--popover-foreground: #fca5a5;
@@ -229,6 +229,7 @@
 
 .rotate-y-180 {
 	transform: rotateY(180deg);
+	transition: transform .7s ease-in-out;
 }
 
 /* Infinite Carousel Animation */
