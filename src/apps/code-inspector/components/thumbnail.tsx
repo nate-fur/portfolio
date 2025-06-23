@@ -1,17 +1,14 @@
-import { Code } from "lucide-react";
+import { RiCodeLine } from "react-icons/ri";
 import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
-export const CodeInspectorThumbnail = ({
-	size = "medium",
-}: AppThumbnailProps) => {
+export const CodeInspectorThumbnail = (props: AppThumbnailProps) => {
 	return (
 		<BaseThumbnail
 			name="Code Inspector"
-			icon={Code}
-			size={size}
-			backgroundImage="/apps/thumbnails/code-inspector.svg"
-			className="bg-center bg-cover bg-no-repeat"
+			icon={RiCodeLine}
+			className="bg-gradient-to-br from-slate-500/20 to-gray-600/20"
+			{...props}
 		/>
 	);
 };

@@ -1,17 +1,14 @@
-import { Twitter } from "lucide-react";
+import { RiTwitterLine } from "react-icons/ri";
 import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
-export const TwitterFeedThumbnail = ({
-	size = "medium",
-}: AppThumbnailProps) => {
+export const TwitterFeedThumbnail = (props: AppThumbnailProps) => {
 	return (
 		<BaseThumbnail
 			name="X Feed"
-			icon={Twitter}
-			size={size}
-			backgroundImage="/apps/thumbnails/x-feed.svg"
-			className="bg-center bg-cover bg-no-repeat"
+			icon={RiTwitterLine}
+			className="bg-gradient-to-br from-blue-500/20 to-cyan-600/20"
+			{...props}
 		/>
 	);
 };

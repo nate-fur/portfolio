@@ -88,7 +88,7 @@ export const TechStackApp = () => {
 		>
 			<div className="relative overflow-hidden" ref={carouselRef}>
 				<div className="carousel-container">
-					<div className="carousel-track">
+					<div className="carousel-track -mx-8">
 						{duplicatedTechnologies.map((tech, index) => (
 							<TechCard
 								key={`${tech.name}-${index}-${index >= technologies.length ? "duplicate" : "original"}`}

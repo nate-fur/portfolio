@@ -1,20 +1,20 @@
-import type { LucideIcon } from "lucide-react";
-import {
-	Bot,
-	Code,
-	FileText,
-	Gamepad2,
-	Github,
-	Layers,
-	Link,
-	Music,
-	Palette,
-	TrendingUp,
-	Twitter,
-	Video,
-	Wrench,
-} from "lucide-react";
 import type { ReactNode } from "react";
+import type { IconType } from "react-icons";
+import {
+	RiCodeLine,
+	RiFileTextLine,
+	RiGamepadLine,
+	RiGithubLine,
+	RiLineChartLine,
+	RiLink,
+	RiMusicLine,
+	RiPaletteLine,
+	RiRobotLine,
+	RiStackLine,
+	RiToolsLine,
+	RiTwitterLine,
+	RiVideoLine,
+} from "react-icons/ri";
 
 // Import app components
 import { BaseAppContent } from "~/apps/base-app-content";
@@ -42,7 +42,7 @@ import { VideoPlaylistThumbnail } from "~/apps/video-playlist";
 export interface App {
 	id: string;
 	name: string;
-	icon: LucideIcon;
+	icon: IconType;
 	size: "small" | "medium" | "large";
 	contentComponent: () => ReactNode;
 	thumbnailComponent: (props: AppThumbnailProps) => ReactNode;
@@ -77,7 +77,7 @@ const APP_REGISTRY: Record<string, App> = {
 	chatbot: {
 		id: "chatbot",
 		name: "AI Assistant",
-		icon: Bot,
+		icon: RiRobotLine,
 		size: "large",
 		contentComponent: () => <ChatbotApp />,
 		thumbnailComponent: (props) => <ChatbotThumbnail {...props} />,
@@ -85,7 +85,7 @@ const APP_REGISTRY: Record<string, App> = {
 	snake: {
 		id: "snake",
 		name: "Snake",
-		icon: Gamepad2,
+		icon: RiGamepadLine,
 		size: "small",
 		contentComponent: () => <SnakeGameApp />,
 		thumbnailComponent: (props) => <SnakeGameThumbnail {...props} />,
@@ -93,7 +93,7 @@ const APP_REGISTRY: Record<string, App> = {
 	spotify: {
 		id: "spotify",
 		name: "Spotify",
-		icon: Music,
+		icon: RiMusicLine,
 		size: "large",
 		contentComponent: () => <SpotifyApp />,
 		thumbnailComponent: (props) => <SpotifyThumbnail {...props} />,
@@ -101,7 +101,7 @@ const APP_REGISTRY: Record<string, App> = {
 	"theme-customizer": {
 		id: "theme-customizer",
 		name: "Theme Customizer",
-		icon: Palette,
+		icon: RiPaletteLine,
 		size: "medium",
 		contentComponent: () => <ThemeCustomizerApp />,
 		thumbnailComponent: (props) => <ThemeCustomizerThumbnail {...props} />,
@@ -109,7 +109,7 @@ const APP_REGISTRY: Record<string, App> = {
 	"tech-stack": {
 		id: "tech-stack",
 		name: "Tech Stack",
-		icon: Layers,
+		icon: RiStackLine,
 		size: "medium",
 		contentComponent: () => <TechStackApp />,
 		thumbnailComponent: (props) => <TechStackThumbnail {...props} />,
@@ -117,7 +117,7 @@ const APP_REGISTRY: Record<string, App> = {
 	"video-playlist": {
 		id: "video-playlist",
 		name: "Videos",
-		icon: Video,
+		icon: RiVideoLine,
 		size: "small",
 		contentComponent: () => <DefaultAppContent appName="Videos" />,
 		thumbnailComponent: (props) => <VideoPlaylistThumbnail {...props} />,
@@ -125,7 +125,7 @@ const APP_REGISTRY: Record<string, App> = {
 	minesweeper: {
 		id: "minesweeper",
 		name: "Minesweeper",
-		icon: Gamepad2,
+		icon: RiGamepadLine,
 		size: "medium",
 		contentComponent: () => <DefaultAppContent appName="Minesweeper" />,
 		thumbnailComponent: (props) => <MinesweeperThumbnail {...props} />,
@@ -133,7 +133,7 @@ const APP_REGISTRY: Record<string, App> = {
 	blog: {
 		id: "blog",
 		name: "Blog",
-		icon: FileText,
+		icon: RiFileTextLine,
 		size: "large",
 		contentComponent: () => <DefaultAppContent appName="Blog" />,
 		thumbnailComponent: (props) => <BlogThumbnail {...props} />,
@@ -141,7 +141,7 @@ const APP_REGISTRY: Record<string, App> = {
 	"twitter-feed": {
 		id: "twitter-feed",
 		name: "X Feed",
-		icon: Twitter,
+		icon: RiTwitterLine,
 		size: "small",
 		contentComponent: () => <DefaultAppContent appName="X Feed" />,
 		thumbnailComponent: (props) => <TwitterFeedThumbnail {...props} />,
@@ -149,7 +149,7 @@ const APP_REGISTRY: Record<string, App> = {
 	"code-inspector": {
 		id: "code-inspector",
 		name: "Code Inspector",
-		icon: Code,
+		icon: RiCodeLine,
 		size: "medium",
 		contentComponent: () => <DefaultAppContent appName="Code Inspector" />,
 		thumbnailComponent: (props) => <CodeInspectorThumbnail {...props} />,
@@ -157,7 +157,7 @@ const APP_REGISTRY: Record<string, App> = {
 	"github-analyzer": {
 		id: "github-analyzer",
 		name: "GitHub Analyzer",
-		icon: Github,
+		icon: RiGithubLine,
 		size: "large",
 		contentComponent: () => <DefaultAppContent appName="GitHub Analyzer" />,
 		thumbnailComponent: (props) => <GitHubAnalyzerThumbnail {...props} />,
@@ -165,7 +165,7 @@ const APP_REGISTRY: Record<string, App> = {
 	"mcp-tool": {
 		id: "mcp-tool",
 		name: "MCP Tool",
-		icon: Wrench,
+		icon: RiToolsLine,
 		size: "small",
 		contentComponent: () => <DefaultAppContent appName="MCP Tool" />,
 		thumbnailComponent: (props) => <McpToolThumbnail {...props} />,
@@ -173,7 +173,7 @@ const APP_REGISTRY: Record<string, App> = {
 	"url-shortener": {
 		id: "url-shortener",
 		name: "URL Shortener",
-		icon: Link,
+		icon: RiLink,
 		size: "medium",
 		contentComponent: () => <DefaultAppContent appName="URL Shortener" />,
 		thumbnailComponent: (props) => <UrlShortenerThumbnail {...props} />,
@@ -181,7 +181,7 @@ const APP_REGISTRY: Record<string, App> = {
 	"stock-simulator": {
 		id: "stock-simulator",
 		name: "Stock Simulator",
-		icon: TrendingUp,
+		icon: RiLineChartLine,
 		size: "medium",
 		contentComponent: () => (
 			<BaseAppContent

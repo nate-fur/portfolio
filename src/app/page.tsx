@@ -1,8 +1,8 @@
 "use client";
 
-import { ArrowDown, ArrowUp } from "lucide-react";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
+import { RiArrowDownLine, RiArrowUpLine } from "react-icons/ri";
 import { AppsGallery } from "../components/shared/app-gallery";
 
 const Home: NextPage = () => {
@@ -153,7 +153,7 @@ const Home: NextPage = () => {
 							: "translate-y-2 opacity-0"
 					}`}
 				>
-					Show me more <ArrowDown className="h-5 w-5" />
+					Show me more <RiArrowDownLine className="h-5 w-5" />
 				</button>
 			</div>
 
@@ -170,7 +170,7 @@ const Home: NextPage = () => {
 					onClick={smoothScrollToHero}
 					className="flex cursor-pointer items-center gap-2 border-1 border-primary bg-background px-3 py-2 font-extrabold text-primary text-xl transition-opacity hover:opacity-70"
 				>
-					<ArrowUp className="h-5 w-5" />
+					<RiArrowUpLine className="h-5 w-5" />
 					Take me back
 				</button>
 			</div>

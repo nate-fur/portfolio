@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
-import { Maximize2, Minimize2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import {
+	RiCloseLine,
+	RiFullscreenExitLine,
+	RiFullscreenLine,
+} from "react-icons/ri";
 import type { App } from "~/apps/types";
 import { cn } from "~/lib/utils";
 import { Dialog, DialogContent } from "../ui/dialog";
@@ -224,7 +228,7 @@ export const DesktopAppContainer = ({
 								}}
 								style={{ willChange: "transform" }}
 							>
-								<Minimize2 className="h-4 w-4" />
+								<RiFullscreenExitLine className="h-4 w-4" />
 							</motion.button>
 
 							{/* Close button */}
@@ -240,7 +244,7 @@ export const DesktopAppContainer = ({
 								}}
 								style={{ willChange: "transform" }}
 							>
-								<X className="h-4 w-4" />
+								<RiCloseLine className="h-4 w-4" />
 							</motion.button>
 						</motion.div>
 					</motion.div>
@@ -383,7 +387,7 @@ export const DesktopAppContainer = ({
 								}}
 								style={{ willChange: "transform" }}
 							>
-								<Maximize2 className="h-4 w-4" />
+								<RiFullscreenLine className="h-4 w-4" />
 							</motion.button>
 
 							{/* Close button */}
@@ -399,7 +403,7 @@ export const DesktopAppContainer = ({
 								}}
 								style={{ willChange: "transform" }}
 							>
-								<X className="h-4 w-4" />
+								<RiCloseLine className="h-4 w-4" />
 							</motion.button>
 						</motion.div>
 					</motion.div>
