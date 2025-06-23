@@ -213,3 +213,41 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+/* 3D Card Flip Animation Classes */
+.perspective-1000 {
+	perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+	transform-style: preserve-3d;
+}
+
+.backface-hidden {
+	backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+	transform: rotateY(180deg);
+}
+
+/* Infinite Carousel Animation */
+.carousel-container {
+	overflow: hidden;
+	width: 100%;
+}
+
+.carousel-track {
+	display: flex;
+	gap: 1rem;
+	animation: carousel-move 30s linear infinite;
+}
+
+@keyframes carousel-move {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}

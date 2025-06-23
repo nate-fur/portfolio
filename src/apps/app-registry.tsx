@@ -28,7 +28,7 @@ import { MinesweeperThumbnail } from "~/apps/minesweeper";
 import { SnakeGameApp, SnakeGameThumbnail } from "~/apps/snake-game";
 import { SpotifyApp, SpotifyThumbnail } from "~/apps/spotify";
 import { StockSimulatorThumbnail } from "~/apps/stock-simulator";
-import { TechStackThumbnail } from "~/apps/tech-stack";
+import { TechStackApp, TechStackThumbnail } from "~/apps/tech-stack";
 import {
 	ThemeCustomizerApp,
 	ThemeCustomizerThumbnail,
@@ -111,7 +111,7 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Tech Stack",
 		icon: Layers,
 		size: "medium",
-		contentComponent: () => <DefaultAppContent appName="Tech Stack" />,
+		contentComponent: () => <TechStackApp />,
 		thumbnailComponent: (props) => <TechStackThumbnail {...props} />,
 	},
 	"video-playlist": {
