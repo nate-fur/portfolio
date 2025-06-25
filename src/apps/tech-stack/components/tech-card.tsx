@@ -23,10 +23,10 @@ export const TechCard = ({ tech, isFlipped, onClick }: TechCardProps) => {
 	};
 
 	return (
-		<div className="py-2">
+		<div className="">
 			<button
 				type="button"
-				className="perspective-1000 relative h-48 w-full flex-shrink-0 cursor-pointer sm:h-64 sm:w-48"
+				className="perspective-1000 relative h-64 w-full flex-shrink-0 cursor-pointer sm:w-48"
 				onClick={onClick}
 				onKeyDown={handleKeyDown}
 				aria-label={`Flip ${tech.name} card`}
@@ -37,7 +37,7 @@ export const TechCard = ({ tech, isFlipped, onClick }: TechCardProps) => {
 					}`}
 				>
 					{/* Front of card */}
-					<div className="backface-hidden absolute inset-0 flex flex-col items-center justify-center gap-2 border-2 border-primary bg-background">
+					<div className="backface-hidden absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-primary bg-muted/50">
 						<IconComponent className="h-6 w-6 text-primary sm:h-8 sm:w-8" />
 						<span className="px-1 text-center font-medium text-primary text-xs sm:text-sm">
 							{tech.name}
@@ -45,7 +45,7 @@ export const TechCard = ({ tech, isFlipped, onClick }: TechCardProps) => {
 					</div>
 
 					{/* Back of card */}
-					<div className="backface-hidden absolute inset-0 flex rotate-y-180 flex-col items-center justify-center gap-2 border-2 border-primary bg-primary p-3 sm:gap-3 sm:p-4">
+					<div className="backface-hidden absolute inset-0 flex rotate-y-180 flex-col items-center justify-center gap-2 rounded-lg border-2 border-primary bg-primary p-3 sm:gap-3 sm:p-4">
 						<span className="text-center font-medium text-primary-foreground text-xs sm:text-sm">
 							{tech.name}
 						</span>

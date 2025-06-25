@@ -61,14 +61,15 @@ export const TechStackApp = () => {
 	return (
 		<BaseAppContent
 			title="Technology Stack"
-			description="Click on any technology card to flip it and learn more about my expertise."
+			description="Explore some preferred components of my tech stack by clicking on any card to learn more about my experience and perspective with that technology."
 			technologies={[]}
 			fullWidth
+			className="max-md:border-none"
 		>
 			<div className="relative overflow-hidden" ref={carouselRef}>
 				{isMobile ? (
 					// Mobile: 2-row grid layout
-					<div className="grid grid-cols-2 gap-4 p-4">
+					<div className="grid grid-cols-2 gap-3 sm:grid-cols-2">
 						{duplicatedTechnologies.map((tech, index) => (
 							<TechCard
 								key={`${tech.name}-${index}`}

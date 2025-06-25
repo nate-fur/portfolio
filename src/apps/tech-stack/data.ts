@@ -1,12 +1,11 @@
 import type { IconType } from "react-icons";
 import {
 	SiAmazonwebservices,
+	SiCypress,
 	SiDocker,
 	SiGraphql,
-	SiJest,
 	SiNextdotjs,
 	SiNodedotjs,
-	SiOpenai,
 	SiPostgresql,
 	SiReact,
 	SiTailwindcss,
@@ -26,84 +25,77 @@ export const technologies: Technology[] = [
 		name: "React",
 		icon: SiReact,
 		description:
-			"A JavaScript library for building user interfaces with reusable components and efficient rendering.",
+			"My preferred library for building user interfaces with reusable components and efficient rendering.",
 		url: "https://react.dev",
 	},
 	{
 		name: "Next.js",
 		icon: SiNextdotjs,
 		description:
-			"Full-stack React framework with server-side rendering, static generation, and API routes.",
+			"One of my go-to frameworks for building full-stack applications with React. When deployed with Vercel, it provides a great developer experience. (This site is built with Next.js)",
 		url: "https://nextjs.org",
 	},
 	{
 		name: "TypeScript",
 		icon: SiTypescript,
 		description:
-			"Typed superset of JavaScript that adds static type checking and enhanced developer experience.",
+			"To be honest, I don't know how developers got by without type safety. Too many easy bugs are avoided with this tech.",
 		url: "https://www.typescriptlang.org",
 	},
 	{
 		name: "Node.js",
 		icon: SiNodedotjs,
 		description:
-			"JavaScript runtime for server-side development with event-driven, non-blocking I/O.",
+			"My preferred runtime for server-side development. This, along with TypeScript, is the backbone of my backend development.",
 		url: "https://nodejs.org",
 	},
 	{
 		name: "tRPC",
 		icon: SiTrpc,
 		description:
-			"End-to-end typesafe APIs without schemas or code generation for full-stack TypeScript apps.",
+			"Introduced to me by Theo (T3 Stack) and I've been using it ever since. It's a great way to build type-safe APIs with React and TypeScript.",
 		url: "https://trpc.io",
 	},
 	{
 		name: "PostgreSQL",
 		icon: SiPostgresql,
 		description:
-			"Advanced open-source relational database with ACID compliance and extensible architecture.",
+			"A highly performant database that has integrated seamlessly with Prisma and Drizzle ORM in my projects. The reliability and feature set make it my go-to choice for relational data.",
 		url: "https://www.postgresql.org",
 	},
 	{
 		name: "Docker",
 		icon: SiDocker,
 		description:
-			"Containerization platform for developing, shipping, and running applications in isolated environments.",
+			"While I stick to serverless deployments for most things these days, Docker is a no-brainer when working with long-running applications. It's been essential for consistent development environments.",
 		url: "https://www.docker.com",
 	},
 	{
 		name: "AWS",
 		icon: SiAmazonwebservices,
 		description:
-			"Cloud computing platform offering scalable infrastructure, storage, and development tools.",
+			"My cloud platform of choice, primarily using EC2, S3, and IAM. The breadth of services and reliability have made it the foundation for most of my production deployments.",
 		url: "https://aws.amazon.com",
 	},
 	{
 		name: "Tailwind CSS",
 		icon: SiTailwindcss,
 		description:
-			"Utility-first CSS framework for rapidly building custom user interfaces with pre-defined classes.",
+			"Tailwind is what you use if you don't want to reinvent the wheel (incorrectly, that is) and want maintainable style systems that don't fight your developers. It's transformed how I approach CSS.",
 		url: "https://tailwindcss.com",
 	},
 	{
 		name: "GraphQL",
 		icon: SiGraphql,
 		description:
-			"Query language and runtime for APIs that provides a complete description of data and enables powerful developer tools.",
+			"Not my preferred choice for smaller teams and projects, but a lifesaver for building APIs on larger scale applications. The flexibility and type safety really shine when dealing with complex data requirements.",
 		url: "https://graphql.org",
 	},
 	{
-		name: "OpenAI",
-		icon: SiOpenai,
+		name: "Cypress",
+		icon: SiCypress,
 		description:
-			"AI research company providing powerful language models and APIs for natural language processing.",
-		url: "https://openai.com",
-	},
-	{
-		name: "Jest",
-		icon: SiJest,
-		description:
-			"JavaScript testing framework with a focus on simplicity and support for large web applications.",
-		url: "https://jestjs.io",
+			"Although not always needed for every project, Cypress is my go-to testing tool for insights into the health of my full-stack applications. The real-time feedback and debugging capabilities are invaluable.",
+		url: "https://www.cypress.io",
 	},
 ];

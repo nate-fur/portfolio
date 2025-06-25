@@ -5,6 +5,8 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 ## TODO
 
 - [ ] Implement ShadCN dialogues for fullscreen apps
+- [ ] Fix side scrolling for the tech stack carousel "container" when in desktop full screen mode
+- [ ] Implement drag functionality on the tech stack carousel
 
 ## What's next? How do I make an app with this?
 
