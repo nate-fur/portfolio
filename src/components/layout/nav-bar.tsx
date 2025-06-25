@@ -1,21 +1,21 @@
 "use client";
 
-import {
-	ChevronDown,
-	Droplets,
-	FileText,
-	Github,
-	Linkedin,
-	Mail,
-	Monitor,
-	Moon,
-	Sun,
-	Trees,
-	User,
-} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import {
+	RiArrowDownSLine,
+	RiComputerLine,
+	RiDropLine,
+	RiFileTextLine,
+	RiGithubLine,
+	RiLinkedinLine,
+	RiMailLine,
+	RiMoonLine,
+	RiPlantLine,
+	RiSunLine,
+	RiUserLine,
+} from "react-icons/ri";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -33,11 +33,11 @@ const navigation = [
 ];
 
 const themeOptions = [
-	{ name: "Light", icon: Sun, value: "light" as const },
-	{ name: "Dark", icon: Moon, value: "dark" as const },
-	{ name: "Forest", icon: Trees, value: "forest" as const },
-	{ name: "Blood", icon: Droplets, value: "blood" as const },
-	{ name: "System", icon: Monitor, value: "system" as const },
+	{ name: "Light", icon: RiSunLine, value: "light" as const },
+	{ name: "Dark", icon: RiMoonLine, value: "dark" as const },
+	{ name: "Forest", icon: RiPlantLine, value: "forest" as const },
+	{ name: "Blood", icon: RiDropLine, value: "blood" as const },
+	{ name: "System", icon: RiComputerLine, value: "system" as const },
 ];
 
 export function Navbar() {
@@ -48,7 +48,7 @@ export function Navbar() {
 	const currentTheme = themeOptions.find(
 		(themeOption) => themeOption.value === theme,
 	);
-	const CurrentThemeIcon = currentTheme?.icon || Sun;
+	const CurrentThemeIcon = currentTheme?.icon || RiSunLine;
 
 	return (
 		<>
@@ -62,7 +62,7 @@ export function Navbar() {
 								className="flex items-center gap-1 transition-colors hover:opacity-70 focus:outline-none"
 							>
 								<span>Nate Furbeyre</span>
-								<ChevronDown className="h-4 w-4" />
+								<RiArrowDownSLine className="h-4 w-4" />
 							</button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent
@@ -72,24 +72,24 @@ export function Navbar() {
 							<DropdownMenuLabel>Nate Furbeyre</DropdownMenuLabel>
 							<DropdownMenuSeparator className="bg-primary/20" />
 							<DropdownMenuItem className="focus:bg-primary/10">
-								<User className="mr-2 h-4 w-4" />
+								<RiUserLine className="mr-2 h-4 w-4" />
 								<span>Profile</span>
 							</DropdownMenuItem>
 							<DropdownMenuItem className="focus:bg-primary/10">
-								<FileText className="mr-2 h-4 w-4" />
+								<RiFileTextLine className="mr-2 h-4 w-4" />
 								<span>Resume</span>
 							</DropdownMenuItem>
 							<DropdownMenuItem className="focus:bg-primary/10">
-								<Mail className="mr-2 h-4 w-4" />
+								<RiMailLine className="mr-2 h-4 w-4" />
 								<span>Contact</span>
 							</DropdownMenuItem>
 							<DropdownMenuSeparator className="bg-primary/20" />
 							<DropdownMenuItem className="focus:bg-primary/10">
-								<Github className="mr-2 h-4 w-4" />
+								<RiGithubLine className="mr-2 h-4 w-4" />
 								<span>GitHub</span>
 							</DropdownMenuItem>
 							<DropdownMenuItem className="focus:bg-primary/10">
-								<Linkedin className="mr-2 h-4 w-4" />
+								<RiLinkedinLine className="mr-2 h-4 w-4" />
 								<span>LinkedIn</span>
 							</DropdownMenuItem>
 						</DropdownMenuContent>
@@ -105,7 +105,7 @@ export function Navbar() {
 							>
 								<CurrentThemeIcon className="h-5 w-5" />
 								<span>Theme</span>
-								<ChevronDown className="h-4 w-4" />
+								<RiArrowDownSLine className="h-4 w-4" />
 							</button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent
@@ -146,7 +146,7 @@ export function Navbar() {
 									className="flex items-center gap-1 transition-colors hover:opacity-70 focus:outline-none"
 								>
 									<span>Nate Furbeyre</span>
-									<ChevronDown className="h-3 w-3" />
+									<RiArrowDownSLine className="h-3 w-3" />
 								</button>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent
@@ -156,24 +156,24 @@ export function Navbar() {
 								<DropdownMenuLabel>Nate Furbeyre</DropdownMenuLabel>
 								<DropdownMenuSeparator className="bg-primary/20" />
 								<DropdownMenuItem className="focus:bg-primary/10">
-									<User className="mr-2 h-4 w-4" />
+									<RiUserLine className="mr-2 h-4 w-4" />
 									<span>Profile</span>
 								</DropdownMenuItem>
 								<DropdownMenuItem className="focus:bg-primary/10">
-									<FileText className="mr-2 h-4 w-4" />
+									<RiFileTextLine className="mr-2 h-4 w-4" />
 									<span>Resume</span>
 								</DropdownMenuItem>
 								<DropdownMenuItem className="focus:bg-primary/10">
-									<Mail className="mr-2 h-4 w-4" />
+									<RiMailLine className="mr-2 h-4 w-4" />
 									<span>Contact</span>
 								</DropdownMenuItem>
 								<DropdownMenuSeparator className="bg-primary/20" />
 								<DropdownMenuItem className="focus:bg-primary/10">
-									<Github className="mr-2 h-4 w-4" />
+									<RiGithubLine className="mr-2 h-4 w-4" />
 									<span>GitHub</span>
 								</DropdownMenuItem>
 								<DropdownMenuItem className="focus:bg-primary/10">
-									<Linkedin className="mr-2 h-4 w-4" />
+									<RiLinkedinLine className="mr-2 h-4 w-4" />
 									<span>LinkedIn</span>
 								</DropdownMenuItem>
 							</DropdownMenuContent>
@@ -188,7 +188,7 @@ export function Navbar() {
 								>
 									<CurrentThemeIcon className="h-4 w-4" />
 									<span>Theme</span>
-									<ChevronDown className="h-3 w-3" />
+									<RiArrowDownSLine className="h-3 w-3" />
 								</button>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent

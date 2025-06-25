@@ -1,17 +1,14 @@
-import { Link } from "lucide-react";
+import { RiLink } from "react-icons/ri";
 import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
-export const UrlShortenerThumbnail = ({
-	size = "medium",
-}: AppThumbnailProps) => {
+export const UrlShortenerThumbnail = (props: AppThumbnailProps) => {
 	return (
 		<BaseThumbnail
 			name="URL Shortener"
-			icon={Link}
-			size={size}
-			backgroundImage="/apps/thumbnails/url-shortener.svg"
-			className="bg-center bg-cover bg-no-repeat"
+			icon={RiLink}
+			className="bg-gradient-to-br from-teal-500/20 to-cyan-600/20"
+			{...props}
 		/>
 	);
 };

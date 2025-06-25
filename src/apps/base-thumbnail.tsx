@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import type { IconType } from "react-icons";
 import { cn } from "~/lib/utils";
 import type { AppThumbnailProps } from "./types";
 
 export interface BaseThumbnailProps extends AppThumbnailProps {
 	name: string;
-	icon: LucideIcon;
+	icon: IconType;
 	children?: ReactNode; // For custom background animations or additional elements
 	className?: string;
 	backgroundImage?: string; // URL or path to background image

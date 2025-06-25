@@ -1,25 +1,44 @@
 import type { ReactNode } from "react";
+import { cn } from "~/lib/utils";
 
 interface BaseAppContentProps {
 	title: string;
 	description: string;
 	children?: ReactNode;
 	technologies?: string[];
+	fullWidth?: boolean;
+	className?: string;
 }
 
 export const BaseAppContent = ({
-	title,
 	description,
 	children,
 	technologies = [],
+	fullWidth = false,
+	className,
 }: BaseAppContentProps) => {
 	return (
-		<div className="flex min-h-64 flex-col rounded-lg border bg-card p-6">
+		<div
+			className={cn(
+				"flex min-h-64 flex-col rounded-lg border bg-card p-6",
+				className,
+			)}
+		>
 			<p className="mb-6 text-muted-foreground text-sm leading-relaxed">
 				{description}
 			</p>
 
-			{children && <div className="mb-6 flex-1 overflow-auto">{children}</div>}
+			{children && (
+				<div
+					className={cn(
+						"flex-1 overflow-auto",
+						technologies.length > 0 ? "mb-6" : "mb-0",
+						fullWidth ? "-mx-6" : "",
+					)}
+				>
+					{children}
+				</div>
+			)}
 
 			{technologies.length > 0 && (
 				<div className="mt-auto rounded-lg border bg-muted p-4">

@@ -1,15 +1,14 @@
-import { Bot } from "lucide-react";
+import { RiRobotLine } from "react-icons/ri";
 import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
-export const ChatbotThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
+export const ChatbotThumbnail = (props: AppThumbnailProps) => {
 	return (
 		<BaseThumbnail
 			name="AI Assistant"
-			icon={Bot}
-			size={size}
-			backgroundImage="/apps/thumbnails/chatbot.svg"
-			className="bg-center bg-cover bg-no-repeat"
+			icon={RiRobotLine}
+			className="bg-gradient-to-br from-blue-500/20 to-purple-600/20"
+			{...props}
 		/>
 	);
 };

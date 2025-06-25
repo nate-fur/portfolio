@@ -1,15 +1,14 @@
-import { Gamepad2, Target, Zap } from "lucide-react";
+import { RiGamepadLine } from "react-icons/ri";
 import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
-export const SnakeGameThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
+export const SnakeGameThumbnail = (props: AppThumbnailProps) => {
 	return (
 		<BaseThumbnail
 			name="Snake"
-			icon={Gamepad2}
-			size={size}
-			backgroundImage="/apps/thumbnails/snake.svg"
-			className="bg-center bg-cover bg-no-repeat"
+			icon={RiGamepadLine}
+			className="bg-gradient-to-br from-green-500/20 to-emerald-600/20"
+			{...props}
 		/>
 	);
 };

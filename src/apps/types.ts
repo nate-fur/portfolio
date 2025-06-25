@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import type { IconType } from "react-icons";
 
 export interface AppThumbnailProps {
 	size?: "small" | "medium" | "large";
@@ -6,7 +6,7 @@ export interface AppThumbnailProps {
 
 export interface DefaultThumbnailProps extends AppThumbnailProps {
 	name: string;
-	icon: LucideIcon;
+	icon: IconType;
 }
 
 // Re-export the App interface from the registry for consistency

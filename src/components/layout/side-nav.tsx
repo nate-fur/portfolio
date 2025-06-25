@@ -1,17 +1,17 @@
 "use client";
 
 import {
-	Droplets,
-	Github,
-	Linkedin,
-	Mail,
-	Menu,
-	Monitor,
-	Moon,
-	Sun,
-	Trees,
-	X,
-} from "lucide-react";
+	RiCloseLine,
+	RiComputerLine,
+	RiDropLine,
+	RiGithubLine,
+	RiLinkedinLine,
+	RiMailLine,
+	RiMenuLine,
+	RiMoonLine,
+	RiPlantLine,
+	RiSunLine,
+} from "react-icons/ri";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -26,11 +26,11 @@ import { useTheme } from "~/contexts/theme-context";
 import { cn } from "~/lib/utils";
 
 const themeOptions = [
-	{ name: "Light", icon: Sun, value: "light" as const },
-	{ name: "Dark", icon: Moon, value: "dark" as const },
-	{ name: "Forest Green", icon: Trees, value: "forest" as const },
-	{ name: "Blood Red", icon: Droplets, value: "blood" as const },
-	{ name: "System", icon: Monitor, value: "system" as const },
+	{ name: "Light", icon: RiSunLine, value: "light" as const },
+	{ name: "Dark", icon: RiMoonLine, value: "dark" as const },
+	{ name: "Forest Green", icon: RiPlantLine, value: "forest" as const },
+	{ name: "Blood Red", icon: RiDropLine, value: "blood" as const },
+	{ name: "System", icon: RiComputerLine, value: "system" as const },
 ];
 
 export function SideNav() {
@@ -43,7 +43,7 @@ export function SideNav() {
 	const currentTheme = themeOptions.find(
 		(themeOption) => themeOption.value === theme,
 	);
-	const CurrentThemeIcon = currentTheme?.icon || Sun;
+	const CurrentThemeIcon = currentTheme?.icon || RiSunLine;
 
 	// Clear any existing timeout
 	const clearHideTimeout = useCallback(() => {
@@ -163,7 +163,7 @@ export function SideNav() {
 							className="cursor-pointer hover:bg-primary/10"
 							onClick={handleContactClick}
 						>
-							<Mail className="mr-2 h-4 w-4" />
+							<RiMailLine className="mr-2 h-4 w-4" />
 							<span>Contact</span>
 						</DropdownMenuItem>
 						{/* External Links */}
@@ -174,7 +174,7 @@ export function SideNav() {
 								rel="noopener noreferrer"
 								className="flex w-full items-center"
 							>
-								<Github className="mr-2 h-4 w-4" />
+								<RiGithubLine className="mr-2 h-4 w-4" />
 								<span>GitHub</span>
 							</a>
 						</DropdownMenuItem>
@@ -185,7 +185,7 @@ export function SideNav() {
 								rel="noopener noreferrer"
 								className="flex w-full items-center"
 							>
-								<Linkedin className="mr-2 h-4 w-4" />
+								<RiLinkedinLine className="mr-2 h-4 w-4" />
 								<span>LinkedIn</span>
 							</a>
 						</DropdownMenuItem>
@@ -199,7 +199,11 @@ export function SideNav() {
 				className="fixed top-4 left-4 z-50 flex h-10 w-10 items-center justify-center border-1 border-primary bg-background text-primary transition-colors hover:opacity-70 sm:hidden"
 				onClick={() => setIsOpen(!isOpen)}
 			>
-				{isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+				{isOpen ? (
+					<RiCloseLine className="h-5 w-5" />
+				) : (
+					<RiMenuLine className="h-5 w-5" />
+				)}
 			</button>
 
 			{/* Mobile Overlay */}

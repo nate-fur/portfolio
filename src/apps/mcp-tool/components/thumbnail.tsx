@@ -1,15 +1,14 @@
-import { Wrench } from "lucide-react";
+import { RiToolsLine } from "react-icons/ri";
 import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
-export const McpToolThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
+export const McpToolThumbnail = (props: AppThumbnailProps) => {
 	return (
 		<BaseThumbnail
 			name="MCP Tool"
-			icon={Wrench}
-			size={size}
-			backgroundImage="/apps/thumbnails/mcp.svg"
-			className="bg-center bg-cover bg-no-repeat"
+			icon={RiToolsLine}
+			className="bg-gradient-to-br from-orange-500/20 to-red-600/20"
+			{...props}
 		/>
 	);
 };

@@ -1,15 +1,14 @@
-import { Layers } from "lucide-react";
+import { RiStackLine } from "react-icons/ri";
 import { BaseThumbnail } from "~/apps/base-thumbnail";
 import type { AppThumbnailProps } from "~/apps/types";
 
-export const TechStackThumbnail = ({ size = "medium" }: AppThumbnailProps) => {
+export const TechStackThumbnail = (props: AppThumbnailProps) => {
 	return (
 		<BaseThumbnail
 			name="Tech Stack"
-			icon={Layers}
-			size={size}
-			backgroundImage="/apps/thumbnails/tech-stack.svg"
-			className="bg-center bg-cover bg-no-repeat"
+			icon={RiStackLine}
+			className="bg-gradient-to-br from-blue-500/20 to-indigo-600/20"
+			{...props}
 		/>
 	);
 };
