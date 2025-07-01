@@ -21,6 +21,7 @@ import { BaseAppContent } from "~/apps/base-app-content";
 import { BlogThumbnail } from "~/apps/blog";
 import { ChatbotApp, ChatbotThumbnail } from "~/apps/chatbot";
 import { CodeInspectorThumbnail } from "~/apps/code-inspector";
+import { ComingSoon } from "~/apps/coming-soon";
 import { DefaultThumbnail } from "~/apps/default-thumbnail";
 import { GitHubAnalyzerThumbnail } from "~/apps/github-analyzer";
 import { McpToolThumbnail } from "~/apps/mcp-tool";
@@ -44,6 +45,7 @@ export interface App {
 	name: string;
 	icon: IconType;
 	size: "small" | "medium" | "large";
+	isActive: boolean;
 	contentComponent: () => ReactNode;
 	thumbnailComponent: (props: AppThumbnailProps) => ReactNode;
 }
@@ -79,7 +81,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "AI Assistant",
 		icon: RiRobotLine,
 		size: "large",
-		contentComponent: () => <ChatbotApp />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="AI Assistant" />,
 		thumbnailComponent: (props) => <ChatbotThumbnail {...props} />,
 	},
 	snake: {
@@ -87,6 +90,7 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Snake",
 		icon: RiGamepadLine,
 		size: "small",
+		isActive: true,
 		contentComponent: () => <SnakeGameApp />,
 		thumbnailComponent: (props) => <SnakeGameThumbnail {...props} />,
 	},
@@ -95,7 +99,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Spotify",
 		icon: RiMusicLine,
 		size: "large",
-		contentComponent: () => <SpotifyApp />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="Spotify" />,
 		thumbnailComponent: (props) => <SpotifyThumbnail {...props} />,
 	},
 	"theme-customizer": {
@@ -103,7 +108,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Theme Customizer",
 		icon: RiPaletteLine,
 		size: "medium",
-		contentComponent: () => <ThemeCustomizerApp />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="Theme Customizer" />,
 		thumbnailComponent: (props) => <ThemeCustomizerThumbnail {...props} />,
 	},
 	"tech-stack": {
@@ -111,6 +117,7 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Tech Stack",
 		icon: RiStackLine,
 		size: "medium",
+		isActive: true,
 		contentComponent: () => <TechStackApp />,
 		thumbnailComponent: (props) => <TechStackThumbnail {...props} />,
 	},
@@ -119,7 +126,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Videos",
 		icon: RiVideoLine,
 		size: "small",
-		contentComponent: () => <DefaultAppContent appName="Videos" />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="Videos" />,
 		thumbnailComponent: (props) => <VideoPlaylistThumbnail {...props} />,
 	},
 	minesweeper: {
@@ -127,7 +135,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Minesweeper",
 		icon: RiGamepadLine,
 		size: "medium",
-		contentComponent: () => <DefaultAppContent appName="Minesweeper" />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="Minesweeper" />,
 		thumbnailComponent: (props) => <MinesweeperThumbnail {...props} />,
 	},
 	blog: {
@@ -135,7 +144,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Blog",
 		icon: RiFileTextLine,
 		size: "large",
-		contentComponent: () => <DefaultAppContent appName="Blog" />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="Blog" />,
 		thumbnailComponent: (props) => <BlogThumbnail {...props} />,
 	},
 	"twitter-feed": {
@@ -143,7 +153,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "X Feed",
 		icon: RiTwitterLine,
 		size: "small",
-		contentComponent: () => <DefaultAppContent appName="X Feed" />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="X Feed" />,
 		thumbnailComponent: (props) => <TwitterFeedThumbnail {...props} />,
 	},
 	"code-inspector": {
@@ -151,7 +162,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Code Inspector",
 		icon: RiCodeLine,
 		size: "medium",
-		contentComponent: () => <DefaultAppContent appName="Code Inspector" />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="Code Inspector" />,
 		thumbnailComponent: (props) => <CodeInspectorThumbnail {...props} />,
 	},
 	"github-analyzer": {
@@ -159,7 +171,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "GitHub Analyzer",
 		icon: RiGithubLine,
 		size: "large",
-		contentComponent: () => <DefaultAppContent appName="GitHub Analyzer" />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="GitHub Analyzer" />,
 		thumbnailComponent: (props) => <GitHubAnalyzerThumbnail {...props} />,
 	},
 	"mcp-tool": {
@@ -167,7 +180,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "MCP Tool",
 		icon: RiToolsLine,
 		size: "small",
-		contentComponent: () => <DefaultAppContent appName="MCP Tool" />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="MCP Tool" />,
 		thumbnailComponent: (props) => <McpToolThumbnail {...props} />,
 	},
 	"url-shortener": {
@@ -175,7 +189,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "URL Shortener",
 		icon: RiLink,
 		size: "medium",
-		contentComponent: () => <DefaultAppContent appName="URL Shortener" />,
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="URL Shortener" />,
 		thumbnailComponent: (props) => <UrlShortenerThumbnail {...props} />,
 	},
 	"stock-simulator": {
@@ -183,18 +198,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Stock Simulator",
 		icon: RiLineChartLine,
 		size: "medium",
-		contentComponent: () => (
-			<BaseAppContent
-				title="Stock Simulator"
-				description="A comprehensive stock market simulation platform to practice trading strategies and learn about financial markets without real money risks."
-				technologies={[
-					"React",
-					"TypeScript",
-					"Financial APIs",
-					"Real-time Data",
-				]}
-			/>
-		),
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="Stock Simulator" />,
 		thumbnailComponent: (props) => <StockSimulatorThumbnail {...props} />,
 	},
 };
@@ -221,6 +226,23 @@ export const getApp = (appId: string): App | null => {
 export const getAppContent = (appId: string): ReactNode => {
 	const app = APP_REGISTRY[appId];
 	return app ? app.contentComponent() : null;
+};
+
+/**
+ * Get all active apps as an array
+ */
+export const getActiveApps = (): App[] => {
+	return Object.values(APP_REGISTRY).filter((app) => app.isActive);
+};
+
+/**
+ * Check if an app is active
+ * @param appId - The ID of the app
+ * @returns True if the app is active, false otherwise
+ */
+export const isAppActive = (appId: string): boolean => {
+	const app = APP_REGISTRY[appId];
+	return app ? app.isActive : false;
 };
 
 /**
