@@ -31,7 +31,10 @@ export const MinesweeperApp = () => {
 		isWon,
 	} = useMinesweeperGame();
 
-	const isNewRecord = isWon && timer > 0 && (gameStats.bestTime === 0 || timer < gameStats.bestTime);
+	const isNewRecord =
+		isWon &&
+		timer > 0 &&
+		(gameStats.bestTime === 0 || timer < gameStats.bestTime);
 
 	return (
 		<BaseAppContent
@@ -45,7 +48,8 @@ export const MinesweeperApp = () => {
 						Classic Rules
 					</h4>
 					<p className="text-muted-foreground text-sm">
-						Left click to reveal cells, right click to flag potential mines. Numbers show adjacent mine count.
+						Left click to reveal cells, right click to flag potential mines.
+						Numbers show adjacent mine count.
 					</p>
 				</div>
 				<div className="rounded-xl bg-white/10 p-4">
@@ -53,7 +57,8 @@ export const MinesweeperApp = () => {
 						First Click Safety
 					</h4>
 					<p className="text-muted-foreground text-sm">
-						Your first click is always safe - the minefield adjusts to ensure you don't hit a mine.
+						Your first click is always safe - the minefield adjusts to ensure
+						you don't hit a mine.
 					</p>
 				</div>
 			</div>

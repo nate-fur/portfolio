@@ -12,43 +12,46 @@ interface GameBoardProps {
 	disabled?: boolean;
 }
 
-export const GameBoard = React.memo<GameBoardProps>(({
-	board,
-	cellSize,
-	fontSize,
-	onCellClick,
-	onCellRightClick,
-	disabled = false,
-}) => {
-	return (
-		<div
-			className="inline-block border-2 border-gray-600 dark:border-gray-400 bg-gray-200 dark:bg-gray-700 p-1"
-			style={{
-				width: cellSize * GRID_SIZE + 8, // +8 for padding
-				height: cellSize * GRID_SIZE + 8,
-			}}
-		>
+export const GameBoard = React.memo<GameBoardProps>(
+	({
+		board,
+		cellSize,
+		fontSize,
+		onCellClick,
+		onCellRightClick,
+		disabled = false,
+	}) => {
+		return (
 			<div
-				className="grid gap-0"
+				className="inline-block border-2 border-gray-600 bg-gray-200 p-1 dark:border-gray-400 dark:bg-gray-700"
 				style={{
-					gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
-					gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)`,
+					width: cellSize * GRID_SIZE + 8, // +8 for padding
+					height: cellSize * GRID_SIZE + 8,
 				}}
 			>
-				{board.map((row, x) =>
-					row.map((cell, y) => (
-						<GameCell
-							key={`${x}-${y}`}
-							cell={cell}
-							cellSize={cellSize}
-							fontSize={fontSize}
-							onClick={onCellClick}
-							onRightClick={onCellRightClick}
-							disabled={disabled}
-						/>
-					))
-				)}
+				<div
+					className="grid gap-0"
+					style={{
+						gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+						gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)`,
+					}}
+				>
+					{board.map((row, x) =>
+						row.map((cell, y) => (
+							<GameCell
+								// biome-ignore lint/suspicious/noArrayIndexKey: <cells don't change order>
+								key={`${x}-${y}`}
+								cell={cell}
+								cellSize={cellSize}
+								fontSize={fontSize}
+								onClick={onCellClick}
+								onRightClick={onCellRightClick}
+								disabled={disabled}
+							/>
+						)),
+					)}
+				</div>
 			</div>
-		</div>
-	);
-});
+		);
+	},
+);

@@ -21,7 +21,7 @@ export const EMPTY_CELL = "";
 // Number colors for mine count display
 export const NUMBER_COLORS = {
 	1: "text-blue-600",
-	2: "text-green-600",  
+	2: "text-green-600",
 	3: "text-red-600",
 	4: "text-purple-600",
 	5: "text-yellow-600",
@@ -32,9 +32,14 @@ export const NUMBER_COLORS = {
 
 // Adjacent cell offsets for checking neighbors
 export const NEIGHBOR_OFFSETS = [
-	[-1, -1], [-1, 0], [-1, 1],
-	[0, -1],           [0, 1],
-	[1, -1],  [1, 0],  [1, 1],
+	[-1, -1],
+	[-1, 0],
+	[-1, 1],
+	[0, -1],
+	[0, 1],
+	[1, -1],
+	[1, 0],
+	[1, 1],
 ];
 
 // Function to get computed theme colors

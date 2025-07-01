@@ -16,38 +16,34 @@ export const Statistics = ({
 	formatTime,
 }: StatisticsProps) => {
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-			<div className="bg-muted rounded-lg p-4 text-center">
-				<div className="flex items-center justify-center gap-2 mb-2">
-					<RiTrophyLine className="w-5 h-5 text-yellow-500" />
+		<div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+			<div className="rounded-lg bg-muted p-4 text-center">
+				<div className="mb-2 flex items-center justify-center gap-2">
+					<RiTrophyLine className="h-5 w-5 text-yellow-500" />
 					<span className="font-semibold text-sm">Best Time</span>
 				</div>
-				<div className="text-xl font-mono font-bold">
+				<div className="font-bold font-mono text-xl">
 					{bestTime > 0 ? formatTime(bestTime) : "--:--"}
 				</div>
 			</div>
 
-			<div className="bg-muted rounded-lg p-4 text-center">
-				<div className="flex items-center justify-center gap-2 mb-2">
-					<RiBarChartLine className="w-5 h-5 text-blue-500" />
+			<div className="rounded-lg bg-muted p-4 text-center">
+				<div className="mb-2 flex items-center justify-center gap-2">
+					<RiBarChartLine className="h-5 w-5 text-blue-500" />
 					<span className="font-semibold text-sm">Win Rate</span>
 				</div>
-				<div className="text-xl font-bold">
+				<div className="font-bold text-xl">
 					{gamesPlayed > 0 ? `${winRate.toFixed(1)}%` : "0%"}
 				</div>
 			</div>
 
-			<div className="bg-muted rounded-lg p-4 text-center">
-				<div className="flex items-center justify-center gap-2 mb-2">
-					<RiTimeLine className="w-5 h-5 text-green-500" />
+			<div className="rounded-lg bg-muted p-4 text-center">
+				<div className="mb-2 flex items-center justify-center gap-2">
+					<RiTimeLine className="h-5 w-5 text-green-500" />
 					<span className="font-semibold text-sm">Games Played</span>
 				</div>
-				<div className="text-xl font-bold">
-					{gamesPlayed}
-				</div>
-				<div className="text-xs text-muted-foreground mt-1">
-					{gamesWon} won
-				</div>
+				<div className="font-bold text-xl">{gamesPlayed}</div>
+				<div className="mt-1 text-muted-foreground text-xs">{gamesWon} won</div>
 			</div>
 		</div>
 	);

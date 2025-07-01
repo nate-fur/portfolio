@@ -20,10 +20,10 @@ export const calculateGridDimensions = (
 	// Calculate the maximum cell size that fits in both dimensions
 	const maxCellSizeByWidth = Math.floor(availableWidth / GRID_SIZE);
 	const maxCellSizeByHeight = Math.floor(availableHeight / GRID_SIZE);
-	
+
 	// Use the smaller of the two to ensure the grid fits
 	const cellSize = Math.min(maxCellSizeByWidth, maxCellSizeByHeight);
-	
+
 	// Ensure minimum cell size for usability
 	const minCellSize = isMobile ? 24 : 32;
 	const finalCellSize = Math.max(cellSize, minCellSize);

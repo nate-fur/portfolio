@@ -6,6 +6,7 @@ export const createEmptyBoard = (): Cell[][] => {
 	for (let x = 0; x < GRID_SIZE; x++) {
 		board[x] = [];
 		for (let y = 0; y < GRID_SIZE; y++) {
+			// biome-ignore lint/style/noNonNullAssertion: <explanation>
 			board[x]![y] = {
 				x,
 				y,
@@ -127,7 +128,8 @@ export const revealCell = (board: Cell[][], x: number, y: number): Cell[][] => {
 					for (let j = 0; j < GRID_SIZE; j++) {
 						if (updatedBoard[i]?.[j]?.isRevealed) {
 							if (newBoard[i]?.[j]) {
-								newBoard[i][j].isRevealed = true;
+								// biome-ignore lint/style/noNonNullAssertion: <explanation>
+								newBoard[i]![j]!.isRevealed = true;
 							}
 						}
 					}
@@ -142,11 +144,13 @@ export const revealCell = (board: Cell[][], x: number, y: number): Cell[][] => {
 export const toggleFlag = (board: Cell[][], x: number, y: number): Cell[][] => {
 	const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
 
-	if (!isValidPosition(x, y) || newBoard[x][y].isRevealed) {
+	// biome-ignore lint/style/noNonNullAssertion: <explanation>
+	if (!isValidPosition(x, y) || newBoard[x]![y]!.isRevealed) {
 		return newBoard;
 	}
 
-	newBoard[x][y].isFlagged = !newBoard[x][y].isFlagged;
+	// biome-ignore lint/style/noNonNullAssertion: <explanation>
+	newBoard[x]![y]!.isFlagged = !newBoard[x]![y]!.isFlagged;
 	return newBoard;
 };
 
@@ -155,8 +159,10 @@ export const revealAllMines = (board: Cell[][]): Cell[][] => {
 
 	for (let x = 0; x < GRID_SIZE; x++) {
 		for (let y = 0; y < GRID_SIZE; y++) {
-			if (newBoard[x][y].isMine) {
-				newBoard[x][y].isRevealed = true;
+			// biome-ignore lint/style/noNonNullAssertion: <explanation>
+			if (newBoard[x]![y]!.isMine) {
+				// biome-ignore lint/style/noNonNullAssertion: <explanation>
+				newBoard[x]![y]!.isRevealed = true;
 			}
 		}
 	}
@@ -168,7 +174,8 @@ export const countRevealedCells = (board: Cell[][]): number => {
 	let count = 0;
 	for (let x = 0; x < GRID_SIZE; x++) {
 		for (let y = 0; y < GRID_SIZE; y++) {
-			if (board[x][y].isRevealed && !board[x][y].isMine) {
+			// biome-ignore lint/style/noNonNullAssertion: <explanation>
+			if (board[x]![y]!.isRevealed && !board[x]![y]!.isMine) {
 				count++;
 			}
 		}
@@ -180,7 +187,8 @@ export const countFlaggedCells = (board: Cell[][]): number => {
 	let count = 0;
 	for (let x = 0; x < GRID_SIZE; x++) {
 		for (let y = 0; y < GRID_SIZE; y++) {
-			if (board[x][y].isFlagged) {
+			// biome-ignore lint/style/noNonNullAssertion: <explanation>
+			if (board[x]![y]!.isFlagged) {
 				count++;
 			}
 		}
@@ -191,7 +199,8 @@ export const countFlaggedCells = (board: Cell[][]): number => {
 export const isGameWon = (board: Cell[][]): boolean => {
 	for (let x = 0; x < GRID_SIZE; x++) {
 		for (let y = 0; y < GRID_SIZE; y++) {
-			const cell = board[x][y];
+			// biome-ignore lint/style/noNonNullAssertion: <explanation>
+			const cell = board[x]![y]!;
 			// If there's a non-mine cell that's not revealed, game is not won
 			if (!cell.isMine && !cell.isRevealed) {
 				return false;
@@ -207,8 +216,10 @@ export const explodeMine = (
 	y: number,
 ): Cell[][] => {
 	const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
-	if (isValidPosition(x, y) && newBoard[x][y].isMine) {
-		newBoard[x][y].isExploded = true;
+	// biome-ignore lint/style/noNonNullAssertion: <explanation>
+	if (isValidPosition(x, y) && newBoard[x]![y]!.isMine) {
+		// biome-ignore lint/style/noNonNullAssertion: <explanation>
+		newBoard[x]![y]!.isExploded = true;
 	}
 	return newBoard;
 };

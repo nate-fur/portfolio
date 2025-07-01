@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { BEST_TIME_KEY, GAMES_PLAYED_KEY, GAMES_WON_KEY } from "../utils/constants";
+import {
+	BEST_TIME_KEY,
+	GAMES_PLAYED_KEY,
+	GAMES_WON_KEY,
+} from "../utils/constants";
 
 export const useLocalStorage = (key: string, initialValue: number) => {
 	const [storedValue, setStoredValue] = useState<number>(() => {
@@ -51,16 +55,16 @@ export const useGameStats = () => {
 	const winRate = gamesPlayed > 0 ? (gamesWon / gamesPlayed) * 100 : 0;
 
 	const recordWin = (time: number) => {
-		setGamesPlayed(prev => prev + 1);
-		setGamesWon(prev => prev + 1);
-		
+		setGamesPlayed((prev) => prev + 1);
+		setGamesWon((prev) => prev + 1);
+
 		if (bestTime === 0 || time < bestTime) {
 			setBestTime(time);
 		}
 	};
 
 	const recordLoss = () => {
-		setGamesPlayed(prev => prev + 1);
+		setGamesPlayed((prev) => prev + 1);
 	};
 
 	const resetStats = () => {

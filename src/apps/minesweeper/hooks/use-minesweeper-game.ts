@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { GameStatus, type Cell, type Position } from "../types";
+import { type Cell, GameStatus, type Position } from "../types";
 import { MINE_COUNT } from "../utils/constants";
 import {
 	countFlaggedCells,
@@ -11,8 +11,8 @@ import {
 	revealCell,
 	toggleFlag,
 } from "../utils/game-logic";
-import { useGameStats } from "./use-local-storage";
 import { useGameTimer } from "./use-game-timer";
+import { useGameStats } from "./use-local-storage";
 
 export const useMinesweeperGame = () => {
 	const [board, setBoard] = useState<Cell[][]>(() => generateBoard());
@@ -42,63 +42,75 @@ export const useMinesweeperGame = () => {
 	const handleGameLoss = useCallback(() => {
 		setGameStatus(GameStatus.LOST);
 		gameStats.recordLoss();
-		setBoard(prevBoard => revealAllMines(prevBoard));
+		setBoard((prevBoard) => revealAllMines(prevBoard));
 	}, [gameStats]);
 
-	const handleCellClick = useCallback((x: number, y: number) => {
-		if (gameStatus !== GameStatus.PLAYING && gameStatus !== GameStatus.READY) {
-			return;
-		}
-
-		setBoard(prevBoard => {
-			const cell = prevBoard[x]?.[y];
-			if (!cell || cell.isRevealed || cell.isFlagged) {
-				return prevBoard;
+	const handleCellClick = useCallback(
+		(x: number, y: number) => {
+			if (
+				gameStatus !== GameStatus.PLAYING &&
+				gameStatus !== GameStatus.READY
+			) {
+				return;
 			}
 
-			let newBoard = prevBoard;
-
-			// Handle first click - regenerate board if clicked on mine
-			if (firstClick) {
-				setFirstClick(false);
-				if (gameStatus === GameStatus.READY) {
-					setGameStatus(GameStatus.PLAYING);
+			setBoard((prevBoard) => {
+				const cell = prevBoard[x]?.[y];
+				if (!cell || cell.isRevealed || cell.isFlagged) {
+					return prevBoard;
 				}
-				
-				if (cell.isMine) {
-					newBoard = generateBoard({ x, y });
+
+				let newBoard = prevBoard;
+
+				// Handle first click - regenerate board if clicked on mine
+				if (firstClick) {
+					setFirstClick(false);
+					if (gameStatus === GameStatus.READY) {
+						setGameStatus(GameStatus.PLAYING);
+					}
+
+					if (cell.isMine) {
+						newBoard = generateBoard({ x, y });
+					}
 				}
-			}
 
-			// Reveal the cell
-			newBoard = revealCell(newBoard, x, y);
-			const clickedCell = newBoard[x]?.[y];
+				// Reveal the cell
+				newBoard = revealCell(newBoard, x, y);
+				const clickedCell = newBoard[x]?.[y];
 
-			// Check if clicked on a mine
-			if (clickedCell?.isMine) {
-				newBoard = explodeMine(newBoard, x, y);
-				setTimeout(() => handleGameLoss(), 100);
+				// Check if clicked on a mine
+				if (clickedCell?.isMine) {
+					newBoard = explodeMine(newBoard, x, y);
+					setTimeout(() => handleGameLoss(), 100);
+					return newBoard;
+				}
+
+				// Check for win condition
+				setTimeout(() => {
+					if (isGameWon(newBoard)) {
+						handleGameWin();
+					}
+				}, 100);
+
 				return newBoard;
+			});
+		},
+		[gameStatus, firstClick, handleGameWin, handleGameLoss],
+	);
+
+	const handleCellRightClick = useCallback(
+		(x: number, y: number) => {
+			if (
+				gameStatus !== GameStatus.PLAYING &&
+				gameStatus !== GameStatus.READY
+			) {
+				return;
 			}
 
-			// Check for win condition
-			setTimeout(() => {
-				if (isGameWon(newBoard)) {
-					handleGameWin();
-				}
-			}, 100);
-
-			return newBoard;
-		});
-	}, [gameStatus, firstClick, handleGameWin, handleGameLoss]);
-
-	const handleCellRightClick = useCallback((x: number, y: number) => {
-		if (gameStatus !== GameStatus.PLAYING && gameStatus !== GameStatus.READY) {
-			return;
-		}
-
-		setBoard(prevBoard => toggleFlag(prevBoard, x, y));
-	}, [gameStatus]);
+			setBoard((prevBoard) => toggleFlag(prevBoard, x, y));
+		},
+		[gameStatus],
+	);
 
 	const startNewGame = useCallback(() => {
 		setBoard(generateBoard());

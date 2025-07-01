@@ -7,7 +7,10 @@ interface UseGameTimerProps {
 	onMaxTimeReached?: () => void;
 }
 
-export const useGameTimer = ({ gameStatus, onMaxTimeReached }: UseGameTimerProps) => {
+export const useGameTimer = ({
+	gameStatus,
+	onMaxTimeReached,
+}: UseGameTimerProps) => {
 	const [timer, setTimer] = useState(0);
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 	const startTimeRef = useRef<number | null>(null);
@@ -23,7 +26,7 @@ export const useGameTimer = ({ gameStatus, onMaxTimeReached }: UseGameTimerProps
 		intervalRef.current = setInterval(() => {
 			if (startTimeRef.current) {
 				const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-				
+
 				if (elapsed >= MAX_TIME) {
 					setTimer(MAX_TIME);
 					if (onMaxTimeReached) {
@@ -31,7 +34,7 @@ export const useGameTimer = ({ gameStatus, onMaxTimeReached }: UseGameTimerProps
 					}
 					return;
 				}
-				
+
 				setTimer(elapsed);
 			}
 		}, TIMER_INTERVAL);
@@ -58,13 +61,15 @@ export const useGameTimer = ({ gameStatus, onMaxTimeReached }: UseGameTimerProps
 		if (startTimeRef.current && gameStatus === GameStatus.PLAYING) {
 			// Adjust start time to account for paused duration
 			const currentTime = Date.now();
-			const pausedDuration = currentTime - startTimeRef.current - (timer * 1000);
-			startTimeRef.current = currentTime - (timer * 1000);
-			
+			const pausedDuration = currentTime - startTimeRef.current - timer * 1000;
+			startTimeRef.current = currentTime - timer * 1000;
+
 			intervalRef.current = setInterval(() => {
 				if (startTimeRef.current) {
-					const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-					
+					const elapsed = Math.floor(
+						(Date.now() - startTimeRef.current) / 1000,
+					);
+
 					if (elapsed >= MAX_TIME) {
 						setTimer(MAX_TIME);
 						if (onMaxTimeReached) {
@@ -72,7 +77,7 @@ export const useGameTimer = ({ gameStatus, onMaxTimeReached }: UseGameTimerProps
 						}
 						return;
 					}
-					
+
 					setTimer(elapsed);
 				}
 			}, TIMER_INTERVAL);
@@ -100,7 +105,15 @@ export const useGameTimer = ({ gameStatus, onMaxTimeReached }: UseGameTimerProps
 				resetTimer();
 				break;
 		}
-	}, [gameStatus, startTimer, stopTimer, resetTimer, pauseTimer, resumeTimer, timer]);
+	}, [
+		gameStatus,
+		startTimer,
+		stopTimer,
+		resetTimer,
+		pauseTimer,
+		resumeTimer,
+		timer,
+	]);
 
 	// Cleanup on unmount
 	useEffect(() => {
