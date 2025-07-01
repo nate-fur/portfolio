@@ -25,7 +25,7 @@ import { ComingSoon } from "~/apps/coming-soon";
 import { DefaultThumbnail } from "~/apps/default-thumbnail";
 import { GitHubAnalyzerThumbnail } from "~/apps/github-analyzer";
 import { McpToolThumbnail } from "~/apps/mcp-tool";
-import { MinesweeperThumbnail } from "~/apps/minesweeper";
+import { MinesweeperApp, MinesweeperThumbnail } from "~/apps/minesweeper";
 import { SnakeGameApp, SnakeGameThumbnail } from "~/apps/snake-game";
 import { SpotifyApp, SpotifyThumbnail } from "~/apps/spotify";
 import { StockSimulatorThumbnail } from "~/apps/stock-simulator";
@@ -135,8 +135,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "Minesweeper",
 		icon: RiGamepadLine,
 		size: "medium",
-		isActive: false,
-		contentComponent: () => <ComingSoon appName="Minesweeper" />,
+		isActive: true,
+		contentComponent: () => <MinesweeperApp />,
 		thumbnailComponent: (props) => <MinesweeperThumbnail {...props} />,
 	},
 	blog: {
