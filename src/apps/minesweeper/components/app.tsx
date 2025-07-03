@@ -42,7 +42,6 @@ export const MinesweeperApp = () => {
 			<BaseAppContent
 				title="Minesweeper"
 				description="Classic minesweeper game with modern design. Left click to reveal cells, right click to flag mines. Clear all non-mine cells to win!"
-				technologies={["React", "TypeScript", "Game Logic", "Local Storage"]}
 			>
 				<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
 					<div className="rounded-xl bg-white/10 p-4">

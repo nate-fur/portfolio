@@ -22,13 +22,7 @@ export const GameBoard = React.memo<GameBoardProps>(
 		disabled = false,
 	}) => {
 		return (
-			<div
-				className="inline-block border-2 border-gray-600 bg-gray-200 p-1 dark:border-gray-400 dark:bg-gray-700"
-				style={{
-					width: cellSize * GRID_SIZE + 8, // +8 for padding
-					height: cellSize * GRID_SIZE + 8,
-				}}
-			>
+			<div className="inline-block border-2 border-gray-600 bg-gray-200 p-1 dark:border-gray-400 dark:bg-gray-700">
 				<div
 					className="grid gap-0"
 					style={{

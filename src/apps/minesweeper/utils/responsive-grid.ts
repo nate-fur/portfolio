@@ -13,7 +13,7 @@ export const calculateGridDimensions = (
 	isMobile: boolean,
 ): GridDimensions => {
 	// Leave some padding around the grid
-	const padding = isMobile ? 40 : 60;
+	const padding = isMobile ? 40 : 160;
 	const availableWidth = containerWidth - padding;
 	const availableHeight = containerHeight - padding;
 
@@ -24,9 +24,10 @@ export const calculateGridDimensions = (
 	// Use the smaller of the two to ensure the grid fits
 	const cellSize = Math.min(maxCellSizeByWidth, maxCellSizeByHeight);
 
-	// Ensure minimum cell size for usability
+	// Ensure minimum and maximum cell size for usability
 	const minCellSize = isMobile ? 24 : 32;
-	const finalCellSize = Math.max(cellSize, minCellSize);
+	const maxCellSize = isMobile ? 48 : 56;
+	const finalCellSize = Math.min(Math.max(cellSize, minCellSize), maxCellSize);
 
 	const gridWidth = finalCellSize * GRID_SIZE;
 	const gridHeight = finalCellSize * GRID_SIZE;
