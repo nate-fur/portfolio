@@ -18,6 +18,7 @@ export { DefaultThumbnail } from "./default-thumbnail";
 
 // Individual apps
 export { ChatbotApp } from "./chatbot";
+export { PastProjectsThumbnail } from "./past-projects";
 export { SnakeGameApp } from "./snake-game";
 export { SpotifyApp } from "./spotify";
 export { ThemeCustomizerApp } from "./theme-customizer";

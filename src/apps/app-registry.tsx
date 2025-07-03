@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { IconType } from "react-icons";
 import {
+	RiBriefcaseLine,
 	RiCodeLine,
 	RiFileTextLine,
 	RiGamepadLine,
@@ -26,6 +27,7 @@ import { DefaultThumbnail } from "~/apps/default-thumbnail";
 import { GitHubAnalyzerThumbnail } from "~/apps/github-analyzer";
 import { McpToolThumbnail } from "~/apps/mcp-tool";
 import { MinesweeperThumbnail } from "~/apps/minesweeper";
+import { PastProjectsThumbnail } from "~/apps/past-projects";
 import { SnakeGameApp, SnakeGameThumbnail } from "~/apps/snake-game";
 import { SpotifyApp, SpotifyThumbnail } from "~/apps/spotify";
 import { StockSimulatorThumbnail } from "~/apps/stock-simulator";
@@ -76,14 +78,14 @@ const DefaultAppContent = ({ appName }: { appName: string }) => (
 
 // Consolidated app registry
 const APP_REGISTRY: Record<string, App> = {
-	chatbot: {
-		id: "chatbot",
-		name: "AI Assistant",
-		icon: RiRobotLine,
-		size: "large",
-		isActive: false,
-		contentComponent: () => <ComingSoon appName="AI Assistant" />,
-		thumbnailComponent: (props) => <ChatbotThumbnail {...props} />,
+	"tech-stack": {
+		id: "tech-stack",
+		name: "Tech Stack",
+		icon: RiStackLine,
+		size: "medium",
+		isActive: true,
+		contentComponent: () => <TechStackApp />,
+		thumbnailComponent: (props) => <TechStackThumbnail {...props} />,
 	},
 	snake: {
 		id: "snake",
@@ -94,14 +96,14 @@ const APP_REGISTRY: Record<string, App> = {
 		contentComponent: () => <SnakeGameApp />,
 		thumbnailComponent: (props) => <SnakeGameThumbnail {...props} />,
 	},
-	spotify: {
-		id: "spotify",
-		name: "Spotify",
-		icon: RiMusicLine,
+	"past-projects": {
+		id: "past-projects",
+		name: "Past Projects",
+		icon: RiBriefcaseLine,
 		size: "large",
 		isActive: false,
-		contentComponent: () => <ComingSoon appName="Spotify" />,
-		thumbnailComponent: (props) => <SpotifyThumbnail {...props} />,
+		contentComponent: () => <ComingSoon appName="Past Projects" />,
+		thumbnailComponent: (props) => <PastProjectsThumbnail {...props} />,
 	},
 	"theme-customizer": {
 		id: "theme-customizer",
@@ -112,14 +114,14 @@ const APP_REGISTRY: Record<string, App> = {
 		contentComponent: () => <ComingSoon appName="Theme Customizer" />,
 		thumbnailComponent: (props) => <ThemeCustomizerThumbnail {...props} />,
 	},
-	"tech-stack": {
-		id: "tech-stack",
-		name: "Tech Stack",
-		icon: RiStackLine,
-		size: "medium",
-		isActive: true,
-		contentComponent: () => <TechStackApp />,
-		thumbnailComponent: (props) => <TechStackThumbnail {...props} />,
+	chatbot: {
+		id: "chatbot",
+		name: "AI Assistant",
+		icon: RiRobotLine,
+		size: "large",
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="AI Assistant" />,
+		thumbnailComponent: (props) => <ChatbotThumbnail {...props} />,
 	},
 	"video-playlist": {
 		id: "video-playlist",
@@ -201,6 +203,15 @@ const APP_REGISTRY: Record<string, App> = {
 		isActive: false,
 		contentComponent: () => <ComingSoon appName="Stock Simulator" />,
 		thumbnailComponent: (props) => <StockSimulatorThumbnail {...props} />,
+	},
+	spotify: {
+		id: "spotify",
+		name: "Spotify",
+		icon: RiMusicLine,
+		size: "large",
+		isActive: false,
+		contentComponent: () => <ComingSoon appName="Spotify" />,
+		thumbnailComponent: (props) => <SpotifyThumbnail {...props} />,
 	},
 };
 
