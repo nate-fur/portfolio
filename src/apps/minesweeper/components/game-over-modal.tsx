@@ -33,7 +33,7 @@ export const GameOverModal = ({
 	const isWon = gameStatus === GameStatus.WON;
 
 	return (
-		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+		<div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
 			<div className="mx-4 w-full max-w-md rounded-lg border border-border bg-background p-6 shadow-xl">
 				<div className="text-center">
 					{/* Header */}
