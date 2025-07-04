@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import type { IconType } from "react-icons";
+import { PingIndicator } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import type { AppThumbnailProps } from "./types";
 
@@ -10,6 +11,12 @@ export interface BaseThumbnailProps extends AppThumbnailProps {
 	children?: ReactNode; // For custom background animations or additional elements
 	className?: string;
 	backgroundImage?: string; // URL or path to background image
+	showPingIndicator?: boolean; // Whether to show a ping indicator
+	pingIndicatorProps?: {
+		className?: string;
+		variant?: "primary" | "secondary" | "accent" | "destructive";
+		duration?: number;
+	};
 }
 
 export const BaseThumbnail = ({
@@ -18,6 +25,8 @@ export const BaseThumbnail = ({
 	children,
 	className,
 	backgroundImage,
+	showPingIndicator = false,
+	pingIndicatorProps = {},
 }: BaseThumbnailProps) => {
 	return (
 		<motion.div
@@ -72,6 +81,18 @@ export const BaseThumbnail = ({
 
 			{/* Custom background/animation layer */}
 			{children}
+
+			{/* Ping indicator */}
+			{showPingIndicator && (
+				<PingIndicator
+					className={cn(
+						"absolute top-2 right-2 z-30",
+						pingIndicatorProps.className,
+					)}
+					variant={pingIndicatorProps.variant}
+					duration={pingIndicatorProps.duration}
+				/>
+			)}
 		</motion.div>
 	);
 };
