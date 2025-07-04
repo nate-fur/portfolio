@@ -11,6 +11,11 @@ export const env = createEnv({
 		NODE_ENV: z
 			.enum(["development", "test", "production"])
 			.default("development"),
+		// X (Twitter) OAuth credentials
+		X_OAUTH_CLIENT_ID: z.string().min(1),
+		X_OAUTH_CLIENT_SECRET: z.string().min(1),
+		X_OAUTH_REDIRECT_URI: z.string().url(),
+		X_API_BASE_URL: z.string().url().default("https://api.twitter.com/2"),
 	},
 
 	/**
@@ -29,6 +34,10 @@ export const env = createEnv({
 	runtimeEnv: {
 		DATABASE_URL: process.env.DATABASE_URL,
 		NODE_ENV: process.env.NODE_ENV,
+		X_OAUTH_CLIENT_ID: process.env.X_OAUTH_CLIENT_ID,
+		X_OAUTH_CLIENT_SECRET: process.env.X_OAUTH_CLIENT_SECRET,
+		X_OAUTH_REDIRECT_URI: process.env.X_OAUTH_REDIRECT_URI,
+		X_API_BASE_URL: process.env.X_API_BASE_URL,
 		// NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 	},
 	/**

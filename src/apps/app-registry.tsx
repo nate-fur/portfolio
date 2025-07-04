@@ -36,7 +36,7 @@ import {
 	ThemeCustomizerApp,
 	ThemeCustomizerThumbnail,
 } from "~/apps/theme-customizer";
-import { TwitterFeedThumbnail } from "~/apps/twitter-feed";
+import { TwitterFeedThumbnail, XFeedApp } from "~/apps/twitter-feed";
 import type { AppThumbnailProps } from "~/apps/types";
 import { UrlShortenerThumbnail } from "~/apps/url-shortener";
 import { VideoPlaylistThumbnail } from "~/apps/video-playlist";
@@ -155,8 +155,8 @@ const APP_REGISTRY: Record<string, App> = {
 		name: "X Feed",
 		icon: RiTwitterLine,
 		size: "small",
-		isActive: false,
-		contentComponent: () => <ComingSoon appName="X Feed" />,
+		isActive: true,
+		contentComponent: () => <XFeedApp />,
 		thumbnailComponent: (props) => <TwitterFeedThumbnail {...props} />,
 	},
 	"code-inspector": {
