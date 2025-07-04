@@ -22,6 +22,7 @@ export { PastProjectsThumbnail } from "./past-projects";
 export { SnakeGameApp } from "./snake-game";
 export { SpotifyApp } from "./spotify";
 export { ThemeCustomizerApp } from "./theme-customizer";
+export { XFeedApp } from "./twitter-feed";
 
 // Types
 export type {

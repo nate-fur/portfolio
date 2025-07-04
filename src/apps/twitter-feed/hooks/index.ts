@@ -1,0 +1,1 @@
+export { useXFeed } from './use-x-feed';
